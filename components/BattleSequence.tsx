@@ -15,6 +15,8 @@ export default function BattleSequence({ quest, onComplete, onCancel }: BattleSe
   const [battleLog, setBattleLog] = useState<string[]>([]);
   const [isCritical, setIsCritical] = useState(false);
   const [processing, setProcessing] = useState(false);
+  const [shieldEarned, setShieldEarned] = useState(false);
+  const [newStreak, setNewStreak] = useState(0);
 
   const startBattle = async () => {
     setStage('battle');
@@ -46,10 +48,18 @@ export default function BattleSequence({ quest, onComplete, onCancel }: BattleSe
       });
 
       if (res.ok) {
+        const data = await res.json();
+
+        // Check if a shield was earned
+        if (data.shieldEarned) {
+          setShieldEarned(true);
+          setNewStreak(data.newStreak);
+        }
+
         // Small delay to show victory screen
         setTimeout(() => {
           onComplete();
-        }, 1000);
+        }, shieldEarned ? 2000 : 1000);
       } else {
         alert('Failed to complete quest');
         setProcessing(false);
@@ -169,6 +179,23 @@ export default function BattleSequence({ quest, onComplete, onCancel }: BattleSe
                 </div>
               </div>
             </div>
+
+            {/* Shield Earned Notification */}
+            {shieldEarned && (
+              <div className="mb-6 bg-cyan-900/70 border-2 border-cyan-400 rounded-xl p-6 animate-pulse">
+                <div className="flex items-center justify-center gap-3 mb-3">
+                  <div className="text-5xl">🛡️</div>
+                  <div className="text-3xl font-bold text-cyan-300">SPARKLE SHIELD EARNED!</div>
+                  <div className="text-5xl">🛡️</div>
+                </div>
+                <div className="text-cyan-100 mb-3">
+                  {getRandomDialogue('shieldEarned').replace('{days}', newStreak.toString())}
+                </div>
+                <div className="text-sm text-cyan-200">
+                  Use it wisely to protect your streak when you need a rest day!
+                </div>
+              </div>
+            )}
 
             <button
               onClick={handleComplete}

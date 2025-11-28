@@ -158,7 +158,7 @@ export default function StoryReader({ magicalGirl, onClose }: StoryReaderProps) 
 
                 {/* Navigation */}
                 <div className="mt-8 pt-6 border-t-2 border-pink-400/30 flex justify-between">
-                  {selectedChapter > 0 && availableChapters.find(c => c.number === selectedChapter - 1) ? (
+                  {selectedChapter !== null && selectedChapter > 0 && availableChapters.find(c => c.number === selectedChapter - 1) ? (
                     <button
                       onClick={() => setSelectedChapter(selectedChapter - 1)}
                       className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-500 transition-colors font-bold"
@@ -169,7 +169,7 @@ export default function StoryReader({ magicalGirl, onClose }: StoryReaderProps) 
                     <div></div>
                   )}
 
-                  {availableChapters.find(c => c.number === selectedChapter + 1) ? (
+                  {selectedChapter !== null && availableChapters.find(c => c.number === selectedChapter + 1) ? (
                     <button
                       onClick={() => setSelectedChapter(selectedChapter + 1)}
                       className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-500 transition-colors font-bold"

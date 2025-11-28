@@ -40,6 +40,31 @@ export default function QuestBoard({
   const [quests, setQuests] = useState<Quest[]>([]);
   const [realms, setRealms] = useState<Realm[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showShieldDialog, setShowShieldDialog] = useState(false);
+  const [isUsingShield, setIsUsingShield] = useState(false);
+
+  const handleUseShield = async () => {
+    setIsUsingShield(true);
+    try {
+      const res = await fetch('/api/sparkle-shield/use', {
+        method: 'POST',
+      });
+
+      if (res.ok) {
+        // Reload the page to refresh magical girl data
+        window.location.reload();
+      } else {
+        const data = await res.json();
+        alert(data.error || 'Failed to use Sparkle Shield');
+      }
+    } catch (error) {
+      console.error('Failed to use shield:', error);
+      alert('Failed to use Sparkle Shield');
+    } finally {
+      setIsUsingShield(false);
+      setShowShieldDialog(false);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -85,7 +110,7 @@ export default function QuestBoard({
   return (
     <div className="space-y-6">
       {/* Stats Display */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
         <div className="bg-gradient-to-br from-yellow-600 to-orange-600 rounded-xl p-6 border-2 border-yellow-400 shadow-lg">
           <div className="text-yellow-100 text-sm mb-1">Sparkle Points</div>
           <div className="text-4xl font-bold text-white">{magicalGirl.sparklePoints} ✨</div>
@@ -100,6 +125,12 @@ export default function QuestBoard({
           <div className="text-red-100 text-sm mb-1">Streak</div>
           <div className="text-4xl font-bold text-white">{magicalGirl.currentStreak} 🔥</div>
           <div className="text-sm text-red-100 mt-1">Best: {magicalGirl.longestStreak}</div>
+        </div>
+
+        <div className="bg-gradient-to-br from-cyan-600 to-blue-600 rounded-xl p-6 border-2 border-cyan-400 shadow-lg">
+          <div className="text-cyan-100 text-sm mb-1">Sparkle Shields</div>
+          <div className="text-4xl font-bold text-white">{magicalGirl.sparkleShields || 0} 🛡️</div>
+          <div className="text-sm text-cyan-100 mt-1">Streak Protection</div>
         </div>
 
         <div className="bg-gradient-to-br from-green-600 to-teal-600 rounded-xl p-6 border-2 border-green-400 shadow-lg">
@@ -151,6 +182,15 @@ export default function QuestBoard({
         >
           📖 Story Chapters
         </button>
+
+        {magicalGirl.sparkleShields > 0 && (
+          <button
+            onClick={() => setShowShieldDialog(true)}
+            className="flex-1 min-w-[200px] px-6 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl hover:from-blue-700 hover:to-cyan-700 transition-all shadow-lg font-bold text-lg border-2 border-blue-400"
+          >
+            🛡️ Use Sparkle Shield
+          </button>
+        )}
       </div>
 
       {/* Quest Board */}
@@ -224,6 +264,48 @@ export default function QuestBoard({
           </div>
         )}
       </div>
+
+      {/* Sparkle Shield Confirmation Dialog */}
+      {showShieldDialog && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+          <div className="bg-gradient-to-br from-cyan-900 to-blue-900 rounded-2xl max-w-md w-full border-4 border-cyan-400 shadow-2xl p-8">
+            <div className="text-center mb-6">
+              <div className="text-6xl mb-4">🛡️</div>
+              <h3 className="text-3xl font-bold text-cyan-300 mb-2">
+                Use Sparkle Shield?
+              </h3>
+              <div className="text-cyan-100 space-y-2">
+                <p>
+                  A Sparkle Shield will protect your streak today, even if you don&apos;t complete any quests!
+                </p>
+                <p className="text-sm text-cyan-200">
+                  Shields Remaining: {magicalGirl.sparkleShields}
+                </p>
+                <p className="text-xs text-cyan-300 mt-4">
+                  ✨ Earn more shields at streak milestones: 7, 14, 30, 60, 90 days!
+                </p>
+              </div>
+            </div>
+
+            <div className="flex gap-4">
+              <button
+                onClick={() => setShowShieldDialog(false)}
+                disabled={isUsingShield}
+                className="flex-1 px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-bold disabled:opacity-50"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleUseShield}
+                disabled={isUsingShield}
+                className="flex-1 px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-lg hover:from-cyan-500 hover:to-blue-500 transition-colors font-bold disabled:opacity-50"
+              >
+                {isUsingShield ? 'Using...' : 'Use Shield'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

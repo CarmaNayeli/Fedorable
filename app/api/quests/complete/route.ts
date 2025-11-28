@@ -57,6 +57,15 @@ export async function POST(request: NextRequest) {
 
     const newLongestStreak = Math.max(magicalGirl.longestStreak, newStreak);
 
+    // Check if we hit a Sparkle Shield milestone
+    const SHIELD_MILESTONES = [7, 14, 30, 60, 90];
+    let shieldsEarned = 0;
+
+    // Award shield if we just hit a milestone
+    if (newStreak > magicalGirl.currentStreak && SHIELD_MILESTONES.includes(newStreak)) {
+      shieldsEarned = 1;
+    }
+
     await prisma.magicalGirl.update({
       where: { id: magicalGirl.id },
       data: {
@@ -66,6 +75,7 @@ export async function POST(request: NextRequest) {
         title: newTitle,
         sparklePoints: magicalGirl.sparklePoints + spEarned,
         magicGems: magicalGirl.magicGems + gemsEarned,
+        sparkleShields: magicalGirl.sparkleShields + shieldsEarned,
         currentStreak: newStreak,
         longestStreak: newLongestStreak,
         lastActivityDate: new Date(),
@@ -108,9 +118,12 @@ export async function POST(request: NextRequest) {
         sparklePoints: spEarned,
         magicGems: gemsEarned,
         xp: xpEarned,
+        sparkleShields: shieldsEarned,
       },
       newLevel,
       leveledUp: newLevel > magicalGirl.level,
+      shieldEarned: shieldsEarned > 0,
+      newStreak,
     });
   } catch (error) {
     console.error('Failed to complete quest:', error);

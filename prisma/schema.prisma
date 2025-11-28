@@ -20,6 +20,7 @@ model MagicalGirl {
   xp                Int                 @default(0)
   sparklePoints     Int                 @default(0)
   magicGems         Int                 @default(0)
+  sparkleShields    Int                 @default(0)
 
   // Rank & Title
   rank              Int                 @default(1) // 1-5 star rank

@@ -548,6 +548,18 @@ export const SPARKLE_DIALOGUE = {
     "Rest is part of being strong. When you're ready, the quests will be waiting! 🌟",
   ],
 
+  shieldEarned: [
+    "🛡️ SPARKLE SHIELD EARNED! Your dedication has been rewarded! This shield will protect your streak when you need a rest day! ✨",
+    "✨ A Sparkle Shield appears! Your consistent efforts have earned you a day of protection! Use it wisely! 💫",
+    "🌟 SHIELD ACQUIRED! Your {days}-day streak has granted you the power of protection! Rest when you need it! 🛡️",
+  ],
+
+  shieldUsed: [
+    "🛡️ Sparkle Shield activated! Your streak is safe today, Magical Girl! Rest well! ✨",
+    "✨ The shield's magic protects your hard-earned streak! Take the day you deserve! 💫",
+    "💫 Shield power engaged! Your {days}-day streak remains strong! Recharge and return stronger! 🛡️",
+  ],
+
   levelUp: [
     "✨ LEVEL UP! You're growing stronger, Rhia! New powers unlocked! 💫",
     "🌟 You've reached level {level}! Your magical girl journey continues! ✨",
