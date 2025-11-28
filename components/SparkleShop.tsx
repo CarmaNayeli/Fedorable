@@ -267,12 +267,12 @@ export default function SparkleShop({ onClose }: SparkleShopProps) {
                   title={isAchievement ? item.achievementDesc : ''}
                 >
                   {isOwned && (
-                    <div className="absolute top-2 right-2 bg-green-600 text-white text-xs px-2 py-1 rounded-full font-bold">
+                    <div className="absolute top-2 right-2 bg-green-600 text-white text-xs px-2 py-1 rounded-full font-bold z-10">
                       {isAchievement ? 'EARNED ✓' : 'OWNED ✓'}
                     </div>
                   )}
                   {isLocked && (
-                    <div className="absolute top-2 right-2 bg-gray-700 text-white text-xs px-2 py-1 rounded-full font-bold">
+                    <div className="absolute top-2 left-2 bg-gray-700 text-white text-xs px-2 py-1 rounded-full font-bold z-10 shadow-lg">
                       🔒 LOCKED
                     </div>
                   )}
