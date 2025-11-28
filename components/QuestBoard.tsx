@@ -142,6 +142,8 @@ export default function QuestBoard({
   const dailyQuests = quests.filter(q => q.questType === 'daily' && q.isActive);
   const weeklyQuests = quests.filter(q => q.questType === 'weekly' && q.isActive);
   const bossQuests = quests.filter(q => q.questType === 'boss' && q.isActive);
+  const onetimeQuests = quests.filter(q => q.questType === 'onetime' && q.isActive);
+  const sideQuests = quests.filter(q => q.questType === 'side' && q.isActive);
 
   return (
     <div className="space-y-6">
@@ -304,6 +306,42 @@ export default function QuestBoard({
             <h3 className="text-2xl font-bold text-purple-400 mb-3">⚡ WEEKLY MISSIONS</h3>
             <div className="space-y-3">
               {weeklyQuests.map(quest => (
+                <QuestCard
+                  key={quest.id}
+                  quest={quest}
+                  onBattle={onQuestBattle}
+                  onDelete={() => setQuestToDelete(quest)}
+                  onShowDetails={() => setQuestDetailsToShow(quest)}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* One-Time Quests */}
+        {onetimeQuests.length > 0 && (
+          <div>
+            <h3 className="text-2xl font-bold text-green-400 mb-3">🎯 ONE-TIME QUESTS</h3>
+            <div className="space-y-3">
+              {onetimeQuests.map(quest => (
+                <QuestCard
+                  key={quest.id}
+                  quest={quest}
+                  onBattle={onQuestBattle}
+                  onDelete={() => setQuestToDelete(quest)}
+                  onShowDetails={() => setQuestDetailsToShow(quest)}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Side Quests */}
+        {sideQuests.length > 0 && (
+          <div>
+            <h3 className="text-2xl font-bold text-blue-400 mb-3">📌 SIDE QUESTS</h3>
+            <div className="space-y-3">
+              {sideQuests.map(quest => (
                 <QuestCard
                   key={quest.id}
                   quest={quest}
