@@ -50,6 +50,7 @@ model MagicalGirl {
   collections       Collection[]
   storyProgress     StoryChapter[]
   subscriptions     PushSubscription[]
+  stickers          StickerCollection[]
 }
 
 // Realms (areas of the home)
@@ -94,11 +95,13 @@ model Quest {
   // Recurrence
   isRecurring       Boolean             @default(false)
   recurrenceRule    String?             // RRule format
+  notificationPreferences Json?         // {"mon": "05:30", "tue": "05:30", ...}
 
   // Status
   isActive          Boolean             @default(true)
   completed         Boolean             @default(false)
   deadline          DateTime?
+  lastCompletedAt   DateTime?           // Track when quest was last completed (for recurring quests)
 
   // Custom monster creation
   isCustom          Boolean             @default(false)
@@ -206,4 +209,38 @@ model PushSubscription {
   magicalGirl       MagicalGirl         @relation(fields: [magicalGirlId], references: [id], onDelete: Cascade)
 
   createdAt         DateTime            @default(now())
+}
+
+// Shop Items - Stickers that can be purchased or earned
+model ShopItem {
+  id                String              @id @default(cuid())
+  emoji             String              // The emoji/sticker
+  name              String              // Name of the sticker
+  category          String              // "cute", "nature", "food", "sparkle", "achievement", etc.
+  price             Int                 // Cost amount
+  currency          String              @default("gems") // "gems" or "sparkle_points"
+  isLimited         Boolean             @default(false) // Limited edition items
+  rarity            String              @default("common") // "common", "rare", "epic", "legendary"
+
+  // Achievement stickers
+  isAchievement     Boolean             @default(false) // True if earned through achievements
+  achievementType   String?             // "quest_streak", "total_defeats", "perfect_week", etc.
+  achievementTarget String?             // Quest ID or other target
+  achievementGoal   Int?                // Number required (e.g., 7 days, 100 defeats)
+  achievementDesc   String?             // Description of how to unlock
+
+  createdAt         DateTime            @default(now())
+}
+
+// Sticker Collection - Stickers owned by the magical girl
+model StickerCollection {
+  id                String              @id @default(cuid())
+
+  shopItemId        String
+  magicalGirlId     String
+  magicalGirl       MagicalGirl         @relation(fields: [magicalGirlId], references: [id], onDelete: Cascade)
+
+  purchasedAt       DateTime            @default(now())
+
+  @@unique([shopItemId, magicalGirlId]) // Can't buy same sticker twice
 }

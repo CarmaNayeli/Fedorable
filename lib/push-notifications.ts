@@ -36,7 +36,7 @@ export async function sendPushNotification(
 
     // Send notification to all subscriptions
     const results = await Promise.allSettled(
-      subscriptions.map(async (subscription) => {
+      subscriptions.map(async (subscription: typeof subscriptions[0]) => {
         const pushSubscription = {
           endpoint: subscription.endpoint,
           keys: {

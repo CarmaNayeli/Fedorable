@@ -104,11 +104,18 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // If not recurring, mark as completed
+    // Update quest completion status
     if (!quest.isRecurring) {
+      // One-time quests: mark as inactive and completed
       await prisma.quest.update({
         where: { id: quest.id },
-        data: { isActive: false, completed: true },
+        data: { isActive: false, completed: true, lastCompletedAt: new Date() },
+      });
+    } else {
+      // Recurring quests: just track when last completed
+      await prisma.quest.update({
+        where: { id: quest.id },
+        data: { lastCompletedAt: new Date() },
       });
     }
 

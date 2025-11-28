@@ -1,9 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { MONSTER_TEMPLATES } from '@/lib/gameData';
+import { MONSTER_TEMPLATES, MonsterTemplate } from '@/lib/gameData';
 import { getThreatLevelStars } from '@/lib/gameUtils';
 import { RRule, Frequency } from 'rrule';
+import TimingModal from './TimingModal';
 
 interface MonsterLabProps {
   onClose: () => void;
@@ -11,7 +12,8 @@ interface MonsterLabProps {
 
 export default function MonsterLab({ onClose }: MonsterLabProps) {
   const [mode, setMode] = useState<'custom' | 'template'>('template');
-  const [selectedTemplate, setSelectedTemplate] = useState<any>(null);
+  const [selectedTemplate, setSelectedTemplate] = useState<MonsterTemplate | null>(null);
+  const [showTimingModal, setShowTimingModal] = useState(false);
 
   // Custom monster form
   const [monsterName, setMonsterName] = useState('');
@@ -33,14 +35,22 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
     return { sp, gems, xp };
   };
 
-  const handleCreateMonster = async (templateData?: any) => {
+  const handleCreateMonster = async (
+    templateData?: any,
+    customRecurrenceRule?: string | null,
+    notificationPreferences?: Record<string, string | null>
+  ) => {
     setLoading(true);
 
     try {
       let data;
 
       if (templateData) {
-        // Using template
+        // Using template with custom timing
+        const recurrenceRule = customRecurrenceRule !== undefined
+          ? customRecurrenceRule
+          : templateData.recurrenceRule;
+
         data = {
           monsterName: templateData.name,
           monsterEmoji: templateData.emoji,
@@ -51,8 +61,9 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
           sparklePoints: templateData.sparklePoints,
           magicGems: templateData.magicGems,
           xpReward: templateData.xpReward,
-          isRecurring: !!templateData.recurrenceRule,
-          recurrenceRule: templateData.recurrenceRule,
+          isRecurring: !!recurrenceRule,
+          recurrenceRule: recurrenceRule,
+          notificationPreferences: notificationPreferences || null,
           isCustom: false,
         };
       } else {
@@ -109,11 +120,15 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
       if (res.ok) {
         window.location.reload();
       } else {
-        alert('Failed to create monster');
+        const errorData = await res.json();
+        const errorMessage = errorData.details
+          ? `${errorData.error}\n\n${errorData.details}`
+          : errorData.error || 'Failed to create monster';
+        alert(errorMessage);
       }
     } catch (error) {
       console.error('Failed to create monster:', error);
-      alert('Failed to create monster');
+      alert('Failed to create monster: ' + (error instanceof Error ? error.message : 'Unknown error'));
     } finally {
       setLoading(false);
     }
@@ -127,6 +142,24 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
     setWeeklyDays(prev =>
       prev.includes(day) ? prev.filter(d => d !== day) : [...prev, day]
     );
+  };
+
+  const handleTemplateClick = (template: MonsterTemplate) => {
+    setSelectedTemplate(template);
+    setShowTimingModal(true);
+  };
+
+  const handleTimingConfirm = (recurrenceRule: string | null, notificationPreferences: Record<string, string | null>) => {
+    if (selectedTemplate) {
+      handleCreateMonster(selectedTemplate, recurrenceRule, notificationPreferences);
+      setShowTimingModal(false);
+      setSelectedTemplate(null);
+    }
+  };
+
+  const handleTimingCancel = () => {
+    setShowTimingModal(false);
+    setSelectedTemplate(null);
   };
 
   const realmOptions = [
@@ -194,7 +227,7 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
                 <div
                   key={template.id}
                   className="bg-black/30 border-2 border-pink-400 rounded-xl p-4 hover:border-pink-300 transition-all cursor-pointer"
-                  onClick={() => handleCreateMonster(template)}
+                  onClick={() => handleTemplateClick(template)}
                 >
                   <div className="flex items-center gap-4">
                     <div className="text-5xl">{template.emoji}</div>
@@ -435,6 +468,15 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
           </div>
         )}
       </div>
+
+      {/* Timing Modal */}
+      {showTimingModal && selectedTemplate && (
+        <TimingModal
+          template={selectedTemplate}
+          onConfirm={handleTimingConfirm}
+          onCancel={handleTimingCancel}
+        />
+      )}
     </div>
   );
 }
