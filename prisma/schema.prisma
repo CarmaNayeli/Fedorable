@@ -62,8 +62,6 @@ model Realm {
   magicalGirlId     String
   magicalGirl       MagicalGirl         @relation(fields: [magicalGirlId], references: [id], onDelete: Cascade)
 
-  quests            Quest[]
-
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
 
@@ -106,8 +104,6 @@ model Quest {
 
   magicalGirlId     String
   magicalGirl       MagicalGirl         @relation(fields: [magicalGirlId], references: [id], onDelete: Cascade)
-
-  realmRef          Realm?              @relation(fields: [realm], references: [name], onDelete: SetNull)
 
   defeats           MonsterDefeat[]
   notifications     Notification[]
