@@ -10,10 +10,9 @@ export async function GET() {
     const now = new Date();
 
     // Get all quests with notification preferences
-    const questsWithNotifs = await prisma.quest.findMany({
+    const allQuests = await prisma.quest.findMany({
       where: {
         isRecurring: true,
-        notificationPreferences: { not: null },
       },
       select: {
         id: true,
@@ -23,6 +22,9 @@ export async function GET() {
         isActive: true,
       },
     });
+
+    // Filter for quests that actually have notification preferences
+    const questsWithNotifs = allQuests.filter(q => q.notificationPreferences !== null);
 
     // Get all notifications
     const allNotifications = await prisma.notification.findMany({
