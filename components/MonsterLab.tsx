@@ -14,6 +14,7 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
   const [mode, setMode] = useState<'custom' | 'template'>('template');
   const [selectedTemplate, setSelectedTemplate] = useState<MonsterTemplate | null>(null);
   const [showTimingModal, setShowTimingModal] = useState(false);
+  const [customQuestData, setCustomQuestData] = useState<any>(null);
 
   // Custom monster form
   const [monsterName, setMonsterName] = useState('');
@@ -66,55 +67,40 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
           notificationPreferences: notificationPreferences || null,
           isCustom: false,
         };
-      } else {
-        // Custom monster
-        console.log('Creating custom monster...');
-        console.log('Monster name:', monsterName);
+      } else if (customQuestData) {
+        // Custom monster with timing from modal
+        console.log('Creating custom monster with timing...');
 
-        if (!monsterName.trim()) {
-          alert('Please enter a monster name!');
-          setLoading(false);
-          return;
-        }
+        // Use the custom recurrence rule from modal, or fall back to old logic
+        const finalRecurrenceRule = customRecurrenceRule !== undefined
+          ? customRecurrenceRule
+          : undefined;
 
-        let recurrenceRule: string | undefined;
-
-        if (isRecurring) {
-          if (recurrenceType === 'daily') {
-            recurrenceRule = new RRule({ freq: Frequency.DAILY }).toString();
-          } else if (recurrenceType === 'weekly' && weeklyDays.length > 0) {
-            recurrenceRule = new RRule({
-              freq: Frequency.WEEKLY,
-              byweekday: weeklyDays,
-            }).toString();
-          } else if (recurrenceType === 'custom') {
-            recurrenceRule = new RRule({
-              freq: Frequency.DAILY,
-              interval: customInterval,
-            }).toString();
-          }
-        }
-
-        const rewards = calculateRewards(threatLevel);
+        const rewards = calculateRewards(customQuestData.threatLevel);
 
         data = {
-          monsterName,
-          monsterEmoji,
-          description: description || undefined,
-          realm,
-          threatLevel,
-          questType,
+          monsterName: customQuestData.monsterName,
+          monsterEmoji: customQuestData.monsterEmoji,
+          description: customQuestData.description || undefined,
+          realm: customQuestData.realm,
+          threatLevel: customQuestData.threatLevel,
+          questType: customQuestData.questType,
           sparklePoints: rewards.sp,
           magicGems: rewards.gems,
           xpReward: rewards.xp,
-          isRecurring,
-          recurrenceRule,
-          notificationPreferences: null, // Custom monsters don't have notifications yet
+          isRecurring: !!finalRecurrenceRule,
+          recurrenceRule: finalRecurrenceRule,
+          notificationPreferences: notificationPreferences || null,
           isCustom: true,
           createdByPlayer: true,
         };
 
         console.log('Sending custom monster data:', data);
+      } else {
+        // This shouldn't happen, but handle it gracefully
+        alert('Error: No template or custom data found');
+        setLoading(false);
+        return;
       }
 
       const res = await fetch('/api/quests', {
@@ -162,15 +148,22 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
 
   const handleTimingConfirm = (recurrenceRule: string | null, notificationPreferences: Record<string, string | null>) => {
     if (selectedTemplate) {
+      // Creating from template
       handleCreateMonster(selectedTemplate, recurrenceRule, notificationPreferences);
       setShowTimingModal(false);
       setSelectedTemplate(null);
+    } else if (customQuestData) {
+      // Creating custom quest
+      handleCreateMonster(undefined, recurrenceRule, notificationPreferences);
+      setShowTimingModal(false);
+      setCustomQuestData(null);
     }
   };
 
   const handleTimingCancel = () => {
     setShowTimingModal(false);
     setSelectedTemplate(null);
+    setCustomQuestData(null);
   };
 
   const realmOptions = [
@@ -470,7 +463,28 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
               Cancel
             </button>
             <button
-              onClick={() => handleCreateMonster()}
+              onClick={() => {
+                // Validate and prepare custom quest data
+                if (!monsterName.trim()) {
+                  alert('Please enter a monster name!');
+                  return;
+                }
+
+                // Store custom quest data and show timing modal
+                setCustomQuestData({
+                  monsterName,
+                  monsterEmoji,
+                  description,
+                  realm,
+                  threatLevel,
+                  questType,
+                  isRecurring,
+                  recurrenceType,
+                  weeklyDays,
+                  customInterval,
+                });
+                setShowTimingModal(true);
+              }}
               disabled={loading}
               className="flex-1 px-6 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg font-bold text-lg border-2 border-purple-400 disabled:opacity-50"
             >
@@ -481,9 +495,20 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
       </div>
 
       {/* Timing Modal */}
-      {showTimingModal && selectedTemplate && (
+      {showTimingModal && (selectedTemplate || customQuestData) && (
         <TimingModal
-          template={selectedTemplate}
+          template={selectedTemplate || {
+            // Create a fake template from custom quest data
+            name: customQuestData?.monsterName || 'Custom Quest',
+            emoji: customQuestData?.monsterEmoji || '💀',
+            description: customQuestData?.description || 'Your custom quest',
+            realm: customQuestData?.realm || 'custom',
+            threatLevel: customQuestData?.threatLevel || 1,
+            questType: customQuestData?.questType || 'daily',
+            sparklePoints: 0,
+            magicGems: 0,
+            xpReward: 0,
+          }}
           onConfirm={handleTimingConfirm}
           onCancel={handleTimingCancel}
         />
