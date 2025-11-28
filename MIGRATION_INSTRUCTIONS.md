@@ -80,6 +80,7 @@ If you prefer to run SQL manually, the migration files are available in `prisma/
 2. **add_last_completed_at.sql** - Adds lastCompletedAt column to Quest table
 3. **add_sparkle_shop.sql** - Creates ShopItem and StickerCollection tables
 4. **add_achievement_fields.sql** - Adds achievement fields to ShopItem table
+5. **add_currency_field.sql** - Adds currency field for sparkle point purchases
 
 Run them in order:
 ```bash
@@ -87,6 +88,7 @@ psql $DATABASE_URL < prisma/migrations/add_notification_preferences.sql
 psql $DATABASE_URL < prisma/migrations/add_last_completed_at.sql
 psql $DATABASE_URL < prisma/migrations/add_sparkle_shop.sql
 psql $DATABASE_URL < prisma/migrations/add_achievement_fields.sql
+psql $DATABASE_URL < prisma/migrations/add_currency_field.sql
 ```
 
 ## Notification Cron Job Setup

@@ -31,22 +31,37 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Shop item not found' }, { status: 404 });
     }
 
-    // Check if enough magic gems
-    if (magicalGirl.magicGems < shopItem.price) {
-      return NextResponse.json(
-        { error: `Not enough magic gems! Need ${shopItem.price}, have ${magicalGirl.magicGems}` },
-        { status: 400 }
-      );
+    // Check currency and balance
+    const currency = shopItem.currency || 'gems';
+    let currentBalance: number;
+    let updateData: any;
+
+    if (currency === 'sparkle_points') {
+      currentBalance = magicalGirl.sparklePoints;
+      if (currentBalance < shopItem.price) {
+        return NextResponse.json(
+          { error: `Not enough sparkle points! Need ${shopItem.price} ✨, have ${currentBalance} ✨` },
+          { status: 400 }
+        );
+      }
+      updateData = { sparklePoints: currentBalance - shopItem.price };
+    } else {
+      currentBalance = magicalGirl.magicGems;
+      if (currentBalance < shopItem.price) {
+        return NextResponse.json(
+          { error: `Not enough magic gems! Need ${shopItem.price} 🔮, have ${currentBalance} 🔮` },
+          { status: 400 }
+        );
+      }
+      updateData = { magicGems: currentBalance - shopItem.price };
     }
 
     // Purchase the sticker
     await prisma.$transaction([
-      // Deduct gems
+      // Deduct currency
       prisma.magicalGirl.update({
         where: { id: magicalGirl.id },
-        data: {
-          magicGems: magicalGirl.magicGems - shopItem.price,
-        },
+        data: updateData,
       }),
       // Add to collection
       prisma.stickerCollection.create({
@@ -60,7 +75,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       sticker: shopItem,
-      remainingGems: magicalGirl.magicGems - shopItem.price,
+      remainingGems: currency === 'gems' ? currentBalance - shopItem.price : magicalGirl.magicGems,
+      remainingPoints: currency === 'sparkle_points' ? currentBalance - shopItem.price : magicalGirl.sparklePoints,
     });
   } catch (error) {
     console.error('Failed to purchase sticker:', error);

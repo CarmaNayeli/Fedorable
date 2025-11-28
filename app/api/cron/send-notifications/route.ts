@@ -6,14 +6,8 @@ import { sendChoreReminder } from '@/lib/push-notifications';
  * Cron job endpoint to send scheduled notifications
  * This should be called periodically (e.g., every 5-15 minutes) by a cron service like Vercel Cron
  *
- * To set up on Vercel:
- * Add to vercel.json:
- * {
- *   "crons": [{
- *     "path": "/api/cron/send-notifications",
- *     "schedule": "*/15 * * * *"
- *   }]
- * }
+ * To set up on Vercel, add this to vercel.json:
+ * "crons": [{ "path": "/api/cron/send-notifications", "schedule": "every 15 minutes" }]
  */
 export async function GET(request: Request) {
   try {

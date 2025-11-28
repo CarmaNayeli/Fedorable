@@ -26,6 +26,7 @@ export async function GET() {
           name: s.name,
           category: s.category,
           price: s.price,
+          currency: s.currency || 'gems',
           isLimited: s.isLimited || false,
           rarity: s.rarity,
           isAchievement: s.isAchievement || false,

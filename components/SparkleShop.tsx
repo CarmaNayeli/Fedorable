@@ -9,6 +9,7 @@ interface ShopItem {
   name: string;
   category: string;
   price: number;
+  currency?: 'gems' | 'sparkle_points';
   rarity: 'common' | 'rare' | 'epic' | 'legendary';
   isLimited?: boolean;
   isAchievement?: boolean;
@@ -120,8 +121,14 @@ export default function SparkleShop({ onClose }: SparkleShopProps) {
       return;
     }
 
-    if (magicGems < item.price) {
-      alert(`Not enough magic gems! Need ${item.price} 🔮, have ${magicGems} 🔮`);
+    // Check balance based on currency
+    const currency = item.currency || 'gems';
+    const currentBalance = currency === 'sparkle_points' ? sparklePoints : magicGems;
+    const currencyIcon = currency === 'sparkle_points' ? '✨' : '🔮';
+    const currencyName = currency === 'sparkle_points' ? 'sparkle points' : 'magic gems';
+
+    if (currentBalance < item.price) {
+      alert(`Not enough ${currencyName}! Need ${item.price} ${currencyIcon}, have ${currentBalance} ${currencyIcon}`);
       return;
     }
 
@@ -135,7 +142,12 @@ export default function SparkleShop({ onClose }: SparkleShopProps) {
 
       if (res.ok) {
         const data = await res.json();
-        setMagicGems(data.remainingGems);
+        if (data.remainingGems !== undefined) {
+          setMagicGems(data.remainingGems);
+        }
+        if (data.remainingPoints !== undefined) {
+          setSparklePoints(data.remainingPoints);
+        }
         setOwnedStickers([...ownedStickers, item.id]);
         alert(`${item.emoji} ${item.name} added to your collection!`);
       } else {
@@ -295,7 +307,7 @@ export default function SparkleShop({ onClose }: SparkleShopProps) {
                       </>
                     ) : (
                       <div className="text-purple-300 font-bold">
-                        {item.price} 🔮
+                        {item.price} {item.currency === 'sparkle_points' ? '✨' : '🔮'}
                       </div>
                     )}
                   </div>

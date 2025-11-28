@@ -217,7 +217,8 @@ model ShopItem {
   emoji             String              // The emoji/sticker
   name              String              // Name of the sticker
   category          String              // "cute", "nature", "food", "sparkle", "achievement", etc.
-  price             Int                 // Cost in magic gems (0 for achievement stickers)
+  price             Int                 // Cost amount
+  currency          String              @default("gems") // "gems" or "sparkle_points"
   isLimited         Boolean             @default(false) // Limited edition items
   rarity            String              @default("common") // "common", "rare", "epic", "legendary"
 
