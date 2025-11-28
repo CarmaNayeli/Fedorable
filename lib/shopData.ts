@@ -35,7 +35,7 @@ export const SHOP_STICKERS: ShopSticker[] = [
   { id: 'sticker_otter', emoji: '🦦', name: 'Playful Otter', category: 'cute', price: 10, rarity: 'rare' },
   { id: 'sticker_unicorn', emoji: '🦄', name: 'Magic Unicorn', category: 'cute', price: 15, rarity: 'epic' },
   { id: 'sticker_red_panda', emoji: '🦝', name: 'Red Panda', category: 'cute', price: 15, rarity: 'epic' },
-  { id: 'sticker_llama', emoji: '🦙', name: 'Lovely Llama', category: 'cute', price: 100, currency: 'sparkle_points', rarity: 'legendary' },
+  { id: 'sticker_llama', emoji: '🦙', name: 'Lovely Llama', category: 'cute', price: 500, currency: 'sparkle_points', rarity: 'legendary' },
 
   // Nature Category
   { id: 'sticker_flower', emoji: '🌸', name: 'Cherry Blossom', category: 'nature', price: 5, rarity: 'common' },
@@ -56,7 +56,7 @@ export const SHOP_STICKERS: ShopSticker[] = [
   { id: 'sticker_cloud', emoji: '☁️', name: 'Fluffy Cloud', category: 'nature', price: 8, rarity: 'rare' },
   { id: 'sticker_moon', emoji: '🌙', name: 'Crescent Moon', category: 'nature', price: 12, rarity: 'epic' },
   { id: 'sticker_full_moon', emoji: '🌕', name: 'Full Moon', category: 'nature', price: 12, rarity: 'epic' },
-  { id: 'sticker_shooting_star', emoji: '🌠', name: 'Shooting Star', category: 'nature', price: 80, currency: 'sparkle_points', rarity: 'legendary' },
+  { id: 'sticker_shooting_star', emoji: '🌠', name: 'Shooting Star', category: 'nature', price: 400, currency: 'sparkle_points', rarity: 'legendary' },
 
   // Food Category
   { id: 'sticker_cake', emoji: '🍰', name: 'Strawberry Cake', category: 'food', price: 5, rarity: 'common' },
@@ -77,7 +77,7 @@ export const SHOP_STICKERS: ShopSticker[] = [
   { id: 'sticker_bento', emoji: '🍱', name: 'Bento Box', category: 'food', price: 10, rarity: 'rare' },
   { id: 'sticker_ramen', emoji: '🍜', name: 'Ramen Bowl', category: 'food', price: 10, rarity: 'rare' },
   { id: 'sticker_dango', emoji: '🍡', name: 'Dango', category: 'food', price: 10, rarity: 'rare' },
-  { id: 'sticker_birthday_cake', emoji: '🎂', name: 'Birthday Cake', category: 'food', price: 70, currency: 'sparkle_points', rarity: 'legendary' },
+  { id: 'sticker_birthday_cake', emoji: '🎂', name: 'Birthday Cake', category: 'food', price: 350, currency: 'sparkle_points', rarity: 'legendary' },
 
   // Sparkle Category
   { id: 'sticker_sparkles', emoji: '✨', name: 'Sparkles', category: 'sparkle', price: 8, rarity: 'rare' },
@@ -89,8 +89,8 @@ export const SHOP_STICKERS: ShopSticker[] = [
   { id: 'sticker_gem', emoji: '💎', name: 'Diamond', category: 'sparkle', price: 12, rarity: 'epic' },
   { id: 'sticker_crown', emoji: '👑', name: 'Royal Crown', category: 'sparkle', price: 15, rarity: 'epic' },
   { id: 'sticker_ring', emoji: '💍', name: 'Diamond Ring', category: 'sparkle', price: 15, rarity: 'epic' },
-  { id: 'sticker_trophy', emoji: '🏆', name: 'Trophy', category: 'sparkle', price: 90, currency: 'sparkle_points', rarity: 'legendary' },
-  { id: 'sticker_crystal', emoji: '🔮', name: 'Crystal Ball', category: 'sparkle', price: 120, currency: 'sparkle_points', rarity: 'legendary' },
+  { id: 'sticker_trophy', emoji: '🏆', name: 'Trophy', category: 'sparkle', price: 450, currency: 'sparkle_points', rarity: 'legendary' },
+  { id: 'sticker_crystal', emoji: '🔮', name: 'Crystal Ball', category: 'sparkle', price: 600, currency: 'sparkle_points', rarity: 'legendary' },
 
   // Magical Category
   { id: 'sticker_fairy', emoji: '🧚', name: 'Fairy', category: 'magical', price: 12, rarity: 'epic' },
@@ -99,8 +99,8 @@ export const SHOP_STICKERS: ShopSticker[] = [
   { id: 'sticker_mermaid', emoji: '🧜', name: 'Mermaid', category: 'magical', price: 15, rarity: 'epic' },
   { id: 'sticker_vampire', emoji: '🧛', name: 'Vampire', category: 'magical', price: 15, rarity: 'epic' },
   { id: 'sticker_genie', emoji: '🧞', name: 'Genie', category: 'magical', price: 18, rarity: 'epic' },
-  { id: 'sticker_dragon', emoji: '🐉', name: 'Dragon', category: 'magical', price: 110, currency: 'sparkle_points', rarity: 'legendary' },
-  { id: 'sticker_phoenix', emoji: '🔥', name: 'Phoenix', category: 'magical', price: 150, currency: 'sparkle_points', rarity: 'legendary', isLimited: true },
+  { id: 'sticker_dragon', emoji: '🐉', name: 'Dragon', category: 'magical', price: 550, currency: 'sparkle_points', rarity: 'legendary' },
+  { id: 'sticker_phoenix', emoji: '🔥', name: 'Phoenix', category: 'magical', price: 1000, currency: 'sparkle_points', rarity: 'legendary', isLimited: true },
 
   // Ocean Category
   { id: 'sticker_fish', emoji: '🐠', name: 'Tropical Fish', category: 'ocean', price: 5, rarity: 'common' },
@@ -120,7 +120,7 @@ export const SHOP_STICKERS: ShopSticker[] = [
   { id: 'sticker_satellite', emoji: '🛸', name: 'UFO', category: 'space', price: 12, rarity: 'epic' },
   { id: 'sticker_astronaut', emoji: '👨‍🚀', name: 'Astronaut', category: 'space', price: 15, rarity: 'epic' },
   { id: 'sticker_comet', emoji: '☄️', name: 'Comet', category: 'space', price: 15, rarity: 'epic' },
-  { id: 'sticker_galaxy', emoji: '🌌', name: 'Galaxy', category: 'space', price: 100, currency: 'sparkle_points', rarity: 'legendary' },
+  { id: 'sticker_galaxy', emoji: '🌌', name: 'Galaxy', category: 'space', price: 500, currency: 'sparkle_points', rarity: 'legendary' },
 
   // Music Category
   { id: 'sticker_music_note', emoji: '🎵', name: 'Music Note', category: 'music', price: 5, rarity: 'common' },
@@ -138,7 +138,7 @@ export const SHOP_STICKERS: ShopSticker[] = [
   { id: 'sticker_tennis', emoji: '🎾', name: 'Tennis Ball', category: 'sports', price: 6, rarity: 'common' },
   { id: 'sticker_volleyball', emoji: '🏐', name: 'Volleyball', category: 'sports', price: 6, rarity: 'common' },
   { id: 'sticker_bowling', emoji: '🎳', name: 'Bowling', category: 'sports', price: 8, rarity: 'rare' },
-  { id: 'sticker_medal', emoji: '🥇', name: 'Gold Medal', category: 'sports', price: 60, currency: 'sparkle_points', rarity: 'legendary' },
+  { id: 'sticker_medal', emoji: '🥇', name: 'Gold Medal', category: 'sports', price: 300, currency: 'sparkle_points', rarity: 'legendary' },
 
   // Celebration Category
   { id: 'sticker_party_popper', emoji: '🎉', name: 'Party Popper', category: 'celebration', price: 6, rarity: 'common' },

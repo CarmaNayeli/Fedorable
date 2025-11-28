@@ -3,17 +3,14 @@
 
 ALTER TABLE "ShopItem" ADD COLUMN IF NOT EXISTS "currency" TEXT NOT NULL DEFAULT 'gems';
 
--- Update any existing sparkle point items (optional - only if you have existing data)
+-- Update any existing sparkle point items with correct currency and prices
 -- This is safe to run even if no data exists
-UPDATE "ShopItem" SET "currency" = 'sparkle_points'
-WHERE "id" IN (
-  'sticker_llama',
-  'sticker_shooting_star',
-  'sticker_birthday_cake',
-  'sticker_trophy',
-  'sticker_crystal',
-  'sticker_dragon',
-  'sticker_phoenix',
-  'sticker_galaxy',
-  'sticker_medal'
-);
+UPDATE "ShopItem" SET "currency" = 'sparkle_points', "price" = 500 WHERE "id" = 'sticker_llama';
+UPDATE "ShopItem" SET "currency" = 'sparkle_points', "price" = 400 WHERE "id" = 'sticker_shooting_star';
+UPDATE "ShopItem" SET "currency" = 'sparkle_points', "price" = 350 WHERE "id" = 'sticker_birthday_cake';
+UPDATE "ShopItem" SET "currency" = 'sparkle_points', "price" = 450 WHERE "id" = 'sticker_trophy';
+UPDATE "ShopItem" SET "currency" = 'sparkle_points', "price" = 600 WHERE "id" = 'sticker_crystal';
+UPDATE "ShopItem" SET "currency" = 'sparkle_points', "price" = 550 WHERE "id" = 'sticker_dragon';
+UPDATE "ShopItem" SET "currency" = 'sparkle_points', "price" = 1000 WHERE "id" = 'sticker_phoenix';
+UPDATE "ShopItem" SET "currency" = 'sparkle_points', "price" = 500 WHERE "id" = 'sticker_galaxy';
+UPDATE "ShopItem" SET "currency" = 'sparkle_points', "price" = 300 WHERE "id" = 'sticker_medal';
