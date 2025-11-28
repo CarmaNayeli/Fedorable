@@ -42,6 +42,33 @@ export default function QuestBoard({
   const [loading, setLoading] = useState(true);
   const [showShieldDialog, setShowShieldDialog] = useState(false);
   const [isUsingShield, setIsUsingShield] = useState(false);
+  const [questToDelete, setQuestToDelete] = useState<Quest | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const handleDeleteQuest = async () => {
+    if (!questToDelete) return;
+
+    setIsDeleting(true);
+    try {
+      const res = await fetch(`/api/quests/${questToDelete.id}`, {
+        method: 'DELETE',
+      });
+
+      if (res.ok) {
+        // Remove quest from state
+        setQuests(quests.filter(q => q.id !== questToDelete.id));
+        setQuestToDelete(null);
+      } else {
+        const data = await res.json();
+        alert(data.error || 'Failed to delete quest');
+      }
+    } catch (error) {
+      console.error('Failed to delete quest:', error);
+      alert('Failed to delete quest');
+    } finally {
+      setIsDeleting(false);
+    }
+  };
 
   const handleUseShield = async () => {
     setIsUsingShield(true);
@@ -210,7 +237,12 @@ export default function QuestBoard({
             </h3>
             <div className="space-y-3">
               {bossQuests.map(quest => (
-                <QuestCard key={quest.id} quest={quest} onBattle={onQuestBattle} />
+                <QuestCard
+                  key={quest.id}
+                  quest={quest}
+                  onBattle={onQuestBattle}
+                  onDelete={() => setQuestToDelete(quest)}
+                />
               ))}
             </div>
           </div>
@@ -230,7 +262,12 @@ export default function QuestBoard({
           ) : (
             <div className="space-y-3">
               {dailyQuests.map(quest => (
-                <QuestCard key={quest.id} quest={quest} onBattle={onQuestBattle} />
+                <QuestCard
+                  key={quest.id}
+                  quest={quest}
+                  onBattle={onQuestBattle}
+                  onDelete={() => setQuestToDelete(quest)}
+                />
               ))}
             </div>
           )}
@@ -242,7 +279,12 @@ export default function QuestBoard({
             <h3 className="text-2xl font-bold text-purple-400 mb-3">⚡ WEEKLY MISSIONS</h3>
             <div className="space-y-3">
               {weeklyQuests.map(quest => (
-                <QuestCard key={quest.id} quest={quest} onBattle={onQuestBattle} />
+                <QuestCard
+                  key={quest.id}
+                  quest={quest}
+                  onBattle={onQuestBattle}
+                  onDelete={() => setQuestToDelete(quest)}
+                />
               ))}
             </div>
           </div>
@@ -264,6 +306,43 @@ export default function QuestBoard({
           </div>
         )}
       </div>
+
+      {/* Delete Quest Confirmation Dialog */}
+      {questToDelete && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+          <div className="bg-gradient-to-br from-red-900 to-pink-900 rounded-2xl max-w-md w-full border-4 border-red-400 shadow-2xl p-8">
+            <div className="text-center mb-6">
+              <div className="text-6xl mb-4">{questToDelete.monsterEmoji}</div>
+              <h3 className="text-3xl font-bold text-red-300 mb-2">
+                Delete Quest?
+              </h3>
+              <div className="text-red-100 space-y-2">
+                <p className="font-semibold text-xl">{questToDelete.monsterName}</p>
+                <p className="text-sm">
+                  Are you sure you want to delete this quest? This action cannot be undone.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex gap-4">
+              <button
+                onClick={() => setQuestToDelete(null)}
+                disabled={isDeleting}
+                className="flex-1 px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-bold disabled:opacity-50"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDeleteQuest}
+                disabled={isDeleting}
+                className="flex-1 px-6 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white rounded-lg hover:from-red-500 hover:to-pink-500 transition-colors font-bold disabled:opacity-50"
+              >
+                {isDeleting ? 'Deleting...' : 'Delete Quest'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Sparkle Shield Confirmation Dialog */}
       {showShieldDialog && (
@@ -310,10 +389,18 @@ export default function QuestBoard({
   );
 }
 
-function QuestCard({ quest, onBattle }: { quest: Quest; onBattle: (quest: Quest) => void }) {
+function QuestCard({
+  quest,
+  onBattle,
+  onDelete,
+}: {
+  quest: Quest;
+  onBattle: (quest: Quest) => void;
+  onDelete: () => void;
+}) {
   return (
     <div className="bg-gradient-to-r from-purple-900/50 to-pink-900/50 border-2 border-pink-400 rounded-xl p-4 hover:border-pink-300 transition-all">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-4 flex-1">
           <div className="text-5xl">{quest.monsterEmoji}</div>
           <div className="flex-1">
@@ -347,12 +434,21 @@ function QuestCard({ quest, onBattle }: { quest: Quest; onBattle: (quest: Quest)
           </div>
         </div>
 
-        <button
-          onClick={() => onBattle(quest)}
-          className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg font-bold border-2 border-green-400"
-        >
-          ⚔️ BATTLE!
-        </button>
+        <div className="flex flex-col gap-2">
+          <button
+            onClick={() => onBattle(quest)}
+            className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg font-bold border-2 border-green-400"
+          >
+            ⚔️ BATTLE!
+          </button>
+          <button
+            onClick={onDelete}
+            className="px-6 py-2 bg-red-600/80 hover:bg-red-600 text-white rounded-lg transition-all font-semibold text-sm border-2 border-red-400"
+            title="Delete quest"
+          >
+            🗑️ Delete
+          </button>
+        </div>
       </div>
     </div>
   );
