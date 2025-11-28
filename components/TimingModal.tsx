@@ -100,7 +100,32 @@ export default function TimingModal({ template, onConfirm, onCancel }: TimingMod
     }
     // onetime means recurrenceRule stays null
 
-    onConfirm(recurrenceRule, notificationTimes);
+    // Convert local times to UTC before sending
+    const timezoneOffsetMinutes = new Date().getTimezoneOffset();
+    const convertedTimes: Record<string, string | null> = {};
+
+    Object.entries(notificationTimes).forEach(([day, time]) => {
+      if (time) {
+        // Parse the time
+        const [hours, minutes] = time.split(':').map(Number);
+
+        // Create a date in local timezone
+        const localDate = new Date();
+        localDate.setHours(hours, minutes, 0, 0);
+
+        // Convert to UTC
+        const utcDate = new Date(localDate.getTime() + timezoneOffsetMinutes * 60000);
+
+        // Format back to HH:MM
+        const utcHours = utcDate.getUTCHours().toString().padStart(2, '0');
+        const utcMinutes = utcDate.getUTCMinutes().toString().padStart(2, '0');
+        convertedTimes[day] = `${utcHours}:${utcMinutes}`;
+      } else {
+        convertedTimes[day] = null;
+      }
+    });
+
+    onConfirm(recurrenceRule, convertedTimes);
   };
 
   const isConfirmDisabled = timingOption === 'weekly' && selectedDays.length === 0;
@@ -200,17 +225,15 @@ export default function TimingModal({ template, onConfirm, onCancel }: TimingMod
                 Reminder Times ⏰
               </h3>
 
-              {/* UTC Warning */}
-              <div className="mb-4 p-3 bg-yellow-900/50 border-2 border-yellow-500/70 rounded-lg">
-                <div className="text-sm text-yellow-200">
-                  <span className="font-bold">⚠️ Important:</span> Times are in UTC (server time).
+              {/* Timezone Info */}
+              <div className="mb-4 p-3 bg-green-900/50 border-2 border-green-500/70 rounded-lg">
+                <div className="text-sm text-green-200">
+                  <span className="font-bold">✓ Timezone:</span> Enter times in <span className="font-semibold">your local time</span>.
                   {typeof Intl !== 'undefined' && (
                     <>
-                      {' '}Your local time is{' '}
-                      <span className="font-semibold">
-                        {new Date().toLocaleTimeString()} ({Intl.DateTimeFormat().resolvedOptions().timeZone})
-                      </span>
-                      . Add the offset to get your desired local time.
+                      {' '}They'll be automatically converted to UTC.
+                      <br />
+                      Current local time: <span className="font-semibold">{new Date().toLocaleTimeString()} ({Intl.DateTimeFormat().resolvedOptions().timeZone})</span>
                     </>
                   )}
                 </div>
