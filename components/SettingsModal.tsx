@@ -122,7 +122,7 @@ export default function SettingsModal({ user, onClose }: SettingsModalProps) {
           <div>
             <h3 className="text-lg font-semibold text-white mb-3">Days Off</h3>
             <p className="text-gray-400 text-sm mb-4">
-              Select days when you don't want to receive chore notifications
+              Select days when you don&apos;t want to receive chore notifications
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {weekdays.map((day, index) => (

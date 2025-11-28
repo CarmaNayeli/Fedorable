@@ -157,7 +157,7 @@ export default function QuestBoard({
       <div className="bg-black/40 backdrop-blur-lg rounded-xl p-6 border-4 border-pink-500">
         <div className="text-center mb-6">
           <h2 className="text-4xl font-bold text-pink-300 mb-2">
-            🌟 RHIA'S QUEST BOARD 🌟
+            🌟 RHIA&apos;S QUEST BOARD 🌟
           </h2>
           <div className="text-pink-200">Your daily missions await, Magical Girl!</div>
         </div>
