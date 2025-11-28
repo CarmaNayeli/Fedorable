@@ -14,14 +14,14 @@ export interface MonsterTemplate {
   recurrenceRule?: string;
 }
 
-// Pre-made Monster Templates
+// Rhia's Real Household Monster Templates
 export const MONSTER_TEMPLATES: MonsterTemplate[] = [
-  // Kitchen Realm
+  // === GENERAL TIDY-UP (Daily Patrols) ===
   {
-    id: 'dish-monster',
-    name: 'Dish Monster',
-    emoji: '💀',
-    description: 'Lurks in sinks, multiplies if ignored',
+    id: 'kitchen-chaos',
+    name: 'Kitchen Chaos Spirit',
+    emoji: '🍽️',
+    description: 'Scatters items across counters and creates general disorder',
     realm: 'kitchen',
     threatLevel: 2,
     questType: 'daily',
@@ -31,37 +31,365 @@ export const MONSTER_TEMPLATES: MonsterTemplate[] = [
     recurrenceRule: 'FREQ=DAILY',
   },
   {
-    id: 'fridge-dragon',
-    name: 'Fridge Cleanout Dragon',
-    emoji: '🐉',
-    description: 'Guards expired items with fierce determination',
-    realm: 'kitchen',
-    threatLevel: 4,
-    questType: 'boss',
-    sparklePoints: 100,
-    magicGems: 3,
-    xpReward: 50,
+    id: 'living-room-clutter',
+    name: 'Living Room Clutter King',
+    emoji: '🛋️',
+    description: 'Hoards items on every surface',
+    realm: 'livingRoom',
+    threatLevel: 2,
+    questType: 'daily',
+    sparklePoints: 20,
+    magicGems: 0,
+    xpReward: 10,
+    recurrenceRule: 'FREQ=DAILY',
   },
   {
-    id: 'counter-clutter-ghost',
-    name: 'Counter Clutter Ghost',
-    emoji: '👻',
-    description: 'Haunts surfaces with random items',
+    id: 'bedroom-disorder',
+    name: 'Bedroom Disorder Demon',
+    emoji: '🛏️',
+    description: 'Creates chaos in the master bedroom',
+    realm: 'bedroom',
+    threatLevel: 2,
+    questType: 'daily',
+    sparklePoints: 20,
+    magicGems: 0,
+    xpReward: 10,
+    recurrenceRule: 'FREQ=DAILY',
+  },
+  {
+    id: 'sylvie-room-scatter',
+    name: "Sylvie's Room Scatter Imp",
+    emoji: '🧸',
+    description: "Leaves toys and items scattered throughout Sylvie's domain",
+    realm: 'sylvieRoom',
+    threatLevel: 2,
+    questType: 'daily',
+    sparklePoints: 20,
+    magicGems: 0,
+    xpReward: 10,
+    recurrenceRule: 'FREQ=DAILY',
+  },
+  {
+    id: 'etc-room-mayhem',
+    name: 'Etc Room Mayhem Beast',
+    emoji: '📦',
+    description: 'The mysterious Etc room harbors untold clutter',
+    realm: 'etcRoom',
+    threatLevel: 2,
+    questType: 'daily',
+    sparklePoints: 20,
+    magicGems: 0,
+    xpReward: 10,
+    recurrenceRule: 'FREQ=DAILY',
+  },
+
+  // === DISHES ===
+  {
+    id: 'dishwasher-dragon',
+    name: 'Dishwasher Dragon',
+    emoji: '🐉',
+    description: 'Load and run the dishwasher to vanquish this mechanical beast',
+    realm: 'kitchen',
+    threatLevel: 2,
+    questType: 'daily',
+    sparklePoints: 25,
+    magicGems: 0,
+    xpReward: 12,
+    recurrenceRule: 'FREQ=DAILY',
+  },
+  {
+    id: 'handwash-horror',
+    name: 'Handwash Horror',
+    emoji: '💀',
+    description: 'Those dishes that must be scrubbed by hand',
+    realm: 'kitchen',
+    threatLevel: 2,
+    questType: 'daily',
+    sparklePoints: 20,
+    magicGems: 0,
+    xpReward: 10,
+    recurrenceRule: 'FREQ=DAILY',
+  },
+
+  // === LAUNDRY ===
+  {
+    id: 'washing-machine-wyrm',
+    name: 'Washing Machine Wyrm',
+    emoji: '🌊',
+    description: 'Run the washing machine to cleanse the fabric realm',
+    realm: 'laundryRoom',
+    threatLevel: 2,
+    questType: 'daily',
+    sparklePoints: 20,
+    magicGems: 0,
+    xpReward: 10,
+    recurrenceRule: 'FREQ=DAILY',
+  },
+  {
+    id: 'dryer-demon',
+    name: 'Dryer Demon',
+    emoji: '🔥',
+    description: 'Move wet clothes from washer to dryer',
+    realm: 'laundryRoom',
+    threatLevel: 1,
+    questType: 'daily',
+    sparklePoints: 15,
+    magicGems: 0,
+    xpReward: 8,
+    recurrenceRule: 'FREQ=DAILY',
+  },
+  {
+    id: 'laundry-folding-fiend',
+    name: 'Laundry Folding Fiend',
+    emoji: '🧺',
+    description: 'Sort, fold, and put away the clean garments',
+    realm: 'laundryRoom',
+    threatLevel: 3,
+    questType: 'daily',
+    sparklePoints: 30,
+    magicGems: 0,
+    xpReward: 15,
+    recurrenceRule: 'FREQ=DAILY',
+  },
+  {
+    id: 'sock-sorting-sprite',
+    name: 'Sock Sorting Sprite',
+    emoji: '🧦',
+    description: 'Match the endless pairs of scattered socks',
+    realm: 'laundryRoom',
+    threatLevel: 2,
+    questType: 'daily',
+    sparklePoints: 20,
+    magicGems: 0,
+    xpReward: 10,
+    recurrenceRule: 'FREQ=DAILY',
+  },
+
+  // === VACUUM & SWEEP ===
+  {
+    id: 'vacuum-vortex',
+    name: 'Vacuum Vortex',
+    emoji: '🌪️',
+    description: 'Vacuum the entire house to banish dust and debris',
+    realm: 'wholeHouse',
+    threatLevel: 3,
+    questType: 'weekly',
+    sparklePoints: 40,
+    magicGems: 1,
+    xpReward: 20,
+    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SA',
+  },
+  {
+    id: 'sweep-mop-monster',
+    name: 'Sweep & Mop Monster',
+    emoji: '🧹',
+    description: 'Sweep and mop floors throughout the house',
+    realm: 'wholeHouse',
+    threatLevel: 3,
+    questType: 'weekly',
+    sparklePoints: 40,
+    magicGems: 1,
+    xpReward: 20,
+    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SU',
+  },
+
+  // === TRASH (Individual by room) ===
+  {
+    id: 'kitchen-trash-goblin',
+    name: 'Kitchen Trash Goblin',
+    emoji: '🗑️',
+    description: 'Take out the kitchen garbage',
     realm: 'kitchen',
     threatLevel: 1,
     questType: 'daily',
     sparklePoints: 15,
     magicGems: 0,
     xpReward: 8,
+    recurrenceRule: 'FREQ=DAILY',
+  },
+  {
+    id: 'livingroom-refuse-imp',
+    name: 'Living Room Refuse Imp',
+    emoji: '🗑️',
+    description: 'Empty the living room trash can',
+    realm: 'livingRoom',
+    threatLevel: 1,
+    questType: 'weekly',
+    sparklePoints: 15,
+    magicGems: 0,
+    xpReward: 8,
+    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SU',
+  },
+  {
+    id: 'sylvie-garbage-ghost',
+    name: "Sylvie's Room Garbage Ghost",
+    emoji: '👻',
+    description: "Empty Sylvie's room trash can",
+    realm: 'sylvieRoom',
+    threatLevel: 1,
+    questType: 'weekly',
+    sparklePoints: 15,
+    magicGems: 0,
+    xpReward: 8,
+    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SU',
+  },
+  {
+    id: 'bedroom-waste-wraith',
+    name: 'Bedroom Waste Wraith',
+    emoji: '🗑️',
+    description: 'Take out the bedroom trash',
+    realm: 'bedroom',
+    threatLevel: 1,
+    questType: 'weekly',
+    sparklePoints: 15,
+    magicGems: 0,
+    xpReward: 8,
+    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SU',
+  },
+  {
+    id: 'downstairs-bathroom-trash',
+    name: 'Downstairs Bathroom Trash Troll',
+    emoji: '🚽',
+    description: 'Empty the downstairs bathroom waste bin',
+    realm: 'bathroomDownstairs',
+    threatLevel: 1,
+    questType: 'weekly',
+    sparklePoints: 15,
+    magicGems: 0,
+    xpReward: 8,
+    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SU',
+  },
+  {
+    id: 'upstairs-bathroom-trash',
+    name: 'Upstairs Bathroom Trash Troll',
+    emoji: '🚽',
+    description: 'Empty the upstairs bathroom waste bin',
+    realm: 'bathroomUpstairs',
+    threatLevel: 1,
+    questType: 'weekly',
+    sparklePoints: 15,
+    magicGems: 0,
+    xpReward: 8,
+    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SU',
   },
 
-  // Bedroom Realm
+  // === CAT LITTER ===
   {
-    id: 'laundry-mountain',
-    name: 'Laundry Mountain Titan',
-    emoji: '🏔️',
-    description: 'The pile that never ends',
+    id: 'upstairs-litter-beast',
+    name: 'Upstairs Litter Box Beast',
+    emoji: '🐱',
+    description: 'Scoop and dispose of upstairs litter box',
+    realm: 'bathroomUpstairs',
+    threatLevel: 2,
+    questType: 'daily',
+    sparklePoints: 20,
+    magicGems: 0,
+    xpReward: 10,
+    recurrenceRule: 'FREQ=DAILY',
+  },
+  {
+    id: 'downstairs-litter-beast',
+    name: 'Downstairs Litter Box Beast',
+    emoji: '🐱',
+    description: 'Scoop and dispose of downstairs litter box',
+    realm: 'bathroomDownstairs',
+    threatLevel: 2,
+    questType: 'daily',
+    sparklePoints: 20,
+    magicGems: 0,
+    xpReward: 10,
+    recurrenceRule: 'FREQ=DAILY',
+  },
+  {
+    id: 'upstairs-litter-dragon',
+    name: 'Upstairs Litter Change Dragon',
+    emoji: '🐉',
+    description: 'Full litter box change - upstairs edition',
+    realm: 'bathroomUpstairs',
+    threatLevel: 3,
+    questType: 'weekly',
+    sparklePoints: 35,
+    magicGems: 1,
+    xpReward: 18,
+    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SA',
+  },
+  {
+    id: 'downstairs-litter-dragon',
+    name: 'Downstairs Litter Change Dragon',
+    emoji: '🐉',
+    description: 'Full litter box change - downstairs edition',
+    realm: 'bathroomDownstairs',
+    threatLevel: 3,
+    questType: 'weekly',
+    sparklePoints: 35,
+    magicGems: 1,
+    xpReward: 18,
+    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SA',
+  },
+
+  // === WASH SHEETS ===
+  {
+    id: 'bedroom-sheet-specter',
+    name: 'Bedroom Sheet Specter',
+    emoji: '🛏️',
+    description: 'Strip, wash, and remake the master bedroom',
     realm: 'bedroom',
+    threatLevel: 3,
+    questType: 'weekly',
+    sparklePoints: 40,
+    magicGems: 1,
+    xpReward: 20,
+    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SU',
+  },
+  {
+    id: 'sylvie-sheet-phantom',
+    name: "Sylvie's Sheet Phantom",
+    emoji: '👻',
+    description: "Strip, wash, and remake Sylvie's bed",
+    realm: 'sylvieRoom',
+    threatLevel: 3,
+    questType: 'weekly',
+    sparklePoints: 40,
+    magicGems: 1,
+    xpReward: 20,
+    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SU',
+  },
+
+  // === CLEAN BATHROOMS ===
+  {
+    id: 'upstairs-bathroom-banshee',
+    name: 'Upstairs Bathroom Banshee',
+    emoji: '🧼',
+    description: 'Scrub, sanitize, and restore the upstairs bathroom',
+    realm: 'bathroomUpstairs',
+    threatLevel: 4,
+    questType: 'boss',
+    sparklePoints: 60,
+    magicGems: 2,
+    xpReward: 30,
+    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SA',
+  },
+  {
+    id: 'downstairs-bathroom-banshee',
+    name: 'Downstairs Bathroom Banshee',
+    emoji: '🧼',
+    description: 'Scrub, sanitize, and restore the downstairs bathroom',
+    realm: 'bathroomDownstairs',
+    threatLevel: 4,
+    questType: 'boss',
+    sparklePoints: 60,
+    magicGems: 2,
+    xpReward: 30,
+    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SA',
+  },
+
+  // === GROCERIES ===
+  {
+    id: 'grocery-golem',
+    name: 'Grocery Golem',
+    emoji: '🛒',
+    description: 'Venture forth to gather supplies and provisions',
+    realm: 'wholeHouse',
     threatLevel: 3,
     questType: 'weekly',
     sparklePoints: 50,
@@ -69,94 +397,115 @@ export const MONSTER_TEMPLATES: MonsterTemplate[] = [
     xpReward: 25,
     recurrenceRule: 'FREQ=WEEKLY;BYDAY=SU',
   },
+
+  // === GAME NIGHTS (Friendly Quests!) ===
   {
-    id: 'laundry-zombie',
-    name: 'Laundry Zombie',
-    emoji: '🧟',
-    description: 'Rises from the hamper seeking cleanliness',
-    realm: 'bedroom',
+    id: 'thursday-game-guardian',
+    name: 'Thursday Game Guardian',
+    emoji: '🎲',
+    description: 'A friendly ally! Protect sacred Thursday game night tradition',
+    realm: 'livingRoom',
+    threatLevel: 1,
+    questType: 'weekly',
+    sparklePoints: 30,
+    magicGems: 1,
+    xpReward: 15,
+    recurrenceRule: 'FREQ=WEEKLY;BYDAY=TH',
+  },
+  {
+    id: 'friday-game-guardian',
+    name: 'Friday Game Guardian',
+    emoji: '🎮',
+    description: 'A friendly ally! Protect sacred Friday game night tradition',
+    realm: 'livingRoom',
+    threatLevel: 1,
+    questType: 'weekly',
+    sparklePoints: 30,
+    magicGems: 1,
+    xpReward: 15,
+    recurrenceRule: 'FREQ=WEEKLY;BYDAY=FR',
+  },
+
+  // === KITCHEN COUNTERS ===
+  {
+    id: 'counter-tidy-sprite',
+    name: 'Counter Tidy Sprite',
+    emoji: '📦',
+    description: 'Clear clutter and organize kitchen counters',
+    realm: 'kitchen',
     threatLevel: 2,
     questType: 'daily',
     sparklePoints: 20,
     magicGems: 0,
     xpReward: 10,
+    recurrenceRule: 'FREQ=DAILY',
   },
   {
-    id: 'bed-chaos-imp',
-    name: 'Bed Chaos Imp',
-    emoji: '🛏️',
-    description: 'Unmakes beds and tangles sheets',
-    realm: 'bedroom',
-    threatLevel: 1,
+    id: 'counter-clean-demon',
+    name: 'Counter Clean Demon',
+    emoji: '🧽',
+    description: 'Wipe down and sanitize all kitchen counters',
+    realm: 'kitchen',
+    threatLevel: 2,
     questType: 'daily',
-    sparklePoints: 10,
+    sparklePoints: 20,
     magicGems: 0,
-    xpReward: 5,
+    xpReward: 10,
     recurrenceRule: 'FREQ=DAILY',
   },
 
-  // Bathroom Realm
+  // === COOKING ===
   {
-    id: 'grime-witch',
-    name: 'Grime Witch',
-    emoji: '🧙',
-    description: 'Leaves stains and sticky residue everywhere',
-    realm: 'bathroom',
-    threatLevel: 4,
-    questType: 'boss',
-    sparklePoints: 80,
-    magicGems: 2,
-    xpReward: 40,
-  },
-  {
-    id: 'tub-scum-serpent',
-    name: 'Tub Scum Serpent',
-    emoji: '🐍',
-    description: 'Coils around bathtubs and showers',
-    realm: 'bathroom',
-    threatLevel: 3,
-    questType: 'weekly',
-    sparklePoints: 40,
-    magicGems: 1,
-    xpReward: 20,
-  },
-
-  // Living Room Realm
-  {
-    id: 'dust-bunny-swarm',
-    name: 'Dust Bunny Swarm',
-    emoji: '🐰',
-    description: 'Multiplies when ignored, hides in corners',
-    realm: 'livingRoom',
+    id: 'breakfast-beast',
+    name: 'Breakfast Beast',
+    emoji: '🍳',
+    description: 'Prepare the morning meal to fuel the day',
+    realm: 'kitchen',
     threatLevel: 2,
-    questType: 'weekly',
+    questType: 'daily',
+    sparklePoints: 25,
+    magicGems: 0,
+    xpReward: 12,
+    recurrenceRule: 'FREQ=DAILY',
+  },
+  {
+    id: 'lunch-lurker',
+    name: 'Lunch Lurker',
+    emoji: '🥗',
+    description: 'Conjure the midday sustenance',
+    realm: 'kitchen',
+    threatLevel: 2,
+    questType: 'daily',
+    sparklePoints: 25,
+    magicGems: 0,
+    xpReward: 12,
+    recurrenceRule: 'FREQ=DAILY',
+  },
+  {
+    id: 'dinner-dragon',
+    name: 'Dinner Dragon',
+    emoji: '🍽️',
+    description: 'Create the evening feast for the household',
+    realm: 'kitchen',
+    threatLevel: 3,
+    questType: 'daily',
     sparklePoints: 30,
     magicGems: 0,
     xpReward: 15,
+    recurrenceRule: 'FREQ=DAILY',
   },
   {
-    id: 'toy-tornado',
-    name: 'Toy Tornado',
-    emoji: '🧸',
-    description: 'Leaves a trail of toys in every room',
-    realm: 'livingRoom',
+    id: 'sarah-lunch-packer',
+    name: "Sarah's Lunch Packing Pixie",
+    emoji: '🍱',
+    description: 'Pack a nutritious lunch for Sarah to take to work',
+    realm: 'kitchen',
     threatLevel: 2,
     questType: 'daily',
     sparklePoints: 20,
     magicGems: 0,
     xpReward: 10,
-  },
-  {
-    id: 'clutter-king',
-    name: 'Clutter King',
-    emoji: '👑',
-    description: 'Hoards items everywhere, rules chaos',
-    realm: 'livingRoom',
-    threatLevel: 5,
-    questType: 'boss',
-    sparklePoints: 150,
-    magicGems: 5,
-    xpReward: 75,
+    recurrenceRule: 'FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR',
   },
 ];
 
@@ -212,7 +561,7 @@ export const SPARKLE_DIALOGUE = {
       "*quiet voice* Remember: you're just doing normal chores... 😉",
     ],
     kidNearby: [
-      "Quick! Look casual! Your kid can't know about your secret! 🤫",
+      "Quick! Look casual! Sylvie can't know about your secret! 🤫",
       "*whispers frantically* Civilian approaching! Normal chore mode activated! 😅",
     ],
     closeCall: [
@@ -237,7 +586,7 @@ export const STORY_CHAPTERS = [
     unlockLevel: 1,
     content: `It started like any other morning. Rhia looked around her home and sighed at the growing chaos. Dishes piled in the sink. Laundry mountain had evolved from hill to full-blown peak. The bathroom... well, best not to think about that.
 
-Her wife was already at work. Her kid was at school. Finally, a moment alone.
+Her wife was already at work. Sylvie was at school. Finally, a moment alone.
 
 But today was different.
 
@@ -281,7 +630,7 @@ Secret Identity Protocol: ACTIVE 🤫`,
 
 A shadowy figure seemed to loom over the pile of dishes. Through the mystical lens Sparkle provided, Rhia could see it: a grotesque creature made of grease and food particles.
 
-"The DISH MONSTER! Level 2 threat!" Sparkle announced. "Are you ready for your first battle?"
+"The DISHWASHER DRAGON! Level 2 threat!" Sparkle announced. "Are you ready for your first battle?"
 
 Rhia grabbed a sponge. "Let's do this."
 
@@ -293,15 +642,11 @@ Light swirled around her. Nothing changed physically, but somehow she felt... di
 
 "Behold! KITCHEN GUARDIAN RHIA!"
 
-Rhia approached the sink. The Dish Monster hissed. She turned on the water, added soap, and began the battle.
-
-Each dish washed was a blow struck. Each glass scrubbed was a attack landed. The monster weakened.
-
-And then—the final dish. Clean.
+Rhia approached the dishwasher. The Dishwasher Dragon hissed. She loaded each dish like striking a blow. Added detergent like casting a spell. Hit start.
 
 💫✨💥 VICTORY! ✨💫
 
-"AMAZING!" Sparkle cheered. "You're a natural! +20 Sparkle Points! +10 XP!"
+"AMAZING!" Sparkle cheered. "You're a natural! +25 Sparkle Points! +12 XP!"
 
 Rhia smiled. Maybe this wouldn't be so bad after all.
 
@@ -311,7 +656,7 @@ Just then, she heard the door. Her wife was home early.
 
 "Honey?" her wife called out.
 
-"Just doing the dishes!" Rhia called back, as if it was the most normal thing in the world.
+"Just running the dishwasher!" Rhia called back, as if it was the most normal thing in the world.
 
 If only she knew.`,
   },
@@ -331,23 +676,23 @@ If only she knew that Rhia wasn't just "tidying"—she was BATTLING EVIL.
 
 "Like... my wife thinks I'm just being more organized. But really I'm a magical warrior protecting our home."
 
-Sparkle giggled. "That's the fun part! You get to know the TRUTH! You're not just doing chores—you're saving the realm! They see you making the bed. You know you're defeating the Bed Chaos Imp!"
+Sparkle giggled. "That's the fun part! You get to know the TRUTH! You're not just doing chores—you're saving the realm! They see you making the bed. You know you're defeating the Bedroom Disorder Demon!"
 
 Rhia had to admit, it did make things more interesting.
 
-Her kid ran into the room. "Mom! Can we play?"
+Sylvie ran into the room. "Mom! Can we play?"
 
 "Sure, honey. Just let me finish—" Rhia glanced at Sparkle, who had frozen mid-flight. "—putting away these toys."
 
-"You're doing chores AGAIN?" her kid groaned.
+"You're doing chores AGAIN?" Sylvie groaned.
 
-Rhia smiled. "Someone has to keep the Toy Tornado from taking over."
+Rhia smiled. "Someone has to keep Sylvie's Room Scatter Imp from taking over."
 
 "Huh?"
 
 "Nothing, sweetie. Nothing."
 
-When her kid left, Sparkle unfroze. "Close one! But you're getting good at this cover story thing!"
+When Sylvie left, Sparkle unfroze. "Close one! But you're getting good at this cover story thing!"
 
 Rhia laughed. Maybe being a secret magical girl wasn't so hard after all.`,
   },

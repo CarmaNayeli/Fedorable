@@ -1,84 +1,138 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useStore } from '@/lib/store';
-import StatsPanel from '@/components/StatsPanel';
-import ChoreList from '@/components/ChoreList';
-import AddChoreModal from '@/components/AddChoreModal';
-import SettingsModal from '@/components/SettingsModal';
+import QuestBoard from '@/components/QuestBoard';
+import BattleSequence from '@/components/BattleSequence';
+import MonsterLab from '@/components/MonsterLab';
+import StoryReader from '@/components/StoryReader';
+import StealthMode from '@/components/StealthMode';
+import { getRandomDialogue } from '@/lib/gameData';
 
 export default function Home() {
-  const [showAddChore, setShowAddChore] = useState(false);
-  const [showSettings, setShowSettings] = useState(false);
-  const { user, chores, setUser, setChores } = useStore();
+  const [showMonsterLab, setShowMonsterLab] = useState(false);
+  const [showStory, setShowStory] = useState(false);
+  const [battleQuest, setBattleQuest] = useState<any>(null);
+  const [stealthActive, setStealthActive] = useState(false);
+  const [magicalGirl, setMagicalGirl] = useState<any>(null);
 
   useEffect(() => {
-    // Initialize user and fetch chores
+    // Initialize magical girl data
     const initializeApp = async () => {
       try {
-        // Fetch or create user
-        const userRes = await fetch('/api/user');
-        if (userRes.ok) {
-          const userData = await userRes.json();
-          setUser(userData);
-        }
+        const res = await fetch('/api/magical-girl');
+        if (res.ok) {
+          const data = await res.json();
+          setMagicalGirl(data);
 
-        // Fetch chores
-        const choresRes = await fetch('/api/chores');
-        if (choresRes.ok) {
-          const choresData = await choresRes.json();
-          setChores(choresData);
+          // Show welcome message for new players
+          if (data.level === 1 && data.totalMonstersDefeated === 0) {
+            setShowStory(true);
+          }
         }
       } catch (error) {
-        console.error('Failed to initialize app:', error);
+        console.error('Failed to initialize:', error);
       }
     };
 
     initializeApp();
-  }, [setUser, setChores]);
+  }, []);
+
+  const handleQuestBattle = (quest: any) => {
+    setBattleQuest(quest);
+  };
+
+  const handleBattleComplete = () => {
+    setBattleQuest(null);
+    // Refresh data
+    window.location.reload();
+  };
+
+  if (stealthActive) {
+    return <StealthMode onDeactivate={() => setStealthActive(false)} />;
+  }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-4 md:p-8">
-      <div className="max-w-6xl mx-auto">
+    <main className="min-h-screen bg-gradient-to-br from-purple-900 via-pink-900 to-purple-900 p-4 md:p-8">
+      {/* Quick Stealth Button */}
+      <button
+        onClick={() => setStealthActive(true)}
+        className="fixed top-4 right-4 z-50 px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-all shadow-lg opacity-50 hover:opacity-100 text-sm"
+        title="Quick Hide (Boss Key)"
+      >
+        🤫 Hide
+      </button>
+
+      <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <header className="mb-8 flex justify-between items-center">
-          <div>
-            <h1 className="text-4xl font-bold text-white mb-2">Rhia-minder</h1>
-            <p className="text-gray-300">Your gamified chore tracker</p>
+        <header className="mb-8 text-center">
+          <div className="mb-4">
+            <div className="text-6xl mb-2">✨</div>
+            <h1 className="text-5xl font-bold text-white mb-2 tracking-wider">
+              RHIA-MINDER
+            </h1>
+            <p className="text-pink-300 text-lg italic">
+              Magical Girl Chore Adventure
+            </p>
           </div>
-          <button
-            onClick={() => setShowSettings(true)}
-            className="p-3 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
-          >
-            <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-          </button>
+
+          {magicalGirl && (
+            <div className="mt-6 inline-block bg-black/30 backdrop-blur-lg border-2 border-pink-400 rounded-xl px-6 py-3">
+              <div className="text-yellow-300 font-bold text-lg">
+                {magicalGirl.title}
+              </div>
+              <div className="text-pink-200 text-sm mt-1">
+                Level {magicalGirl.level} {' '}
+                <span className="text-yellow-400">
+                  {'⭐'.repeat(magicalGirl.rank)}
+                </span>
+              </div>
+            </div>
+          )}
         </header>
 
-        {/* Stats Panel */}
-        {user && <StatsPanel user={user} />}
+        {/* Sparkle Greeting */}
+        {magicalGirl && (
+          <div className="mb-6 bg-purple-800/50 border-2 border-pink-400 rounded-xl p-4">
+            <div className="flex items-start gap-3">
+              <div className="text-4xl">💫</div>
+              <div className="flex-1">
+                <div className="text-pink-300 font-bold mb-1">SPARKLE says:</div>
+                <div className="text-white">
+                  {getRandomDialogue('morning')}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Main Content */}
-        <div className="grid grid-cols-1 gap-6 mt-8">
-          <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-bold text-white">Today's Chores</h2>
-            <button
-              onClick={() => setShowAddChore(true)}
-              className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all shadow-lg font-semibold"
-            >
-              + Add Chore
-            </button>
-          </div>
-
-          <ChoreList chores={chores} />
-        </div>
+        <QuestBoard
+          magicalGirl={magicalGirl}
+          onQuestBattle={handleQuestBattle}
+          onOpenMonsterLab={() => setShowMonsterLab(true)}
+          onOpenStory={() => setShowStory(true)}
+        />
       </div>
 
       {/* Modals */}
-      {showAddChore && <AddChoreModal onClose={() => setShowAddChore(false)} />}
-      {showSettings && user && <SettingsModal user={user} onClose={() => setShowSettings(false)} />}
+      {battleQuest && (
+        <BattleSequence
+          quest={battleQuest}
+          onComplete={handleBattleComplete}
+          onCancel={() => setBattleQuest(null)}
+        />
+      )}
+
+      {showMonsterLab && (
+        <MonsterLab onClose={() => setShowMonsterLab(false)} />
+      )}
+
+      {showStory && (
+        <StoryReader
+          magicalGirl={magicalGirl}
+          onClose={() => setShowStory(false)}
+        />
+      )}
     </main>
   );
 }
