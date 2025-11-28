@@ -17,12 +17,16 @@ export async function GET(request: Request) {
     const url = new URL(request.url);
     const isManualTrigger = url.searchParams.get('manual') === 'true';
 
-    // Verify cron secret if set (skip for manual triggers in development)
+    // Verify cron secret only in production and only if explicitly set
+    // Vercel cron jobs are authenticated differently, so we don't need CRON_SECRET
     const authHeader = request.headers.get('authorization');
-    if (process.env.CRON_SECRET && !isManualTrigger) {
-      if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    if (process.env.CRON_SECRET && !isManualTrigger && process.env.NODE_ENV === 'production') {
+      const cronSecret = request.headers.get('x-vercel-cron-secret');
+      if (cronSecret !== process.env.CRON_SECRET && authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
         // Log auth failure for debugging
-        console.log('Cron auth failed - expected Bearer token with CRON_SECRET');
+        console.log('Cron auth failed - expected CRON_SECRET in x-vercel-cron-secret header or Bearer token');
+        console.log('Auth header:', authHeader ? 'present' : 'missing');
+        console.log('Cron secret header:', cronSecret ? 'present' : 'missing');
         return NextResponse.json(
           { error: 'Unauthorized' },
           { status: 401 }
