@@ -2,9 +2,15 @@
 
 ## Required Migrations
 
-There are two new fields that need to be added to your Quest table:
+There are several new database schema changes:
+
+### Quest Table Updates:
 1. `notificationPreferences` - Stores custom notification times for each day
 2. `lastCompletedAt` - Tracks when recurring quests were last completed
+
+### New Tables (Sparkle Shop):
+1. `ShopItem` - Available stickers that can be purchased
+2. `StickerCollection` - Stickers owned by the magical girl
 
 ## Solution
 

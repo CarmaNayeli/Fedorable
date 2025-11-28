@@ -7,6 +7,8 @@ import BattleSequence from '@/components/BattleSequence';
 import MonsterLab from '@/components/MonsterLab';
 import StoryReader from '@/components/StoryReader';
 import StealthMode from '@/components/StealthMode';
+import SparkleShop from '@/components/SparkleShop';
+import StickerBook from '@/components/StickerBook';
 import { getRandomDialogue } from '@/lib/gameData';
 
 // Import NotificationSettings only on client-side to avoid SSR issues
@@ -18,6 +20,8 @@ const NotificationSettings = dynamic(
 export default function Home() {
   const [showMonsterLab, setShowMonsterLab] = useState(false);
   const [showStory, setShowStory] = useState(false);
+  const [showShop, setShowShop] = useState(false);
+  const [showStickerBook, setShowStickerBook] = useState(false);
   const [battleQuest, setBattleQuest] = useState<any>(null);
   const [stealthActive, setStealthActive] = useState(false);
   const [magicalGirl, setMagicalGirl] = useState<any>(null);
@@ -121,6 +125,8 @@ export default function Home() {
           onQuestBattle={handleQuestBattle}
           onOpenMonsterLab={() => setShowMonsterLab(true)}
           onOpenStory={() => setShowStory(true)}
+          onOpenShop={() => setShowShop(true)}
+          onOpenStickerBook={() => setShowStickerBook(true)}
         />
       </div>
 
@@ -142,6 +148,14 @@ export default function Home() {
           magicalGirl={magicalGirl}
           onClose={() => setShowStory(false)}
         />
+      )}
+
+      {showShop && (
+        <SparkleShop onClose={() => setShowShop(false)} />
+      )}
+
+      {showStickerBook && (
+        <StickerBook onClose={() => setShowStickerBook(false)} />
       )}
     </main>
   );

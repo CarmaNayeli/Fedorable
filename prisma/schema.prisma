@@ -50,6 +50,7 @@ model MagicalGirl {
   collections       Collection[]
   storyProgress     StoryChapter[]
   subscriptions     PushSubscription[]
+  stickers          StickerCollection[]
 }
 
 // Realms (areas of the home)
@@ -208,4 +209,30 @@ model PushSubscription {
   magicalGirl       MagicalGirl         @relation(fields: [magicalGirlId], references: [id], onDelete: Cascade)
 
   createdAt         DateTime            @default(now())
+}
+
+// Shop Items - Stickers that can be purchased
+model ShopItem {
+  id                String              @id @default(cuid())
+  emoji             String              // The emoji/sticker
+  name              String              // Name of the sticker
+  category          String              // "cute", "nature", "food", "sparkle", etc.
+  price             Int                 // Cost in magic gems
+  isLimited         Boolean             @default(false) // Limited edition items
+  rarity            String              @default("common") // "common", "rare", "epic", "legendary"
+
+  createdAt         DateTime            @default(now())
+}
+
+// Sticker Collection - Stickers owned by the magical girl
+model StickerCollection {
+  id                String              @id @default(cuid())
+
+  shopItemId        String
+  magicalGirlId     String
+  magicalGirl       MagicalGirl         @relation(fields: [magicalGirlId], references: [id], onDelete: Cascade)
+
+  purchasedAt       DateTime            @default(now())
+
+  @@unique([shopItemId, magicalGirlId]) // Can't buy same sticker twice
 }

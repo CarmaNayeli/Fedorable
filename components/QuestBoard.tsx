@@ -29,6 +29,8 @@ interface QuestBoardProps {
   onQuestBattle: (quest: Quest) => void;
   onOpenMonsterLab: () => void;
   onOpenStory: () => void;
+  onOpenShop: () => void;
+  onOpenStickerBook: () => void;
 }
 
 export default function QuestBoard({
@@ -36,6 +38,8 @@ export default function QuestBoard({
   onQuestBattle,
   onOpenMonsterLab,
   onOpenStory,
+  onOpenShop,
+  onOpenStickerBook,
 }: QuestBoardProps) {
   const [quests, setQuests] = useState<Quest[]>([]);
   const [realms, setRealms] = useState<Realm[]>([]);
@@ -195,25 +199,39 @@ export default function QuestBoard({
       )}
 
       {/* Action Buttons */}
-      <div className="flex flex-wrap gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <button
           onClick={onOpenMonsterLab}
-          className="flex-1 min-w-[200px] px-6 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg font-bold text-lg border-2 border-purple-400"
+          className="px-6 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg font-bold text-lg border-2 border-purple-400"
         >
           🧪 Monster Laboratory
         </button>
 
         <button
           onClick={onOpenStory}
-          className="flex-1 min-w-[200px] px-6 py-4 bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-xl hover:from-cyan-700 hover:to-blue-700 transition-all shadow-lg font-bold text-lg border-2 border-cyan-400"
+          className="px-6 py-4 bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-xl hover:from-cyan-700 hover:to-blue-700 transition-all shadow-lg font-bold text-lg border-2 border-cyan-400"
         >
           📖 Story Chapters
+        </button>
+
+        <button
+          onClick={onOpenShop}
+          className="px-6 py-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-xl hover:from-pink-600 hover:to-purple-600 transition-all shadow-lg font-bold text-lg border-2 border-pink-400"
+        >
+          ✨ Sparkle Shop
+        </button>
+
+        <button
+          onClick={onOpenStickerBook}
+          className="px-6 py-4 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-xl hover:from-purple-600 hover:to-indigo-700 transition-all shadow-lg font-bold text-lg border-2 border-purple-400"
+        >
+          📖 Sticker Book
         </button>
 
         {magicalGirl.sparkleShields > 0 && (
           <button
             onClick={() => setShowShieldDialog(true)}
-            className="flex-1 min-w-[200px] px-6 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl hover:from-blue-700 hover:to-cyan-700 transition-all shadow-lg font-bold text-lg border-2 border-blue-400"
+            className="px-6 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl hover:from-blue-700 hover:to-cyan-700 transition-all shadow-lg font-bold text-lg border-2 border-blue-400"
           >
             🛡️ Use Sparkle Shield
           </button>
