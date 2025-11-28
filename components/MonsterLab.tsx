@@ -499,6 +499,7 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
         <TimingModal
           template={selectedTemplate || {
             // Create a fake template from custom quest data
+            id: 'custom-temp',
             name: customQuestData?.monsterName || 'Custom Quest',
             emoji: customQuestData?.monsterEmoji || '💀',
             description: customQuestData?.description || 'Your custom quest',
