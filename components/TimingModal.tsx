@@ -200,6 +200,22 @@ export default function TimingModal({ template, onConfirm, onCancel }: TimingMod
                 Reminder Times ⏰
               </h3>
 
+              {/* UTC Warning */}
+              <div className="mb-4 p-3 bg-yellow-900/50 border-2 border-yellow-500/70 rounded-lg">
+                <div className="text-sm text-yellow-200">
+                  <span className="font-bold">⚠️ Important:</span> Times are in UTC (server time).
+                  {typeof Intl !== 'undefined' && (
+                    <>
+                      {' '}Your local time is{' '}
+                      <span className="font-semibold">
+                        {new Date().toLocaleTimeString()} ({Intl.DateTimeFormat().resolvedOptions().timeZone})
+                      </span>
+                      . Add the offset to get your desired local time.
+                    </>
+                  )}
+                </div>
+              </div>
+
               {/* Bulk Time Setter */}
               <div className="mb-4 p-4 bg-gradient-to-r from-cyan-900/50 to-purple-900/50 rounded-xl border-2 border-cyan-400/50">
                 <div className="text-sm font-semibold text-cyan-200 mb-2">

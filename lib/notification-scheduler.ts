@@ -4,6 +4,10 @@ import { RRule, RRuleSet, rrulestr } from 'rrule';
 /**
  * Generate notifications for a quest based on its recurrence rule and notification preferences
  * Creates notifications for the next 30 days
+ *
+ * IMPORTANT: Notification times are currently treated as UTC times.
+ * If a user sets a notification for 09:00, it will fire at 09:00 UTC, not their local time.
+ * This is a known limitation that needs timezone support to be added.
  */
 export async function generateNotificationsForQuest(questId: string) {
   const quest = await prisma.quest.findUnique({
