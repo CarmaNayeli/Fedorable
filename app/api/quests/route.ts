@@ -87,6 +87,21 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(quest);
   } catch (error) {
     console.error('Failed to create quest:', error);
-    return NextResponse.json({ error: 'Failed to create quest' }, { status: 500 });
+
+    // Check if it's a Prisma error about unknown field
+    if (error instanceof Error && error.message.includes('notificationPreferences')) {
+      return NextResponse.json(
+        {
+          error: 'Database schema needs to be updated. Please run: npx prisma db push',
+          details: 'The notificationPreferences field was added but your database needs to be migrated.'
+        },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json(
+      { error: 'Failed to create quest', details: error instanceof Error ? error.message : 'Unknown error' },
+      { status: 500 }
+    );
   }
 }

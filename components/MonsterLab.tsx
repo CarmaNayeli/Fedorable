@@ -120,11 +120,15 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
       if (res.ok) {
         window.location.reload();
       } else {
-        alert('Failed to create monster');
+        const errorData = await res.json();
+        const errorMessage = errorData.details
+          ? `${errorData.error}\n\n${errorData.details}`
+          : errorData.error || 'Failed to create monster';
+        alert(errorMessage);
       }
     } catch (error) {
       console.error('Failed to create monster:', error);
-      alert('Failed to create monster');
+      alert('Failed to create monster: ' + (error instanceof Error ? error.message : 'Unknown error'));
     } finally {
       setLoading(false);
     }
