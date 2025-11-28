@@ -231,7 +231,7 @@ export default function TimingModal({ template, onConfirm, onCancel }: TimingMod
                   <span className="font-bold">✓ Timezone:</span> Enter times in <span className="font-semibold">your local time</span>.
                   {typeof Intl !== 'undefined' && (
                     <>
-                      {' '}They'll be automatically converted to UTC.
+                      {' '}They&apos;ll be automatically converted to UTC.
                       <br />
                       Current local time: <span className="font-semibold">{new Date().toLocaleTimeString()} ({Intl.DateTimeFormat().resolvedOptions().timeZone})</span>
                     </>
