@@ -68,6 +68,9 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
         };
       } else {
         // Custom monster
+        console.log('Creating custom monster...');
+        console.log('Monster name:', monsterName);
+
         if (!monsterName.trim()) {
           alert('Please enter a monster name!');
           setLoading(false);
@@ -106,9 +109,12 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
           xpReward: rewards.xp,
           isRecurring,
           recurrenceRule,
+          notificationPreferences: null, // Custom monsters don't have notifications yet
           isCustom: true,
           createdByPlayer: true,
         };
+
+        console.log('Sending custom monster data:', data);
       }
 
       const res = await fetch('/api/quests', {
@@ -117,10 +123,15 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
         body: JSON.stringify(data),
       });
 
+      console.log('API response status:', res.status);
+
       if (res.ok) {
+        const responseData = await res.json();
+        console.log('Quest created successfully:', responseData);
         window.location.reload();
       } else {
         const errorData = await res.json();
+        console.error('API error:', errorData);
         const errorMessage = errorData.details
           ? `${errorData.error}\n\n${errorData.details}`
           : errorData.error || 'Failed to create monster';
