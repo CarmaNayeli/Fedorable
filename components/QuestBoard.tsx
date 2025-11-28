@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { getThreatLevelStars } from '@/lib/gameUtils';
+import QuestDetailsModal from './QuestDetailsModal';
 
 interface Quest {
   id: string;
@@ -15,6 +16,9 @@ interface Quest {
   magicGems: number;
   deadline?: string;
   isActive: boolean;
+  isRecurring?: boolean;
+  recurrenceRule?: string | null;
+  notificationPreferences?: Record<string, string | null> | null;
 }
 
 interface Realm {
@@ -48,6 +52,7 @@ export default function QuestBoard({
   const [isUsingShield, setIsUsingShield] = useState(false);
   const [questToDelete, setQuestToDelete] = useState<Quest | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [questDetailsToShow, setQuestDetailsToShow] = useState<Quest | null>(null);
 
   const handleDeleteQuest = async () => {
     if (!questToDelete) return;
@@ -97,30 +102,30 @@ export default function QuestBoard({
     }
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [questsRes, realmsRes] = await Promise.all([
-          fetch('/api/quests'),
-          fetch('/api/realms'),
-        ]);
+  const fetchData = async () => {
+    try {
+      const [questsRes, realmsRes] = await Promise.all([
+        fetch('/api/quests'),
+        fetch('/api/realms'),
+      ]);
 
-        if (questsRes.ok) {
-          const questsData = await questsRes.json();
-          setQuests(questsData);
-        }
-
-        if (realmsRes.ok) {
-          const realmsData = await realmsRes.json();
-          setRealms(realmsData);
-        }
-      } catch (error) {
-        console.error('Failed to fetch quest data:', error);
-      } finally {
-        setLoading(false);
+      if (questsRes.ok) {
+        const questsData = await questsRes.json();
+        setQuests(questsData);
       }
-    };
 
+      if (realmsRes.ok) {
+        const realmsData = await realmsRes.json();
+        setRealms(realmsData);
+      }
+    } catch (error) {
+      console.error('Failed to fetch quest data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     if (magicalGirl) {
       fetchData();
     }
@@ -137,6 +142,8 @@ export default function QuestBoard({
   const dailyQuests = quests.filter(q => q.questType === 'daily' && q.isActive);
   const weeklyQuests = quests.filter(q => q.questType === 'weekly' && q.isActive);
   const bossQuests = quests.filter(q => q.questType === 'boss' && q.isActive);
+  const onetimeQuests = quests.filter(q => q.questType === 'onetime' && q.isActive);
+  const sideQuests = quests.filter(q => q.questType === 'side' && q.isActive);
 
   return (
     <div className="space-y-6">
@@ -260,6 +267,7 @@ export default function QuestBoard({
                   quest={quest}
                   onBattle={onQuestBattle}
                   onDelete={() => setQuestToDelete(quest)}
+                  onShowDetails={() => setQuestDetailsToShow(quest)}
                 />
               ))}
             </div>
@@ -285,6 +293,7 @@ export default function QuestBoard({
                   quest={quest}
                   onBattle={onQuestBattle}
                   onDelete={() => setQuestToDelete(quest)}
+                  onShowDetails={() => setQuestDetailsToShow(quest)}
                 />
               ))}
             </div>
@@ -302,6 +311,43 @@ export default function QuestBoard({
                   quest={quest}
                   onBattle={onQuestBattle}
                   onDelete={() => setQuestToDelete(quest)}
+                  onShowDetails={() => setQuestDetailsToShow(quest)}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* One-Time Quests */}
+        {onetimeQuests.length > 0 && (
+          <div>
+            <h3 className="text-2xl font-bold text-green-400 mb-3">🎯 ONE-TIME QUESTS</h3>
+            <div className="space-y-3">
+              {onetimeQuests.map(quest => (
+                <QuestCard
+                  key={quest.id}
+                  quest={quest}
+                  onBattle={onQuestBattle}
+                  onDelete={() => setQuestToDelete(quest)}
+                  onShowDetails={() => setQuestDetailsToShow(quest)}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Side Quests */}
+        {sideQuests.length > 0 && (
+          <div>
+            <h3 className="text-2xl font-bold text-blue-400 mb-3">📌 SIDE QUESTS</h3>
+            <div className="space-y-3">
+              {sideQuests.map(quest => (
+                <QuestCard
+                  key={quest.id}
+                  quest={quest}
+                  onBattle={onQuestBattle}
+                  onDelete={() => setQuestToDelete(quest)}
+                  onShowDetails={() => setQuestDetailsToShow(quest)}
                 />
               ))}
             </div>
@@ -403,6 +449,15 @@ export default function QuestBoard({
           </div>
         </div>
       )}
+
+      {/* Quest Details Modal */}
+      {questDetailsToShow && (
+        <QuestDetailsModal
+          quest={questDetailsToShow}
+          onClose={() => setQuestDetailsToShow(null)}
+          onQuestUpdated={fetchData}
+        />
+      )}
     </div>
   );
 }
@@ -411,13 +466,18 @@ function QuestCard({
   quest,
   onBattle,
   onDelete,
+  onShowDetails,
 }: {
   quest: Quest;
   onBattle: (quest: Quest) => void;
   onDelete: () => void;
+  onShowDetails: () => void;
 }) {
   return (
-    <div className="bg-gradient-to-r from-purple-900/50 to-pink-900/50 border-2 border-pink-400 rounded-xl p-4 hover:border-pink-300 transition-all">
+    <div
+      className="bg-gradient-to-r from-purple-900/50 to-pink-900/50 border-2 border-pink-400 rounded-xl p-4 hover:border-pink-300 transition-all cursor-pointer"
+      onClick={onShowDetails}
+    >
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-4 flex-1">
           <div className="text-5xl">{quest.monsterEmoji}</div>
@@ -454,13 +514,19 @@ function QuestCard({
 
         <div className="flex flex-col gap-2">
           <button
-            onClick={() => onBattle(quest)}
+            onClick={(e) => {
+              e.stopPropagation();
+              onBattle(quest);
+            }}
             className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg font-bold border-2 border-green-400"
           >
             ⚔️ BATTLE!
           </button>
           <button
-            onClick={onDelete}
+            onClick={(e) => {
+              e.stopPropagation();
+              onDelete();
+            }}
             className="px-6 py-2 bg-red-600/80 hover:bg-red-600 text-white rounded-lg transition-all font-semibold text-sm border-2 border-red-400"
             title="Delete quest"
           >

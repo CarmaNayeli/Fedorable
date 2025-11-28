@@ -89,6 +89,15 @@ export async function POST(request: NextRequest) {
       },
     });
 
+    console.log('Quest created successfully:', {
+      id: quest.id,
+      monsterName: quest.monsterName,
+      isActive: quest.isActive,
+      isRecurring: quest.isRecurring,
+      questType: quest.questType,
+      isCustom: quest.isCustom,
+    });
+
     // Generate notifications if quest has recurrence and notification preferences
     if (quest.isRecurring && quest.notificationPreferences) {
       try {

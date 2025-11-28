@@ -16,26 +16,53 @@ export async function GET() {
       return NextResponse.json({ error: 'Magical girl not found' }, { status: 404 });
     }
 
-    // Seed shop items if they don't exist
+    // Sync shop items with SHOP_STICKERS array (lightweight check first)
+    // This ensures the database always matches the code, even when stickers are updated
     const existingItems = await prisma.shopItem.findMany();
-    if (existingItems.length === 0) {
-      await prisma.shopItem.createMany({
-        data: SHOP_STICKERS.map(s => ({
-          id: s.id,
-          emoji: s.emoji,
-          name: s.name,
-          category: s.category,
-          price: s.price,
-          currency: s.currency || 'gems',
-          isLimited: s.isLimited || false,
-          rarity: s.rarity,
-          isAchievement: s.isAchievement || false,
-          achievementType: s.achievementType || null,
-          achievementTarget: s.achievementTarget || null,
-          achievementGoal: s.achievementGoal || null,
-          achievementDesc: s.achievementDesc || null,
-        })),
-      });
+    const existingIds = new Set(existingItems.map(item => item.id));
+    const currentIds = new Set(SHOP_STICKERS.map(s => s.id));
+
+    // Only run sync if there are differences (items missing or extras in DB)
+    const needsSync = existingItems.length !== SHOP_STICKERS.length ||
+      SHOP_STICKERS.some(s => !existingIds.has(s.id)) ||
+      existingItems.some(item => !currentIds.has(item.id));
+
+    if (needsSync) {
+      console.log('Shop items need sync - updating database...');
+
+      // Delete items that no longer exist in SHOP_STICKERS
+      const itemsToDelete = existingItems.filter(item => !currentIds.has(item.id));
+      if (itemsToDelete.length > 0) {
+        await prisma.shopItem.deleteMany({
+          where: {
+            id: { in: itemsToDelete.map(item => item.id) }
+          }
+        });
+      }
+
+      // Find new items to insert
+      const newStickers = SHOP_STICKERS.filter(s => !existingIds.has(s.id));
+      if (newStickers.length > 0) {
+        await prisma.shopItem.createMany({
+          data: newStickers.map(s => ({
+            id: s.id,
+            emoji: s.emoji,
+            name: s.name,
+            category: s.category,
+            price: s.price,
+            currency: s.currency || 'gems',
+            isLimited: s.isLimited || false,
+            rarity: s.rarity,
+            isAchievement: s.isAchievement || false,
+            achievementType: s.achievementType || null,
+            achievementTarget: s.achievementTarget || null,
+            achievementGoal: s.achievementGoal || null,
+            achievementDesc: s.achievementDesc || null,
+          })),
+        });
+      }
+
+      console.log(`Shop sync complete: deleted ${itemsToDelete.length}, added ${newStickers.length}`);
     }
 
     // Check and auto-award unlocked achievements

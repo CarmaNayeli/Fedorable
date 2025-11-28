@@ -8,6 +8,7 @@ interface TimingModalProps {
   template: MonsterTemplate;
   onConfirm: (recurrenceRule: string | null, notificationPreferences: Record<string, string | null>) => void;
   onCancel: () => void;
+  initialNotificationPreferences?: Record<string, string | null> | null;
 }
 
 type TimingOption = 'daily' | 'weekly' | 'onetime';
@@ -22,7 +23,42 @@ const WEEKDAYS = [
   { label: 'Sun', value: RRule.SU, key: 'sun' },
 ];
 
-export default function TimingModal({ template, onConfirm, onCancel }: TimingModalProps) {
+// Convert UTC time to local time for editing
+const convertUTCToLocal = (utcTime: string | null): string | null => {
+  if (!utcTime) return null;
+  try {
+    const [hours, minutes] = utcTime.split(':').map(Number);
+    const utcDate = new Date();
+    utcDate.setUTCHours(hours, minutes, 0, 0);
+    const localHours = utcDate.getHours().toString().padStart(2, '0');
+    const localMinutes = utcDate.getMinutes().toString().padStart(2, '0');
+    return `${localHours}:${localMinutes}`;
+  } catch {
+    return utcTime;
+  }
+};
+
+export default function TimingModal({ template, onConfirm, onCancel, initialNotificationPreferences }: TimingModalProps) {
+  // Convert initial preferences from UTC to local time
+  const getInitialTimes = () => {
+    if (initialNotificationPreferences) {
+      const converted: Record<string, string | null> = {};
+      Object.entries(initialNotificationPreferences).forEach(([key, value]) => {
+        converted[key] = convertUTCToLocal(value);
+      });
+      return converted;
+    }
+    return {
+      mon: '08:00',
+      tue: '08:00',
+      wed: '08:00',
+      thu: '08:00',
+      fri: '08:00',
+      sat: '08:00',
+      sun: null,
+    };
+  };
+
   const [timingOption, setTimingOption] = React.useState<TimingOption>('daily');
   const [selectedDays, setSelectedDays] = React.useState<number[]>([
     RRule.MO.weekday,
@@ -34,15 +70,7 @@ export default function TimingModal({ template, onConfirm, onCancel }: TimingMod
   ]); // All days except Sunday by default
 
   // Notification times for each day (null means no notification)
-  const [notificationTimes, setNotificationTimes] = React.useState<Record<string, string | null>>({
-    mon: '08:00',
-    tue: '08:00',
-    wed: '08:00',
-    thu: '08:00',
-    fri: '08:00',
-    sat: '08:00',
-    sun: null,
-  });
+  const [notificationTimes, setNotificationTimes] = React.useState<Record<string, string | null>>(getInitialTimes());
   const [bulkTime, setBulkTime] = React.useState<string>('08:00');
 
   const toggleDay = (dayValue: number) => {
@@ -100,7 +128,32 @@ export default function TimingModal({ template, onConfirm, onCancel }: TimingMod
     }
     // onetime means recurrenceRule stays null
 
-    onConfirm(recurrenceRule, notificationTimes);
+    // Convert local times to UTC before sending
+    const timezoneOffsetMinutes = new Date().getTimezoneOffset();
+    const convertedTimes: Record<string, string | null> = {};
+
+    Object.entries(notificationTimes).forEach(([day, time]) => {
+      if (time) {
+        // Parse the time
+        const [hours, minutes] = time.split(':').map(Number);
+
+        // Create a date in local timezone
+        const localDate = new Date();
+        localDate.setHours(hours, minutes, 0, 0);
+
+        // Convert to UTC
+        const utcDate = new Date(localDate.getTime() + timezoneOffsetMinutes * 60000);
+
+        // Format back to HH:MM
+        const utcHours = utcDate.getUTCHours().toString().padStart(2, '0');
+        const utcMinutes = utcDate.getUTCMinutes().toString().padStart(2, '0');
+        convertedTimes[day] = `${utcHours}:${utcMinutes}`;
+      } else {
+        convertedTimes[day] = null;
+      }
+    });
+
+    onConfirm(recurrenceRule, convertedTimes);
   };
 
   const isConfirmDisabled = timingOption === 'weekly' && selectedDays.length === 0;
@@ -199,6 +252,20 @@ export default function TimingModal({ template, onConfirm, onCancel }: TimingMod
               <h3 className="text-lg font-semibold text-white mb-3">
                 Reminder Times ⏰
               </h3>
+
+              {/* Timezone Info */}
+              <div className="mb-4 p-3 bg-green-900/50 border-2 border-green-500/70 rounded-lg">
+                <div className="text-sm text-green-200">
+                  <span className="font-bold">✓ Timezone:</span> Enter times in <span className="font-semibold">your local time</span>.
+                  {typeof Intl !== 'undefined' && (
+                    <>
+                      {' '}They&apos;ll be automatically converted to UTC.
+                      <br />
+                      Current local time: <span className="font-semibold">{new Date().toLocaleTimeString()} ({Intl.DateTimeFormat().resolvedOptions().timeZone})</span>
+                    </>
+                  )}
+                </div>
+              </div>
 
               {/* Bulk Time Setter */}
               <div className="mb-4 p-4 bg-gradient-to-r from-cyan-900/50 to-purple-900/50 rounded-xl border-2 border-cyan-400/50">
