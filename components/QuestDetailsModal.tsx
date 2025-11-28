@@ -93,7 +93,7 @@ export default function QuestDetailsModal({ quest, onClose, onQuestUpdated }: Qu
         2: 'Weekly',
         3: 'Daily',
       };
-      const frequency = freqMap[ruleObj.freq] || 'Custom';
+      const frequency = (ruleObj.freq !== undefined && freqMap[ruleObj.freq]) || 'Custom';
 
       // Get interval
       const interval = ruleObj.interval || 1;
