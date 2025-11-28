@@ -4,10 +4,10 @@ import { prisma } from '@/lib/prisma';
 // Delete a quest
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const questId = params.id;
+    const { id: questId } = await params;
 
     // Delete the quest (this will cascade delete notifications and defeats)
     await prisma.quest.delete({
