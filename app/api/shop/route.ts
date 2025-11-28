@@ -16,56 +16,53 @@ export async function GET() {
       return NextResponse.json({ error: 'Magical girl not found' }, { status: 404 });
     }
 
-    // Sync shop items with SHOP_STICKERS array
+    // Sync shop items with SHOP_STICKERS array (lightweight check first)
     // This ensures the database always matches the code, even when stickers are updated
     const existingItems = await prisma.shopItem.findMany();
     const existingIds = new Set(existingItems.map(item => item.id));
     const currentIds = new Set(SHOP_STICKERS.map(s => s.id));
 
-    // Delete items that no longer exist in SHOP_STICKERS
-    const itemsToDelete = existingItems.filter(item => !currentIds.has(item.id));
-    if (itemsToDelete.length > 0) {
-      await prisma.shopItem.deleteMany({
-        where: {
-          id: { in: itemsToDelete.map(item => item.id) }
-        }
-      });
-    }
+    // Only run sync if there are differences (items missing or extras in DB)
+    const needsSync = existingItems.length !== SHOP_STICKERS.length ||
+      SHOP_STICKERS.some(s => !existingIds.has(s.id)) ||
+      existingItems.some(item => !currentIds.has(item.id));
 
-    // Upsert all current stickers (insert new, update existing)
-    for (const sticker of SHOP_STICKERS) {
-      await prisma.shopItem.upsert({
-        where: { id: sticker.id },
-        update: {
-          emoji: sticker.emoji,
-          name: sticker.name,
-          category: sticker.category,
-          price: sticker.price,
-          currency: sticker.currency || 'gems',
-          isLimited: sticker.isLimited || false,
-          rarity: sticker.rarity,
-          isAchievement: sticker.isAchievement || false,
-          achievementType: sticker.achievementType || null,
-          achievementTarget: sticker.achievementTarget || null,
-          achievementGoal: sticker.achievementGoal || null,
-          achievementDesc: sticker.achievementDesc || null,
-        },
-        create: {
-          id: sticker.id,
-          emoji: sticker.emoji,
-          name: sticker.name,
-          category: sticker.category,
-          price: sticker.price,
-          currency: sticker.currency || 'gems',
-          isLimited: sticker.isLimited || false,
-          rarity: sticker.rarity,
-          isAchievement: sticker.isAchievement || false,
-          achievementType: sticker.achievementType || null,
-          achievementTarget: sticker.achievementTarget || null,
-          achievementGoal: sticker.achievementGoal || null,
-          achievementDesc: sticker.achievementDesc || null,
-        },
-      });
+    if (needsSync) {
+      console.log('Shop items need sync - updating database...');
+
+      // Delete items that no longer exist in SHOP_STICKERS
+      const itemsToDelete = existingItems.filter(item => !currentIds.has(item.id));
+      if (itemsToDelete.length > 0) {
+        await prisma.shopItem.deleteMany({
+          where: {
+            id: { in: itemsToDelete.map(item => item.id) }
+          }
+        });
+      }
+
+      // Find new items to insert
+      const newStickers = SHOP_STICKERS.filter(s => !existingIds.has(s.id));
+      if (newStickers.length > 0) {
+        await prisma.shopItem.createMany({
+          data: newStickers.map(s => ({
+            id: s.id,
+            emoji: s.emoji,
+            name: s.name,
+            category: s.category,
+            price: s.price,
+            currency: s.currency || 'gems',
+            isLimited: s.isLimited || false,
+            rarity: s.rarity,
+            isAchievement: s.isAchievement || false,
+            achievementType: s.achievementType || null,
+            achievementTarget: s.achievementTarget || null,
+            achievementGoal: s.achievementGoal || null,
+            achievementDesc: s.achievementDesc || null,
+          })),
+        });
+      }
+
+      console.log(`Shop sync complete: deleted ${itemsToDelete.length}, added ${newStickers.length}`);
     }
 
     // Check and auto-award unlocked achievements
