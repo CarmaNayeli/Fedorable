@@ -18,6 +18,13 @@ export interface ShopSticker {
 }
 
 export const SHOP_STICKERS: ShopSticker[] = [
+  // Starter/Free Category - For testing and new players
+  { id: 'starter_witch', emoji: '🧙‍♀️', name: 'Witch', category: 'starter', price: 0, rarity: 'common' },
+  { id: 'starter_wand', emoji: '✨', name: 'Magic Sparkles', category: 'starter', price: 0, rarity: 'common' },
+  { id: 'starter_star', emoji: '⭐', name: 'Star', category: 'starter', price: 0, rarity: 'common' },
+  { id: 'starter_heart', emoji: '💖', name: 'Heart', category: 'starter', price: 0, rarity: 'common' },
+  { id: 'starter_smile', emoji: '😊', name: 'Smile', category: 'starter', price: 0, rarity: 'common' },
+
   // Cute Category
   { id: 'sticker_cat', emoji: '🐱', name: 'Cute Cat', category: 'cute', price: 5, rarity: 'common' },
   { id: 'sticker_dog', emoji: '🐶', name: 'Happy Puppy', category: 'cute', price: 5, rarity: 'common' },
