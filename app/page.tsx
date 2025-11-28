@@ -6,6 +6,7 @@ import BattleSequence from '@/components/BattleSequence';
 import MonsterLab from '@/components/MonsterLab';
 import StoryReader from '@/components/StoryReader';
 import StealthMode from '@/components/StealthMode';
+import NotificationSettings from '@/components/NotificationSettings';
 import { getRandomDialogue } from '@/lib/gameData';
 
 export default function Home() {
@@ -104,6 +105,9 @@ export default function Home() {
             </div>
           </div>
         )}
+
+        {/* Notification Settings */}
+        <NotificationSettings />
 
         {/* Main Content */}
         <QuestBoard
