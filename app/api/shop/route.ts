@@ -16,25 +16,55 @@ export async function GET() {
       return NextResponse.json({ error: 'Magical girl not found' }, { status: 404 });
     }
 
-    // Seed shop items if they don't exist
+    // Sync shop items with SHOP_STICKERS array
+    // This ensures the database always matches the code, even when stickers are updated
     const existingItems = await prisma.shopItem.findMany();
-    if (existingItems.length === 0) {
-      await prisma.shopItem.createMany({
-        data: SHOP_STICKERS.map(s => ({
-          id: s.id,
-          emoji: s.emoji,
-          name: s.name,
-          category: s.category,
-          price: s.price,
-          currency: s.currency || 'gems',
-          isLimited: s.isLimited || false,
-          rarity: s.rarity,
-          isAchievement: s.isAchievement || false,
-          achievementType: s.achievementType || null,
-          achievementTarget: s.achievementTarget || null,
-          achievementGoal: s.achievementGoal || null,
-          achievementDesc: s.achievementDesc || null,
-        })),
+    const existingIds = new Set(existingItems.map(item => item.id));
+    const currentIds = new Set(SHOP_STICKERS.map(s => s.id));
+
+    // Delete items that no longer exist in SHOP_STICKERS
+    const itemsToDelete = existingItems.filter(item => !currentIds.has(item.id));
+    if (itemsToDelete.length > 0) {
+      await prisma.shopItem.deleteMany({
+        where: {
+          id: { in: itemsToDelete.map(item => item.id) }
+        }
+      });
+    }
+
+    // Upsert all current stickers (insert new, update existing)
+    for (const sticker of SHOP_STICKERS) {
+      await prisma.shopItem.upsert({
+        where: { id: sticker.id },
+        update: {
+          emoji: sticker.emoji,
+          name: sticker.name,
+          category: sticker.category,
+          price: sticker.price,
+          currency: sticker.currency || 'gems',
+          isLimited: sticker.isLimited || false,
+          rarity: sticker.rarity,
+          isAchievement: sticker.isAchievement || false,
+          achievementType: sticker.achievementType || null,
+          achievementTarget: sticker.achievementTarget || null,
+          achievementGoal: sticker.achievementGoal || null,
+          achievementDesc: sticker.achievementDesc || null,
+        },
+        create: {
+          id: sticker.id,
+          emoji: sticker.emoji,
+          name: sticker.name,
+          category: sticker.category,
+          price: sticker.price,
+          currency: sticker.currency || 'gems',
+          isLimited: sticker.isLimited || false,
+          rarity: sticker.rarity,
+          isAchievement: sticker.isAchievement || false,
+          achievementType: sticker.achievementType || null,
+          achievementTarget: sticker.achievementTarget || null,
+          achievementGoal: sticker.achievementGoal || null,
+          achievementDesc: sticker.achievementDesc || null,
+        },
       });
     }
 
