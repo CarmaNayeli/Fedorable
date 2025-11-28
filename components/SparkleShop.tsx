@@ -11,6 +11,18 @@ interface ShopItem {
   price: number;
   rarity: 'common' | 'rare' | 'epic' | 'legendary';
   isLimited?: boolean;
+  isAchievement?: boolean;
+  achievementType?: string;
+  achievementTarget?: string;
+  achievementGoal?: number;
+  achievementDesc?: string;
+}
+
+interface AchievementProgress {
+  isUnlocked: boolean;
+  current: number;
+  goal: number;
+  progressPercent: number;
 }
 
 interface SparkleShopProps {
@@ -25,10 +37,29 @@ export default function SparkleShop({ onClose }: SparkleShopProps) {
   const [loading, setLoading] = useState(true);
   const [purchasing, setPurchasing] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [achievementProgress, setAchievementProgress] = useState<Record<string, AchievementProgress>>({});
+  const [newlyUnlocked, setNewlyUnlocked] = useState<string[]>([]);
 
   useEffect(() => {
     fetchShop();
   }, []);
+
+  // Show notification for newly unlocked achievements
+  useEffect(() => {
+    if (newlyUnlocked.length > 0) {
+      const unlockedNames = newlyUnlocked
+        .map(id => {
+          const item = shopItems.find(s => s.id === id);
+          return item ? `${item.emoji} ${item.name}` : '';
+        })
+        .filter(Boolean)
+        .join(', ');
+
+      if (unlockedNames) {
+        alert(`🎉 Achievement Unlocked! 🎉\n\n${unlockedNames}\n\nCheck your Sticker Book!`);
+      }
+    }
+  }, [newlyUnlocked, shopItems]);
 
   const fetchShop = async () => {
     try {
@@ -39,6 +70,8 @@ export default function SparkleShop({ onClose }: SparkleShopProps) {
         setOwnedStickers(data.ownedStickers);
         setMagicGems(data.magicGems);
         setSparklePoints(data.sparklePoints);
+        setAchievementProgress(data.achievementProgress || {});
+        setNewlyUnlocked(data.newlyUnlocked || []);
       }
     } catch (error) {
       console.error('Failed to fetch shop:', error);
@@ -76,6 +109,12 @@ export default function SparkleShop({ onClose }: SparkleShopProps) {
   };
 
   const buySticker = async (item: ShopItem) => {
+    // Achievement stickers cannot be purchased
+    if (item.isAchievement) {
+      alert('This is an achievement sticker! Complete the challenge to unlock it.');
+      return;
+    }
+
     if (ownedStickers.includes(item.id)) {
       alert('You already own this sticker!');
       return;
@@ -198,23 +237,34 @@ export default function SparkleShop({ onClose }: SparkleShopProps) {
             {filteredItems.map(item => {
               const isOwned = ownedStickers.includes(item.id);
               const rarityStyle = RARITY_COLORS[item.rarity];
+              const isAchievement = item.isAchievement;
+              const progress = achievementProgress[item.id];
+              const isLocked = isAchievement && !isOwned;
 
               return (
                 <div
                   key={item.id}
                   className={`relative p-4 rounded-xl border-2 transition-all ${
                     isOwned
-                      ? 'bg-green-900/30 border-green-400 opacity-60'
+                      ? 'bg-green-900/30 border-green-400 opacity-80'
+                      : isLocked
+                      ? `bg-gradient-to-br ${rarityStyle.bg} ${rarityStyle.border} opacity-50`
                       : `bg-gradient-to-br ${rarityStyle.bg} ${rarityStyle.border} hover:scale-105 cursor-pointer`
                   }`}
-                  onClick={() => !isOwned && buySticker(item)}
+                  onClick={() => !isOwned && !isLocked && buySticker(item)}
+                  title={isAchievement ? item.achievementDesc : ''}
                 >
                   {isOwned && (
                     <div className="absolute top-2 right-2 bg-green-600 text-white text-xs px-2 py-1 rounded-full font-bold">
-                      OWNED ✓
+                      {isAchievement ? 'EARNED ✓' : 'OWNED ✓'}
                     </div>
                   )}
-                  <div className="text-6xl mb-2 text-center bg-white rounded-lg p-2">
+                  {isLocked && (
+                    <div className="absolute top-2 right-2 bg-gray-700 text-white text-xs px-2 py-1 rounded-full font-bold">
+                      🔒 LOCKED
+                    </div>
+                  )}
+                  <div className={`text-6xl mb-2 text-center bg-white rounded-lg p-2 ${isLocked ? 'filter grayscale' : ''}`}>
                     {item.emoji}
                   </div>
                   <div className="text-center">
@@ -222,10 +272,32 @@ export default function SparkleShop({ onClose }: SparkleShopProps) {
                     <div className={`text-xs ${rarityStyle.text} mb-2`}>
                       {item.rarity.toUpperCase()}
                       {item.isLimited && ' • LIMITED'}
+                      {isAchievement && ' • ACHIEVEMENT'}
                     </div>
-                    <div className="text-purple-300 font-bold">
-                      {item.price} 🔮
-                    </div>
+                    {isAchievement ? (
+                      <>
+                        {isLocked && progress && (
+                          <div className="mt-2">
+                            <div className="text-xs text-gray-300 mb-1">
+                              Progress: {progress.current}/{progress.goal}
+                            </div>
+                            <div className="w-full bg-gray-700 rounded-full h-2">
+                              <div
+                                className="bg-gradient-to-r from-yellow-500 to-orange-500 h-2 rounded-full transition-all"
+                                style={{ width: `${progress.progressPercent}%` }}
+                              />
+                            </div>
+                          </div>
+                        )}
+                        <div className="text-xs text-gray-300 mt-2 italic">
+                          {item.achievementDesc}
+                        </div>
+                      </>
+                    ) : (
+                      <div className="text-purple-300 font-bold">
+                        {item.price} 🔮
+                      </div>
+                    )}
                   </div>
                 </div>
               );

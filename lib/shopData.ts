@@ -1,13 +1,19 @@
-// Sparkle Shop - Stickers available for purchase
+// Sparkle Shop - Stickers available for purchase or earned through achievements
 
 export interface ShopSticker {
   id: string;
   emoji: string;
   name: string;
   category: string;
-  price: number; // Cost in magic gems
+  price: number; // Cost in magic gems (0 for achievements)
   rarity: 'common' | 'rare' | 'epic' | 'legendary';
   isLimited?: boolean;
+  // Achievement fields
+  isAchievement?: boolean;
+  achievementType?: string;
+  achievementTarget?: string; // Quest/monster name or ID
+  achievementGoal?: number;
+  achievementDesc?: string;
 }
 
 export const SHOP_STICKERS: ShopSticker[] = [
@@ -52,6 +58,95 @@ export const SHOP_STICKERS: ShopSticker[] = [
   { id: 'sticker_magic_wand', emoji: '🪄', name: 'Magic Wand', category: 'magical', price: 15, rarity: 'epic' },
   { id: 'sticker_dragon', emoji: '🐉', name: 'Dragon', category: 'magical', price: 20, rarity: 'legendary' },
   { id: 'sticker_phoenix', emoji: '🔥🦅', name: 'Phoenix', category: 'magical', price: 25, rarity: 'legendary', isLimited: true },
+
+  // Achievement Stickers - Earned by completing challenges
+  {
+    id: 'achievement_dishwasher_master',
+    emoji: '🍽️',
+    name: 'Dishwasher Master',
+    category: 'achievement',
+    price: 0,
+    rarity: 'epic',
+    isAchievement: true,
+    achievementType: 'quest_streak',
+    achievementTarget: 'Kitchen Chaos Spirit', // Monster name
+    achievementGoal: 7,
+    achievementDesc: 'Defeat the Kitchen Chaos Spirit every day for 7 days straight'
+  },
+  {
+    id: 'achievement_clean_sweep',
+    emoji: '🧹',
+    name: 'Clean Sweep Champion',
+    category: 'achievement',
+    price: 0,
+    rarity: 'rare',
+    isAchievement: true,
+    achievementType: 'quest_streak',
+    achievementTarget: 'Sweep & Mop Monster',
+    achievementGoal: 4,
+    achievementDesc: 'Complete Sweep & Mop Monster 4 times'
+  },
+  {
+    id: 'achievement_bathroom_hero',
+    emoji: '🛁',
+    name: 'Bathroom Hero',
+    category: 'achievement',
+    price: 0,
+    rarity: 'epic',
+    isAchievement: true,
+    achievementType: 'quest_streak',
+    achievementTarget: 'Bathroom Banshee',
+    achievementGoal: 5,
+    achievementDesc: 'Defeat any Bathroom Banshee 5 times'
+  },
+  {
+    id: 'achievement_streak_warrior',
+    emoji: '🔥',
+    name: 'Streak Warrior',
+    category: 'achievement',
+    price: 0,
+    rarity: 'legendary',
+    isAchievement: true,
+    achievementType: 'total_streak',
+    achievementGoal: 30,
+    achievementDesc: 'Maintain a 30-day streak'
+  },
+  {
+    id: 'achievement_monster_slayer',
+    emoji: '⚔️',
+    name: 'Monster Slayer',
+    category: 'achievement',
+    price: 0,
+    rarity: 'epic',
+    isAchievement: true,
+    achievementType: 'total_defeats',
+    achievementGoal: 100,
+    achievementDesc: 'Defeat 100 monsters total'
+  },
+  {
+    id: 'achievement_perfect_week',
+    emoji: '🌟',
+    name: 'Perfect Week',
+    category: 'achievement',
+    price: 0,
+    rarity: 'rare',
+    isAchievement: true,
+    achievementType: 'perfect_week',
+    achievementGoal: 1,
+    achievementDesc: 'Complete all quests every day for a full week'
+  },
+  {
+    id: 'achievement_gem_collector',
+    emoji: '💠',
+    name: 'Gem Collector',
+    category: 'achievement',
+    price: 0,
+    rarity: 'epic',
+    isAchievement: true,
+    achievementType: 'total_gems_earned',
+    achievementGoal: 50,
+    achievementDesc: 'Earn 50 magic gems total'
+  },
 ];
 
 export const SHIELD_PRICE = 50; // Sparkle points to buy one shield
