@@ -43,6 +43,7 @@ export default function TimingModal({ template, onConfirm, onCancel }: TimingMod
     sat: '08:00',
     sun: null,
   });
+  const [bulkTime, setBulkTime] = React.useState<string>('08:00');
 
   const toggleDay = (dayValue: number) => {
     setSelectedDays(prev =>
@@ -56,6 +57,24 @@ export default function TimingModal({ template, onConfirm, onCancel }: TimingMod
     setNotificationTimes(prev => ({
       ...prev,
       [dayKey]: time,
+    }));
+  };
+
+  const applyBulkTime = () => {
+    const updates: Record<string, string | null> = {};
+
+    WEEKDAYS.forEach(day => {
+      const isDaySelected = timingOption === 'daily' ||
+        (timingOption === 'weekly' && selectedDays.includes(day.value.weekday));
+
+      if (isDaySelected) {
+        updates[day.key] = bulkTime;
+      }
+    });
+
+    setNotificationTimes(prev => ({
+      ...prev,
+      ...updates,
     }));
   };
 
@@ -180,6 +199,28 @@ export default function TimingModal({ template, onConfirm, onCancel }: TimingMod
               <h3 className="text-lg font-semibold text-white mb-3">
                 Reminder Times ⏰
               </h3>
+
+              {/* Bulk Time Setter */}
+              <div className="mb-4 p-4 bg-gradient-to-r from-cyan-900/50 to-purple-900/50 rounded-xl border-2 border-cyan-400/50">
+                <div className="text-sm font-semibold text-cyan-200 mb-2">
+                  Set time for all days at once:
+                </div>
+                <div className="flex gap-3">
+                  <input
+                    type="time"
+                    value={bulkTime}
+                    onChange={(e) => setBulkTime(e.target.value)}
+                    className="flex-1 px-3 py-2 bg-black/50 border border-cyan-400/50 rounded-lg text-white text-sm focus:outline-none focus:border-cyan-300"
+                  />
+                  <button
+                    onClick={applyBulkTime}
+                    className="px-4 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white rounded-lg font-semibold text-sm transition-all shadow-lg"
+                  >
+                    Apply to All
+                  </button>
+                </div>
+              </div>
+
               <div className="space-y-2">
                 {WEEKDAYS.map(day => {
                   const isDaySelected = timingOption === 'daily' ||
