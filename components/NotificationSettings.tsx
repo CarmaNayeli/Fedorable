@@ -21,6 +21,9 @@ export default function NotificationSettings() {
   }, []);
 
   const checkSubscriptionStatus = async () => {
+    if (typeof window === 'undefined' || typeof navigator === 'undefined') {
+      return;
+    }
     if ('serviceWorker' in navigator && 'PushManager' in window) {
       try {
         const registration = await navigator.serviceWorker.ready;
@@ -33,6 +36,10 @@ export default function NotificationSettings() {
   };
 
   const handleEnableNotifications = async () => {
+    if (typeof window === 'undefined' || typeof navigator === 'undefined') {
+      return;
+    }
+
     setIsLoading(true);
     setError(null);
 
@@ -43,7 +50,7 @@ export default function NotificationSettings() {
     } catch (error: any) {
       console.error('Failed to enable notifications:', error);
       setError(error.message || 'Failed to enable notifications');
-      if (Notification.permission === 'denied') {
+      if (typeof Notification !== 'undefined' && Notification.permission === 'denied') {
         setError('Notifications are blocked. Please enable them in your browser settings.');
       }
     } finally {
@@ -52,6 +59,10 @@ export default function NotificationSettings() {
   };
 
   const handleDisableNotifications = async () => {
+    if (typeof window === 'undefined' || typeof navigator === 'undefined') {
+      return;
+    }
+
     setIsLoading(true);
     setError(null);
 
@@ -82,8 +93,13 @@ export default function NotificationSettings() {
     }
   };
 
-  // Don't render during SSR or if notifications are not supported
-  if (!isMounted || (typeof window !== 'undefined' && !('Notification' in window))) {
+  // Don't render during SSR
+  if (!isMounted) {
+    return null;
+  }
+
+  // Don't show if notifications are not supported (client-side only)
+  if (typeof window === 'undefined' || !('Notification' in window)) {
     return null;
   }
 

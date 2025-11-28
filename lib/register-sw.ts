@@ -4,6 +4,11 @@ import { useEffect } from 'react';
 
 export function useServiceWorker() {
   useEffect(() => {
+    // Guard against SSR
+    if (typeof window === 'undefined' || typeof navigator === 'undefined') {
+      return;
+    }
+
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker
         .register('/sw.js')
@@ -18,6 +23,11 @@ export function useServiceWorker() {
 }
 
 export async function subscribeToPushNotifications() {
+  // Guard against SSR
+  if (typeof window === 'undefined' || typeof navigator === 'undefined') {
+    throw new Error('This function can only be called in the browser');
+  }
+
   if ('serviceWorker' in navigator && 'PushManager' in window) {
     try {
       const registration = await navigator.serviceWorker.ready;
