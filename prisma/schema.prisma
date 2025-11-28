@@ -1,0 +1,114 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String              @id @default(cuid())
+  name              String?
+  email             String?             @unique
+  level             Int                 @default(1)
+  experiencePoints  Int                 @default(0)
+  currentStreak     Int                 @default(0)
+  longestStreak     Int                 @default(0)
+  lastCompletionDate DateTime?
+
+  // Schedule preferences
+  daysOff           String              @default("[]") // JSON array of day numbers [0-6] or specific dates
+  priorityMode      String              @default("normal") // "light", "normal", "heavy"
+
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+  chores            Chore[]
+  completions       ChoreCompletion[]
+  subscriptions     PushSubscription[]
+}
+
+model Chore {
+  id                String              @id @default(cuid())
+  title             String
+  description       String?
+  timeEstimateMinutes Int?               // Time in minutes
+  difficultyScale   Int?                @default(3) // 1-5 scale
+  color             String?             @default("#3b82f6")
+  priority          Int                 @default(2) // 1 (low) to 3 (high)
+
+  // Recurrence settings (using RRule format)
+  isRecurring       Boolean             @default(false)
+  recurrenceRule    String?             // Store RRule string
+
+  // Gamification
+  experienceReward  Int                 @default(10)
+
+  // Status
+  isActive          Boolean             @default(true)
+
+  userId            String
+  user              User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  completions       ChoreCompletion[]
+  notifications     Notification[]
+  skips             ChoreSkip[]
+
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+}
+
+model ChoreCompletion {
+  id                String              @id @default(cuid())
+  completedAt       DateTime            @default(now())
+  scheduledFor      DateTime?           // When it was supposed to be done
+  experienceEarned  Int                 @default(0)
+
+  choreId           String
+  chore             Chore               @relation(fields: [choreId], references: [id], onDelete: Cascade)
+
+  userId            String
+  user              User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Notification {
+  id                String              @id @default(cuid())
+  scheduledFor      DateTime
+  sent              Boolean             @default(false)
+  snoozedUntil      DateTime?
+  snoozeCount       Int                 @default(0)
+
+  choreId           String
+  chore             Chore               @relation(fields: [choreId], references: [id], onDelete: Cascade)
+
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+}
+
+model ChoreSkip {
+  id                String              @id @default(cuid())
+  skippedAt         DateTime            @default(now())
+  scheduledFor      DateTime?
+  reason            String?
+
+  choreId           String
+  chore             Chore               @relation(fields: [choreId], references: [id], onDelete: Cascade)
+
+  createdAt         DateTime            @default(now())
+}
+
+model PushSubscription {
+  id                String              @id @default(cuid())
+  endpoint          String              @unique
+  p256dh            String
+  auth              String
+
+  userId            String
+  user              User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt         DateTime            @default(now())
+}
