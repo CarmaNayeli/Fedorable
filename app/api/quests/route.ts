@@ -21,7 +21,22 @@ export async function GET() {
       ],
     });
 
-    return NextResponse.json(quests);
+    // Filter out recurring quests that were completed today
+    const now = new Date();
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+    const availableQuests = quests.filter(quest => {
+      // If quest isn't recurring or hasn't been completed yet, include it
+      if (!quest.isRecurring || !quest.lastCompletedAt) {
+        return true;
+      }
+
+      // For recurring quests, only show if last completed before today
+      const lastCompleted = new Date(quest.lastCompletedAt);
+      return lastCompleted < todayStart;
+    });
+
+    return NextResponse.json(availableQuests);
   } catch (error) {
     console.error('Failed to fetch quests:', error);
     return NextResponse.json({ error: 'Failed to fetch quests' }, { status: 500 });

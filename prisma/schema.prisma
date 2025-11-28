@@ -100,6 +100,7 @@ model Quest {
   isActive          Boolean             @default(true)
   completed         Boolean             @default(false)
   deadline          DateTime?
+  lastCompletedAt   DateTime?           // Track when quest was last completed (for recurring quests)
 
   // Custom monster creation
   isCustom          Boolean             @default(false)

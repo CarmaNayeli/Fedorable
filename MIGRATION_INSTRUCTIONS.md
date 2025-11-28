@@ -1,7 +1,10 @@
 # Database Migration Instructions
 
-## Issue
-The timing modal feature added a new `notificationPreferences` field to the Quest table, but your database doesn't have this column yet. This causes the "Failed to create monster" error.
+## Required Migrations
+
+There are two new fields that need to be added to your Quest table:
+1. `notificationPreferences` - Stores custom notification times for each day
+2. `lastCompletedAt` - Tracks when recurring quests were last completed
 
 ## Solution
 
