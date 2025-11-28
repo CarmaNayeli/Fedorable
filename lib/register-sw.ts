@@ -4,6 +4,11 @@ import { useEffect } from 'react';
 
 export function useServiceWorker() {
   useEffect(() => {
+    // Guard against SSR
+    if (typeof window === 'undefined' || typeof navigator === 'undefined') {
+      return;
+    }
+
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker
         .register('/sw.js')
@@ -18,6 +23,11 @@ export function useServiceWorker() {
 }
 
 export async function subscribeToPushNotifications() {
+  // Guard against SSR
+  if (typeof window === 'undefined' || typeof navigator === 'undefined') {
+    throw new Error('This function can only be called in the browser');
+  }
+
   if ('serviceWorker' in navigator && 'PushManager' in window) {
     try {
       const registration = await navigator.serviceWorker.ready;
@@ -53,6 +63,10 @@ export async function subscribeToPushNotifications() {
 }
 
 function urlBase64ToUint8Array(base64String: string) {
+  if (typeof window === 'undefined') {
+    throw new Error('This function can only be called in the browser');
+  }
+
   const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
   const base64 = (base64String + padding)
     .replace(/-/g, '+')

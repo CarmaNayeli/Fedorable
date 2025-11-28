@@ -1,12 +1,19 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import QuestBoard from '@/components/QuestBoard';
 import BattleSequence from '@/components/BattleSequence';
 import MonsterLab from '@/components/MonsterLab';
 import StoryReader from '@/components/StoryReader';
 import StealthMode from '@/components/StealthMode';
 import { getRandomDialogue } from '@/lib/gameData';
+
+// Import NotificationSettings only on client-side to avoid SSR issues
+const NotificationSettings = dynamic(
+  () => import('@/components/NotificationSettings'),
+  { ssr: false }
+);
 
 export default function Home() {
   const [showMonsterLab, setShowMonsterLab] = useState(false);
@@ -104,6 +111,9 @@ export default function Home() {
             </div>
           </div>
         )}
+
+        {/* Notification Settings */}
+        <NotificationSettings />
 
         {/* Main Content */}
         <QuestBoard
