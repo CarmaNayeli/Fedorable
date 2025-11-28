@@ -102,9 +102,11 @@ export default function QuestDetailsModal({ quest, onClose, onQuestUpdated }: Qu
       // Get days of week for weekly recurrence
       if (ruleObj.freq === 2 && ruleObj.byweekday) { // Weekly
         const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-        const days = ruleObj.byweekday.map((day: number) => {
+        const byweekdayArray = Array.isArray(ruleObj.byweekday) ? ruleObj.byweekday : [ruleObj.byweekday];
+        const days = byweekdayArray.map((day: any) => {
           // RRule uses 0=Monday, convert to day names
-          return dayNames[day];
+          const weekdayNum = typeof day === 'number' ? day : day.weekday;
+          return dayNames[weekdayNum];
         });
         return `${intervalText}${frequency} on ${days.join(', ')}`;
       }
@@ -254,6 +256,7 @@ export default function QuestDetailsModal({ quest, onClose, onQuestUpdated }: Qu
           template={fakeTemplate}
           onConfirm={handleTimingUpdate}
           onCancel={() => setShowTimingModal(false)}
+          initialNotificationPreferences={quest.notificationPreferences}
         />
       )}
     </div>

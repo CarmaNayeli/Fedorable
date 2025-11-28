@@ -8,6 +8,7 @@ interface TimingModalProps {
   template: MonsterTemplate;
   onConfirm: (recurrenceRule: string | null, notificationPreferences: Record<string, string | null>) => void;
   onCancel: () => void;
+  initialNotificationPreferences?: Record<string, string | null> | null;
 }
 
 type TimingOption = 'daily' | 'weekly' | 'onetime';
@@ -22,7 +23,42 @@ const WEEKDAYS = [
   { label: 'Sun', value: RRule.SU, key: 'sun' },
 ];
 
-export default function TimingModal({ template, onConfirm, onCancel }: TimingModalProps) {
+// Convert UTC time to local time for editing
+const convertUTCToLocal = (utcTime: string | null): string | null => {
+  if (!utcTime) return null;
+  try {
+    const [hours, minutes] = utcTime.split(':').map(Number);
+    const utcDate = new Date();
+    utcDate.setUTCHours(hours, minutes, 0, 0);
+    const localHours = utcDate.getHours().toString().padStart(2, '0');
+    const localMinutes = utcDate.getMinutes().toString().padStart(2, '0');
+    return `${localHours}:${localMinutes}`;
+  } catch {
+    return utcTime;
+  }
+};
+
+export default function TimingModal({ template, onConfirm, onCancel, initialNotificationPreferences }: TimingModalProps) {
+  // Convert initial preferences from UTC to local time
+  const getInitialTimes = () => {
+    if (initialNotificationPreferences) {
+      const converted: Record<string, string | null> = {};
+      Object.entries(initialNotificationPreferences).forEach(([key, value]) => {
+        converted[key] = convertUTCToLocal(value);
+      });
+      return converted;
+    }
+    return {
+      mon: '08:00',
+      tue: '08:00',
+      wed: '08:00',
+      thu: '08:00',
+      fri: '08:00',
+      sat: '08:00',
+      sun: null,
+    };
+  };
+
   const [timingOption, setTimingOption] = React.useState<TimingOption>('daily');
   const [selectedDays, setSelectedDays] = React.useState<number[]>([
     RRule.MO.weekday,
@@ -34,15 +70,7 @@ export default function TimingModal({ template, onConfirm, onCancel }: TimingMod
   ]); // All days except Sunday by default
 
   // Notification times for each day (null means no notification)
-  const [notificationTimes, setNotificationTimes] = React.useState<Record<string, string | null>>({
-    mon: '08:00',
-    tue: '08:00',
-    wed: '08:00',
-    thu: '08:00',
-    fri: '08:00',
-    sat: '08:00',
-    sun: null,
-  });
+  const [notificationTimes, setNotificationTimes] = React.useState<Record<string, string | null>>(getInitialTimes());
   const [bulkTime, setBulkTime] = React.useState<string>('08:00');
 
   const toggleDay = (dayValue: number) => {
