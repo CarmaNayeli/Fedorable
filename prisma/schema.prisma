@@ -1,5 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// Rhia-minder: Magical Girl Chore Adventure
+// Database Schema
 
 generator client {
   provider = "prisma-client-js"
@@ -10,71 +10,179 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+// Rhia - The Magical Girl
+model MagicalGirl {
   id                String              @id @default(cuid())
-  name              String?
-  email             String?             @unique
+  name              String              @default("Rhia")
+
+  // Progression
   level             Int                 @default(1)
-  experiencePoints  Int                 @default(0)
+  xp                Int                 @default(0)
+  sparklePoints     Int                 @default(0)
+  magicGems         Int                 @default(0)
+
+  // Rank & Title
+  rank              Int                 @default(1) // 1-5 star rank
+  title             String              @default("Magical Girl")
+  prestigeLevel     Int                 @default(0)
+
+  // Streaks
   currentStreak     Int                 @default(0)
   longestStreak     Int                 @default(0)
-  lastCompletionDate DateTime?
+  lastActivityDate  DateTime?
 
-  // Schedule preferences
-  daysOff           String              @default("[]") // JSON array of day numbers [0-6] or specific dates
-  priorityMode      String              @default("normal") // "light", "normal", "heavy"
+  // Story Progress
+  currentChapter    Int                 @default(0)
+  mainStoryComplete Boolean             @default(false)
+
+  // Stats
+  totalMonstersDefeated Int             @default(0)
 
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
 
-  chores            Chore[]
-  completions       ChoreCompletion[]
+  // Relations
+  quests            Quest[]
+  defeats           MonsterDefeat[]
+  realms            Realm[]
+  collections       Collection[]
+  storyProgress     StoryChapter[]
   subscriptions     PushSubscription[]
 }
 
-model Chore {
+// Realms (areas of the home)
+model Realm {
   id                String              @id @default(cuid())
-  title             String
+  name              String              // "kitchen", "bedroom", "bathroom", "livingRoom"
+  displayName       String              // "Kitchen", "Bedroom", etc.
+  emoji             String              @default("🏠")
+  purity            Int                 @default(50) // 0-100%
+  lastCleaned       DateTime?
+
+  magicalGirlId     String
+  magicalGirl       MagicalGirl         @relation(fields: [magicalGirlId], references: [id], onDelete: Cascade)
+
+  quests            Quest[]
+
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+  @@unique([magicalGirlId, name])
+}
+
+// Quests (chores reimagined as battles)
+model Quest {
+  id                String              @id @default(cuid())
+
+  // Monster Info
+  monsterName       String              // "Dish Monster", "Laundry Mountain Titan"
+  monsterEmoji      String              @default("💀")
   description       String?
-  timeEstimateMinutes Int?               // Time in minutes
-  difficultyScale   Int?                @default(3) // 1-5 scale
-  color             String?             @default("#3b82f6")
-  priority          Int                 @default(2) // 1 (low) to 3 (high)
 
-  // Recurrence settings (using RRule format)
+  // Quest Type
+  questType         String              @default("daily") // "daily", "weekly", "boss", "side", "onetime"
+  realm             String?             // Which realm this belongs to
+
+  // Difficulty (threat level)
+  threatLevel       Int                 @default(2) // 1-5 stars
+
+  // Rewards
+  sparklePoints     Int                 @default(20)
+  magicGems         Int                 @default(0)
+  xpReward          Int                 @default(10)
+
+  // Recurrence
   isRecurring       Boolean             @default(false)
-  recurrenceRule    String?             // Store RRule string
-
-  // Gamification
-  experienceReward  Int                 @default(10)
+  recurrenceRule    String?             // RRule format
 
   // Status
   isActive          Boolean             @default(true)
+  completed         Boolean             @default(false)
+  deadline          DateTime?
 
-  userId            String
-  user              User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  // Custom monster creation
+  isCustom          Boolean             @default(false)
+  createdByPlayer   Boolean             @default(false)
 
-  completions       ChoreCompletion[]
+  magicalGirlId     String
+  magicalGirl       MagicalGirl         @relation(fields: [magicalGirlId], references: [id], onDelete: Cascade)
+
+  realmRef          Realm?              @relation(fields: [realm], references: [name], onDelete: SetNull)
+
+  defeats           MonsterDefeat[]
   notifications     Notification[]
-  skips             ChoreSkip[]
 
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
 }
 
-model ChoreCompletion {
+// Monster Defeats (quest completions)
+model MonsterDefeat {
   id                String              @id @default(cuid())
-  completedAt       DateTime            @default(now())
-  scheduledFor      DateTime?           // When it was supposed to be done
-  experienceEarned  Int                 @default(0)
+  defeatedAt        DateTime            @default(now())
 
-  choreId           String
-  chore             Chore               @relation(fields: [choreId], references: [id], onDelete: Cascade)
+  sparklePointsEarned Int               @default(0)
+  magicGemsEarned   Int                 @default(0)
+  xpEarned          Int                 @default(0)
 
-  userId            String
-  user              User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  // Battle flavor
+  wasCriticalHit    Boolean             @default(false)
+  battleText        String?
+
+  questId           String
+  quest             Quest               @relation(fields: [questId], references: [id], onDelete: Cascade)
+
+  magicalGirlId     String
+  magicalGirl       MagicalGirl         @relation(fields: [magicalGirlId], references: [id], onDelete: Cascade)
+
+  createdAt         DateTime            @default(now())
 }
 
+// Story Chapters
+model StoryChapter {
+  id                String              @id @default(cuid())
+  chapterNumber     Int
+  title             String
+  content           String              // The story text
+  unlocked          Boolean             @default(false)
+  read              Boolean             @default(false)
+
+  magicalGirlId     String
+  magicalGirl       MagicalGirl         @relation(fields: [magicalGirlId], references: [id], onDelete: Cascade)
+
+  unlockedAt        DateTime?
+  readAt            DateTime?
+  createdAt         DateTime            @default(now())
+
+  @@unique([magicalGirlId, chapterNumber])
+}
+
+// Collections (bestiary, transformations, achievements)
+model Collection {
+  id                String              @id @default(cuid())
+  collectionType    String              // "bestiary", "transformation", "achievement", "spell"
+  itemId            String              // Unique identifier for the item
+  itemName          String
+  itemDescription   String?
+  itemEmoji         String?
+
+  unlocked          Boolean             @default(false)
+  unlockedAt        DateTime?
+
+  // Stats for bestiary entries
+  timesEncountered  Int                 @default(0)
+  timesDefeated     Int                 @default(0)
+
+  magicalGirlId     String
+  magicalGirl       MagicalGirl         @relation(fields: [magicalGirlId], references: [id], onDelete: Cascade)
+
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+  @@unique([magicalGirlId, collectionType, itemId])
+}
+
+// Notifications (same as before but renamed for clarity)
 model Notification {
   id                String              @id @default(cuid())
   scheduledFor      DateTime
@@ -82,33 +190,22 @@ model Notification {
   snoozedUntil      DateTime?
   snoozeCount       Int                 @default(0)
 
-  choreId           String
-  chore             Chore               @relation(fields: [choreId], references: [id], onDelete: Cascade)
+  questId           String
+  quest             Quest               @relation(fields: [questId], references: [id], onDelete: Cascade)
 
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
 }
 
-model ChoreSkip {
-  id                String              @id @default(cuid())
-  skippedAt         DateTime            @default(now())
-  scheduledFor      DateTime?
-  reason            String?
-
-  choreId           String
-  chore             Chore               @relation(fields: [choreId], references: [id], onDelete: Cascade)
-
-  createdAt         DateTime            @default(now())
-}
-
+// Push Subscriptions (unchanged)
 model PushSubscription {
   id                String              @id @default(cuid())
   endpoint          String              @unique
   p256dh            String
   auth              String
 
-  userId            String
-  user              User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  magicalGirlId     String
+  magicalGirl       MagicalGirl         @relation(fields: [magicalGirlId], references: [id], onDelete: Cascade)
 
   createdAt         DateTime            @default(now())
 }
