@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { subscribeToPushNotifications } from '@/lib/register-sw';
 
 export default function NotificationSettings() {
+  const [isMounted, setIsMounted] = useState(false);
   const [permission, setPermission] = useState<NotificationPermission>('default');
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -11,8 +12,9 @@ export default function NotificationSettings() {
   const [showSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     // Check if notifications are supported
-    if ('Notification' in window) {
+    if (typeof window !== 'undefined' && 'Notification' in window) {
       setPermission(Notification.permission);
       checkSubscriptionStatus();
     }
@@ -80,8 +82,8 @@ export default function NotificationSettings() {
     }
   };
 
-  // Don't show if notifications are not supported
-  if (!('Notification' in window)) {
+  // Don't render during SSR or if notifications are not supported
+  if (!isMounted || (typeof window !== 'undefined' && !('Notification' in window))) {
     return null;
   }
 

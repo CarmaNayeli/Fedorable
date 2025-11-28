@@ -53,6 +53,10 @@ export async function subscribeToPushNotifications() {
 }
 
 function urlBase64ToUint8Array(base64String: string) {
+  if (typeof window === 'undefined') {
+    throw new Error('This function can only be called in the browser');
+  }
+
   const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
   const base64 = (base64String + padding)
     .replace(/-/g, '+')
