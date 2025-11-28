@@ -6,20 +6,20 @@ import { RRule } from 'rrule';
 
 interface TimingModalProps {
   template: MonsterTemplate;
-  onConfirm: (recurrenceRule: string | null) => void;
+  onConfirm: (recurrenceRule: string | null, notificationPreferences: Record<string, string | null>) => void;
   onCancel: () => void;
 }
 
 type TimingOption = 'daily' | 'weekly' | 'onetime';
 
 const WEEKDAYS = [
-  { label: 'Mon', value: RRule.MO },
-  { label: 'Tue', value: RRule.TU },
-  { label: 'Wed', value: RRule.WE },
-  { label: 'Thu', value: RRule.TH },
-  { label: 'Fri', value: RRule.FR },
-  { label: 'Sat', value: RRule.SA },
-  { label: 'Sun', value: RRule.SU },
+  { label: 'Mon', value: RRule.MO, key: 'mon' },
+  { label: 'Tue', value: RRule.TU, key: 'tue' },
+  { label: 'Wed', value: RRule.WE, key: 'wed' },
+  { label: 'Thu', value: RRule.TH, key: 'thu' },
+  { label: 'Fri', value: RRule.FR, key: 'fri' },
+  { label: 'Sat', value: RRule.SA, key: 'sat' },
+  { label: 'Sun', value: RRule.SU, key: 'sun' },
 ];
 
 export default function TimingModal({ template, onConfirm, onCancel }: TimingModalProps) {
@@ -33,12 +33,30 @@ export default function TimingModal({ template, onConfirm, onCancel }: TimingMod
     RRule.SA.weekday,
   ]); // All days except Sunday by default
 
+  // Notification times for each day (null means no notification)
+  const [notificationTimes, setNotificationTimes] = React.useState<Record<string, string | null>>({
+    mon: '08:00',
+    tue: '08:00',
+    wed: '08:00',
+    thu: '08:00',
+    fri: '08:00',
+    sat: '08:00',
+    sun: null,
+  });
+
   const toggleDay = (dayValue: number) => {
     setSelectedDays(prev =>
       prev.includes(dayValue)
         ? prev.filter(d => d !== dayValue)
         : [...prev, dayValue].sort()
     );
+  };
+
+  const updateNotificationTime = (dayKey: string, time: string | null) => {
+    setNotificationTimes(prev => ({
+      ...prev,
+      [dayKey]: time,
+    }));
   };
 
   const handleConfirm = () => {
@@ -63,14 +81,14 @@ export default function TimingModal({ template, onConfirm, onCancel }: TimingMod
     }
     // onetime means recurrenceRule stays null
 
-    onConfirm(recurrenceRule);
+    onConfirm(recurrenceRule, notificationTimes);
   };
 
   const isConfirmDisabled = timingOption === 'weekly' && selectedDays.length === 0;
 
   return (
-    <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 z-50">
-      <div className="bg-gradient-to-br from-purple-900 to-pink-900 rounded-2xl max-w-md w-full border-4 border-pink-400 shadow-2xl">
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 z-50 overflow-y-auto">
+      <div className="bg-gradient-to-br from-purple-900 to-pink-900 rounded-2xl max-w-md w-full border-4 border-pink-400 shadow-2xl my-8">
         {/* Header */}
         <div className="p-6 border-b-2 border-pink-400/50">
           <div className="flex items-center gap-3 mb-2">
@@ -83,7 +101,7 @@ export default function TimingModal({ template, onConfirm, onCancel }: TimingMod
         </div>
 
         {/* Content */}
-        <div className="p-6 space-y-4">
+        <div className="p-6 space-y-4 max-h-[60vh] overflow-y-auto">
           <h3 className="text-lg font-semibold text-white mb-3">
             When should this quest appear? 📅
           </h3>
@@ -155,6 +173,58 @@ export default function TimingModal({ template, onConfirm, onCancel }: TimingMod
               <div className="text-sm text-pink-200">Just this once</div>
             </button>
           </div>
+
+          {/* Notification Times */}
+          {timingOption !== 'onetime' && (
+            <div className="mt-6 pt-6 border-t-2 border-pink-400/30">
+              <h3 className="text-lg font-semibold text-white mb-3">
+                Reminder Times ⏰
+              </h3>
+              <div className="space-y-2">
+                {WEEKDAYS.map(day => {
+                  const isDaySelected = timingOption === 'daily' ||
+                    (timingOption === 'weekly' && selectedDays.includes(day.value.weekday));
+
+                  return (
+                    <div
+                      key={day.key}
+                      className={`flex items-center gap-3 p-3 rounded-lg transition-all ${
+                        isDaySelected
+                          ? 'bg-black/30 border border-cyan-400/50'
+                          : 'bg-black/10 opacity-50'
+                      }`}
+                    >
+                      <div className="w-12 text-sm font-semibold text-white">
+                        {day.label}
+                      </div>
+                      <input
+                        type="time"
+                        value={notificationTimes[day.key] || ''}
+                        onChange={(e) => updateNotificationTime(day.key, e.target.value || null)}
+                        disabled={!isDaySelected}
+                        className="flex-1 px-3 py-2 bg-black/50 border border-pink-400/50 rounded-lg text-white text-sm focus:outline-none focus:border-pink-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                      />
+                      <button
+                        onClick={() => updateNotificationTime(day.key, null)}
+                        disabled={!isDaySelected}
+                        className={`px-3 py-2 rounded-lg text-xs font-semibold transition-all ${
+                          isDaySelected && notificationTimes[day.key]
+                            ? 'bg-red-600/80 hover:bg-red-600 text-white'
+                            : 'bg-gray-700 text-gray-500 cursor-not-allowed'
+                        }`}
+                        title="No reminder"
+                      >
+                        🔕
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+              <p className="text-xs text-pink-200 mt-3">
+                💡 Set different times for each day, or click 🔕 to disable reminders for specific days
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Footer */}

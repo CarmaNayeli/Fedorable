@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { generateNotificationsForQuest } from '@/lib/notification-scheduler';
 
 // Get all active quests
 export async function GET() {
@@ -48,6 +49,7 @@ export async function POST(request: NextRequest) {
       xpReward,
       isRecurring,
       recurrenceRule,
+      notificationPreferences,
       isCustom,
       createdByPlayer,
     } = body;
@@ -65,11 +67,22 @@ export async function POST(request: NextRequest) {
         xpReward,
         isRecurring,
         recurrenceRule,
+        notificationPreferences: notificationPreferences || null,
         isCustom: isCustom || false,
         createdByPlayer: createdByPlayer || false,
         magicalGirlId: magicalGirl.id,
       },
     });
+
+    // Generate notifications if quest has recurrence and notification preferences
+    if (quest.isRecurring && quest.notificationPreferences) {
+      try {
+        await generateNotificationsForQuest(quest.id);
+      } catch (error) {
+        console.error('Failed to generate notifications for quest:', error);
+        // Don't fail the request if notification generation fails
+      }
+    }
 
     return NextResponse.json(quest);
   } catch (error) {

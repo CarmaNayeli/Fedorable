@@ -35,7 +35,11 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
     return { sp, gems, xp };
   };
 
-  const handleCreateMonster = async (templateData?: any, customRecurrenceRule?: string | null) => {
+  const handleCreateMonster = async (
+    templateData?: any,
+    customRecurrenceRule?: string | null,
+    notificationPreferences?: Record<string, string | null>
+  ) => {
     setLoading(true);
 
     try {
@@ -59,6 +63,7 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
           xpReward: templateData.xpReward,
           isRecurring: !!recurrenceRule,
           recurrenceRule: recurrenceRule,
+          notificationPreferences: notificationPreferences || null,
           isCustom: false,
         };
       } else {
@@ -140,9 +145,9 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
     setShowTimingModal(true);
   };
 
-  const handleTimingConfirm = (recurrenceRule: string | null) => {
+  const handleTimingConfirm = (recurrenceRule: string | null, notificationPreferences: Record<string, string | null>) => {
     if (selectedTemplate) {
-      handleCreateMonster(selectedTemplate, recurrenceRule);
+      handleCreateMonster(selectedTemplate, recurrenceRule, notificationPreferences);
       setShowTimingModal(false);
       setSelectedTemplate(null);
     }

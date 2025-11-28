@@ -94,6 +94,7 @@ model Quest {
   // Recurrence
   isRecurring       Boolean             @default(false)
   recurrenceRule    String?             // RRule format
+  notificationPreferences Json?         // {"mon": "05:30", "tue": "05:30", ...}
 
   // Status
   isActive          Boolean             @default(true)
