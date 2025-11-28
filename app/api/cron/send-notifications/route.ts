@@ -8,19 +8,31 @@ import { sendChoreReminder } from '@/lib/push-notifications';
  *
  * To set up on Vercel, add this to vercel.json:
  * "crons": [{ "path": "/api/cron/send-notifications", "schedule": "every 15 minutes" }]
+ *
+ * For manual testing, you can call this endpoint directly or use the ?manual=true parameter
  */
 export async function GET(request: Request) {
   try {
-    // Verify cron secret if set (recommended for production)
+    // Check for manual trigger parameter (for testing)
+    const url = new URL(request.url);
+    const isManualTrigger = url.searchParams.get('manual') === 'true';
+
+    // Verify cron secret if set (skip for manual triggers in development)
     const authHeader = request.headers.get('authorization');
-    if (process.env.CRON_SECRET) {
+    if (process.env.CRON_SECRET && !isManualTrigger) {
       if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+        // Log auth failure for debugging
+        console.log('Cron auth failed - expected Bearer token with CRON_SECRET');
         return NextResponse.json(
           { error: 'Unauthorized' },
           { status: 401 }
         );
       }
     }
+
+    // Log the execution
+    console.log(`Cron job started at ${new Date().toISOString()} ${isManualTrigger ? '(manual trigger)' : ''}`);
+
 
     const now = new Date();
 
@@ -85,17 +97,26 @@ export async function GET(request: Request) {
     const failureCount = results.filter((r) => r.status === 'rejected').length;
 
     console.log(`Sent ${successCount} notifications, ${failureCount} failed`);
+    console.log(`Cron job completed at ${new Date().toISOString()}`);
 
     return NextResponse.json({
       success: true,
       sent: successCount,
       failed: failureCount,
       total: dueNotifications.length,
+      timestamp: new Date().toISOString(),
+      message: dueNotifications.length === 0
+        ? 'No notifications were due to be sent'
+        : `Processed ${dueNotifications.length} notifications: ${successCount} sent, ${failureCount} failed`,
     });
   } catch (error) {
     console.error('Error in send-notifications cron:', error);
     return NextResponse.json(
-      { error: 'Failed to process notifications' },
+      {
+        error: 'Failed to process notifications',
+        details: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: new Date().toISOString(),
+      },
       { status: 500 }
     );
   }

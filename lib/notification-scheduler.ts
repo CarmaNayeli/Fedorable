@@ -17,10 +17,13 @@ export async function generateNotificationsForQuest(questId: string) {
 
   // Skip if quest doesn't have recurrence or notification preferences
   if (!quest.recurrenceRule || !quest.notificationPreferences) {
+    console.log(`Quest ${questId} (${quest.monsterName}) skipped - no recurrence or notification preferences`);
     return { created: 0 };
   }
 
+  console.log(`Generating notifications for quest ${questId} (${quest.monsterName})`);
   const notificationPrefs = quest.notificationPreferences as Record<string, string | null>;
+  console.log('Notification preferences:', notificationPrefs);
 
   // Parse the recurrence rule
   const rrule = rrulestr(quest.recurrenceRule);
@@ -83,6 +86,12 @@ export async function generateNotificationsForQuest(questId: string) {
     await prisma.notification.createMany({
       data: notificationsToCreate,
     });
+    console.log(`Created ${notificationsToCreate.length} notifications for quest ${quest.monsterName}`);
+    // Log the first few notification times for debugging
+    const sampleNotifs = notificationsToCreate.slice(0, 3).map(n => n.scheduledFor.toISOString());
+    console.log('Sample notification times:', sampleNotifs);
+  } else {
+    console.log(`No new notifications created for quest ${quest.monsterName} (may already exist or all in past)`);
   }
 
   return { created: notificationsToCreate.length };
