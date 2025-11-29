@@ -1,12 +1,20 @@
 import webpush from 'web-push';
 import { prisma } from './prisma';
 
-// Configure web-push with VAPID details
-webpush.setVapidDetails(
-  process.env.VAPID_SUBJECT || 'mailto:rhia-minder@example.com',
-  process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY || '',
-  process.env.VAPID_PRIVATE_KEY || ''
-);
+// Lazy initialization flag
+let vapidConfigured = false;
+
+// Configure web-push with VAPID details (called only when needed)
+function ensureVapidConfigured() {
+  if (!vapidConfigured && process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY && process.env.VAPID_PRIVATE_KEY) {
+    webpush.setVapidDetails(
+      process.env.VAPID_SUBJECT || 'mailto:fedorable@example.com',
+      process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
+      process.env.VAPID_PRIVATE_KEY
+    );
+    vapidConfigured = true;
+  }
+}
 
 export interface NotificationPayload {
   title: string;
@@ -23,6 +31,9 @@ export async function sendPushNotification(
   magicalGirlId: string,
   payload: NotificationPayload
 ) {
+  // Ensure VAPID is configured before sending
+  ensureVapidConfigured();
+
   try {
     // Get all push subscriptions for this magical girl
     const subscriptions = await prisma.pushSubscription.findMany({
@@ -94,8 +105,8 @@ export async function sendChoreReminder(
   choreId: string
 ) {
   return sendPushNotification(magicalGirlId, {
-    title: '⚔️ Battle Time!',
-    body: `Time to face the ${choreName}!`,
+    title: '🦁 Zoo Task Time!',
+    body: `Time for: ${choreName}`,
     choreId,
   });
 }
@@ -106,6 +117,6 @@ export async function sendChoreReminder(
 export async function sendStreakReminder(magicalGirlId: string, currentStreak: number) {
   return sendPushNotification(magicalGirlId, {
     title: '🔥 Streak Alert!',
-    body: `Don't break your ${currentStreak}-day streak! Complete a quest today!`,
+    body: `Don't break your ${currentStreak}-day streak! Complete a task today!`,
   });
 }
