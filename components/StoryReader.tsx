@@ -34,7 +34,7 @@ export default function StoryReader({ magicalGirl, onClose }: StoryReaderProps) 
               <h2 className="text-4xl font-bold text-amber-300 mb-2">
                 📖 STORY CHAPTERS
               </h2>
-              <p className="text-amber-200">Fedora's Zoo Adventure</p>
+              <p className="text-amber-200">Fedora&apos;s Zoo Adventure</p>
             </div>
             <button
               onClick={onClose}
