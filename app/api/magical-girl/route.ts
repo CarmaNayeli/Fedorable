@@ -11,13 +11,14 @@ export async function GET() {
       // Create new magical girl with default values
       magicalGirl = await prisma.magicalGirl.create({
         data: {
-          name: 'Rhia',
+          name: 'Fedora',
           level: 1,
           xp: 0,
           sparklePoints: 0,
           magicGems: 0,
+          sparkleShields: 0,
           rank: 1,
-          title: 'Magical Girl',
+          title: 'Junior Zookeeper',
           currentStreak: 0,
           longestStreak: 0,
           currentChapter: 0,
