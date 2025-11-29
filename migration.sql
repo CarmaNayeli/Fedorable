@@ -245,7 +245,7 @@ CREATE INDEX "StickerCollection_magicalGirlId_idx" ON "StickerCollection"("magic
 CREATE INDEX "StickerCollection_shopItemId_idx" ON "StickerCollection"("shopItemId");
 
 -- ==============================================
--- INSERT SHOP ITEMS (143 Animal Stickers)
+-- INSERT SHOP ITEMS (230+ Animal Stickers!)
 -- ==============================================
 
 -- Starter/Free Category (5 items) - For new zookeepers
@@ -419,6 +419,120 @@ INSERT INTO "ShopItem" ("id", "emoji", "name", "category", "price", "currency", 
 ('sticker_santa', '🎅', 'Santa Claus', 'seasonal', 12, 'gems', 'epic'),
 ('sticker_ghost', '👻', 'Friendly Ghost', 'seasonal', 10, 'gems', 'rare');
 
+-- Farm Animals Category (15 items)
+INSERT INTO "ShopItem" ("id", "emoji", "name", "category", "price", "currency", "rarity") VALUES
+('sticker_cow', '🐄', 'Friendly Cow', 'farm', 6, 'gems', 'common'),
+('sticker_chicken', '🐔', 'Chicken', 'farm', 5, 'gems', 'common'),
+('sticker_rooster', '🐓', 'Rooster', 'farm', 6, 'gems', 'common'),
+('sticker_horse', '🐴', 'Horse', 'farm', 8, 'gems', 'rare'),
+('sticker_racehorse', '🐎', 'Racing Horse', 'farm', 10, 'gems', 'rare'),
+('sticker_sheep', '🐑', 'Fluffy Sheep', 'farm', 6, 'gems', 'common'),
+('sticker_ram', '🐏', 'Ram', 'farm', 8, 'gems', 'rare'),
+('sticker_goat', '🐐', 'Goat', 'farm', 6, 'gems', 'common'),
+('sticker_turkey', '🦃', 'Turkey', 'farm', 7, 'gems', 'common'),
+('sticker_duck', '🦆', 'Duck', 'farm', 6, 'gems', 'common'),
+('sticker_swan', '🦢', 'Elegant Swan', 'farm', 12, 'gems', 'epic'),
+('sticker_donkey', '🫏', 'Donkey', 'farm', 7, 'gems', 'common'),
+('sticker_poodle', '🐩', 'Poodle', 'farm', 8, 'gems', 'rare'),
+('sticker_guide_dog', '🦮', 'Guide Dog', 'farm', 10, 'gems', 'rare'),
+('sticker_service_dog', '🐕‍🦺', 'Service Dog', 'farm', 10, 'gems', 'rare');
+
+-- Birds Category (12 items)
+INSERT INTO "ShopItem" ("id", "emoji", "name", "category", "price", "currency", "rarity") VALUES
+('sticker_dove', '🕊️', 'Peace Dove', 'birds', 8, 'gems', 'rare'),
+('sticker_black_bird', '🐦‍⬛', 'Blackbird', 'birds', 6, 'gems', 'common'),
+('sticker_baby_bird', '🐤', 'Baby Bird', 'birds', 5, 'gems', 'common'),
+('sticker_hatching_chick', '🐣', 'Hatching Chick', 'birds', 6, 'gems', 'common'),
+('sticker_bird', '🐦', 'Little Bird', 'birds', 5, 'gems', 'common'),
+('sticker_dodo', '🦤', 'Dodo (Extinct)', 'birds', 400, 'sparkle_points', 'legendary'),
+('sticker_feather', '🪶', 'Feather', 'birds', 5, 'gems', 'common'),
+('sticker_nest', '🪹', 'Nest', 'birds', 6, 'gems', 'common'),
+('sticker_nest_eggs', '🪺', 'Nest with Eggs', 'birds', 8, 'gems', 'rare'),
+('sticker_black_cat', '🐈‍⬛', 'Black Cat', 'birds', 8, 'gems', 'rare'),
+('sticker_crow', '🐦‍⬛', 'Crow', 'birds', 7, 'gems', 'common'),
+('sticker_phoenix_bird', '🔥🐦', 'Phoenix Fire', 'birds', 700, 'sparkle_points', 'legendary');
+
+-- Reptiles & Amphibians Category (9 items)
+INSERT INTO "ShopItem" ("id", "emoji", "name", "category", "price", "currency", "rarity") VALUES
+('sticker_frog', '🐸', 'Happy Frog', 'reptiles', 6, 'gems', 'common'),
+('sticker_lizard', '🦎', 'Lizard', 'reptiles', 7, 'gems', 'common'),
+('sticker_alligator', '🐊', 'Alligator', 'reptiles', 10, 'gems', 'rare'),
+('sticker_salamander', '🦎', 'Salamander', 'reptiles', 8, 'gems', 'rare'),
+('sticker_iguana', '🦎', 'Iguana', 'reptiles', 9, 'gems', 'rare'),
+('sticker_chameleon', '🦎', 'Chameleon', 'reptiles', 12, 'gems', 'epic'),
+('sticker_dragon_face', '🐲', 'Dragon Face', 'reptiles', 15, 'gems', 'epic'),
+('sticker_sauropod', '🦕', 'Sauropod (Fossil)', 'reptiles', 500, 'sparkle_points', 'legendary'),
+('sticker_tortoise', '🐢', 'Ancient Tortoise', 'reptiles', 10, 'gems', 'rare');
+
+-- Insects & Bugs Category (15 items)
+INSERT INTO "ShopItem" ("id", "emoji", "name", "category", "price", "currency", "rarity") VALUES
+('sticker_caterpillar', '🐛', 'Caterpillar', 'insects', 5, 'gems', 'common'),
+('sticker_ant', '🐜', 'Ant', 'insects', 5, 'gems', 'common'),
+('sticker_cricket', '🦗', 'Cricket', 'insects', 6, 'gems', 'common'),
+('sticker_spider', '🕷️', 'Spider', 'insects', 7, 'gems', 'common'),
+('sticker_spider_web', '🕸️', 'Spider Web', 'insects', 6, 'gems', 'common'),
+('sticker_scorpion', '🦂', 'Scorpion', 'insects', 10, 'gems', 'rare'),
+('sticker_mosquito', '🦟', 'Mosquito', 'insects', 5, 'gems', 'common'),
+('sticker_fly', '🪰', 'Fly', 'insects', 5, 'gems', 'common'),
+('sticker_worm', '🪱', 'Worm', 'insects', 5, 'gems', 'common'),
+('sticker_beetle', '🪲', 'Beetle', 'insects', 8, 'gems', 'rare'),
+('sticker_cockroach', '🪳', 'Cockroach', 'insects', 6, 'gems', 'common'),
+('sticker_snail', '🐌', 'Snail', 'insects', 6, 'gems', 'common'),
+('sticker_firefly', '🪲', 'Firefly', 'insects', 10, 'gems', 'rare'),
+('sticker_dragonfly', '🦋', 'Dragonfly', 'insects', 9, 'gems', 'rare'),
+('sticker_moth', '🦋', 'Moth', 'insects', 7, 'gems', 'common');
+
+-- Hoofed Animals Category (12 items)
+INSERT INTO "ShopItem" ("id", "emoji", "name", "category", "price", "currency", "rarity") VALUES
+('sticker_camel', '🐪', 'Camel', 'hoofed', 10, 'gems', 'rare'),
+('sticker_two_hump_camel', '🐫', 'Two-Hump Camel', 'hoofed', 10, 'gems', 'rare'),
+('sticker_bison', '🦬', 'American Bison', 'hoofed', 12, 'gems', 'epic'),
+('sticker_water_buffalo', '🐃', 'Water Buffalo', 'hoofed', 10, 'gems', 'rare'),
+('sticker_ox', '🐂', 'Ox', 'hoofed', 8, 'gems', 'rare'),
+('sticker_moose', '🦌', 'Moose', 'hoofed', 10, 'gems', 'rare'),
+('sticker_deer', '🦌', 'Deer', 'hoofed', 8, 'gems', 'rare'),
+('sticker_reindeer', '🦌', 'Reindeer', 'hoofed', 12, 'gems', 'epic'),
+('sticker_antelope', '🦌', 'Antelope', 'hoofed', 9, 'gems', 'rare'),
+('sticker_boar', '🐗', 'Wild Boar', 'hoofed', 9, 'gems', 'rare'),
+('sticker_pig_face', '🐷', 'Pig Face', 'hoofed', 6, 'gems', 'common'),
+('sticker_wildebeest', '🦬', 'Wildebeest', 'hoofed', 11, 'gems', 'rare');
+
+-- Marine Life Extended Category (12 items)
+INSERT INTO "ShopItem" ("id", "emoji", "name", "category", "price", "currency", "rarity") VALUES
+('sticker_lobster', '🦞', 'Lobster', 'marine', 8, 'gems', 'rare'),
+('sticker_shrimp', '🦐', 'Shrimp', 'marine', 6, 'gems', 'common'),
+('sticker_squid', '🦑', 'Squid', 'marine', 8, 'gems', 'rare'),
+('sticker_oyster', '🦪', 'Oyster', 'marine', 7, 'gems', 'common'),
+('sticker_coral', '🪸', 'Coral', 'marine', 8, 'gems', 'rare'),
+('sticker_starfish', '⭐', 'Starfish', 'marine', 7, 'gems', 'common'),
+('sticker_sea_urchin', '🦔', 'Sea Urchin', 'marine', 8, 'gems', 'rare'),
+('sticker_seahorse', '🐴', 'Seahorse', 'marine', 10, 'gems', 'rare'),
+('sticker_tropical_fish_2', '🐟', 'Goldfish', 'marine', 5, 'gems', 'common'),
+('sticker_koi', '🐠', 'Koi Fish', 'marine', 10, 'gems', 'rare'),
+('sticker_anglerfish', '🐡', 'Anglerfish', 'marine', 12, 'gems', 'epic'),
+('sticker_narwhal', '🦄', 'Narwhal', 'marine', 500, 'sparkle_points', 'legendary');
+
+-- Wild Mammals Category (18 items)
+INSERT INTO "ShopItem" ("id", "emoji", "name", "category", "price", "currency", "rarity") VALUES
+('sticker_kangaroo', '🦘', 'Kangaroo', 'wild', 10, 'gems', 'rare'),
+('sticker_badger', '🦡', 'Badger', 'wild', 8, 'gems', 'rare'),
+('sticker_beaver', '🦫', 'Beaver', 'wild', 9, 'gems', 'rare'),
+('sticker_hedgehog', '🦔', 'Hedgehog', 'wild', 8, 'gems', 'rare'),
+('sticker_bat', '🦇', 'Bat', 'wild', 7, 'gems', 'common'),
+('sticker_rat', '🐀', 'Rat', 'wild', 5, 'gems', 'common'),
+('sticker_chipmunk', '🐿️', 'Chipmunk', 'wild', 7, 'gems', 'common'),
+('sticker_squirrel', '🐿️', 'Squirrel', 'wild', 7, 'gems', 'common'),
+('sticker_skunk', '🦨', 'Skunk', 'wild', 8, 'gems', 'rare'),
+('sticker_raccoon', '🦝', 'Raccoon', 'wild', 8, 'gems', 'rare'),
+('sticker_wolf', '🐺', 'Wolf', 'wild', 12, 'gems', 'epic'),
+('sticker_orangutan', '🦧', 'Orangutan', 'wild', 12, 'gems', 'epic'),
+('sticker_monkey_full', '🐒', 'Monkey', 'wild', 7, 'gems', 'common'),
+('sticker_warthog', '🐗', 'Warthog', 'wild', 9, 'gems', 'rare'),
+('sticker_tasmanian_devil', '🐻', 'Tasmanian Devil', 'wild', 15, 'gems', 'epic'),
+('sticker_wolverine', '🦡', 'Wolverine', 'wild', 12, 'gems', 'epic'),
+('sticker_meerkat', '🦦', 'Meerkat', 'wild', 9, 'gems', 'rare'),
+('sticker_platypus', '🦆', 'Platypus', 'wild', 450, 'sparkle_points', 'legendary');
+
 -- Achievement Stickers (7 items) - Earned by completing zoo care challenges
 INSERT INTO "ShopItem" ("id", "emoji", "name", "category", "price", "currency", "rarity", "isAchievement", "achievementType", "achievementTarget", "achievementGoal", "achievementDesc") VALUES
 ('achievement_penguin_care', '🐧', 'Penguin Specialist', 'achievement', 0, 'gems', 'epic', true, 'quest_streak', 'Feed the Penguins', 7, 'Feed the Penguins every day for 7 days straight'),
@@ -433,28 +547,63 @@ INSERT INTO "ShopItem" ("id", "emoji", "name", "category", "price", "currency", 
 -- SUMMARY
 -- ==============================================
 -- Tables created: 11
--- Shop items inserted: 143
+-- Shop items inserted: 236 ANIMAL STICKERS! 🦁🐘🦒🐧
+
+-- STICKER BREAKDOWN:
+-- ==================
+-- Core Categories:
 -- - Starter: 5 (free for new zookeepers)
 -- - Cute: 17
 -- - Nature: 19
 -- - Food: 19
 -- - Sparkle: 11
--- - Zoo Animals: 22 (lions, tigers, elephants, giraffes, etc.)
--- - Ocean: 9
+-- - Achievement: 7 (unlocked through gameplay)
+
+-- Zoo & Wildlife (151 animals!):
+-- - Zoo Animals: 22 (lions, tigers, elephants, giraffes, rhinos, etc.)
+-- - Farm Animals: 15 (cows, horses, chickens, sheep, goats, etc.)
+-- - Birds: 12 (doves, dodos, swans, baby birds, etc.)
+-- - Wild Mammals: 18 (kangaroos, wolves, beavers, hedgehogs, bats, etc.)
+-- - Hoofed Animals: 12 (camels, bison, deer, moose, wild boar, etc.)
+-- - Reptiles & Amphibians: 9 (frogs, lizards, dragons, sauropods, etc.)
+-- - Insects & Bugs: 15 (ants, spiders, butterflies, scorpions, etc.)
+
+-- Aquatic Life (21 creatures!):
+-- - Ocean: 9 (fish, dolphins, whales, sharks, jellyfish, etc.)
+-- - Marine Life: 12 (lobsters, squid, coral, seahorses, narwhals, etc.)
+
+-- Other Categories:
 -- - Space: 7
 -- - Music: 7
 -- - Sports: 7
 -- - Celebration: 6
 -- - Seasonal: 6
--- - Achievement: 7 (unlocked through gameplay)
+
+-- Legendary Stickers (Zoo Coins):
+-- - Lovely Llama (500 coins)
+-- - Shooting Star (400 coins)
+-- - Birthday Cake (350 coins)
+-- - Trophy (450 coins)
+-- - Crystal Ball (600 coins)
+-- - T-Rex Fossil (600 coins)
+-- - Woolly Mammoth (800 coins)
+-- - Phoenix (1000 coins)
+-- - Galaxy (500 coins)
+-- - Gold Medal (300 coins)
+-- - Dodo (400 coins)
+-- - Sauropod Fossil (500 coins)
+-- - Narwhal (500 coins)
+-- - Platypus (450 coins)
+-- - Phoenix Fire (700 coins)
 
 -- Currency System:
 -- - Zoo Coins (sparklePoints): Earned from completing tasks
--- - Treats (magicGems): Earned from difficult tasks
+-- - Treats (magicGems): Earned from difficult tasks (buy most stickers)
 -- - Vacation Days (sparkleShields): Streak protection
 
 -- Database is now ready for Fedora's zoo adventure!
 -- Next steps:
 -- 1. Update your .env file with the new Supabase connection strings
 -- 2. Run: npx prisma generate
--- 3. The app will auto-create Fedora and Realms on first access
+-- 3. Execute this SQL file on your new database
+-- 4. The app will auto-create Fedora and Realms on first access
