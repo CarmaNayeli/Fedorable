@@ -73,7 +73,7 @@ export default function BattleSequence({ quest, onComplete, onCancel }: BattleSe
 
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 z-50">
-      <div className="bg-gradient-to-br from-purple-900 to-pink-900 rounded-2xl max-w-3xl w-full border-4 border-pink-500 shadow-2xl">
+      <div className="bg-gradient-to-br from-green-900 to-emerald-900 rounded-2xl max-w-3xl w-full border-4 border-emerald-500 shadow-2xl">
         {/* Intro Stage */}
         {stage === 'intro' && (
           <div className="p-8 text-center">
@@ -86,11 +86,11 @@ export default function BattleSequence({ quest, onComplete, onCancel }: BattleSe
             )}
 
             {quest.questType === 'boss' && (
-              <div className="mb-6 bg-red-900/50 border-2 border-red-500 rounded-xl p-4">
+              <div className="mb-6 bg-amber-900/50 border-2 border-amber-500 rounded-xl p-4">
                 <div className="flex items-start gap-3">
-                  <div className="text-4xl">💫</div>
+                  <div className="text-4xl">🦜</div>
                   <div className="text-left flex-1">
-                    <div className="text-red-300 font-bold mb-1">SPARKLE says:</div>
+                    <div className="text-amber-300 font-bold mb-1">ZOOEY says:</div>
                     <div className="text-white">{getRandomDialogue('bossEncounter')}</div>
                   </div>
                 </div>
@@ -102,32 +102,32 @@ export default function BattleSequence({ quest, onComplete, onCancel }: BattleSe
                 onClick={onCancel}
                 className="flex-1 px-6 py-4 bg-gray-700 text-white rounded-xl hover:bg-gray-600 transition-all font-bold text-lg"
               >
-                Retreat
+                Not Now
               </button>
               <button
                 onClick={startBattle}
                 className="flex-1 px-6 py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg font-bold text-lg border-2 border-green-400"
               >
-                ⚔️ ENGAGE IN BATTLE!
+                ✅ START TASK!
               </button>
             </div>
           </div>
         )}
 
-        {/* Battle Stage */}
+        {/* Task Stage */}
         {stage === 'battle' && (
           <div className="p-8">
-            <div className="bg-black/50 rounded-xl p-6 font-mono text-sm border-2 border-pink-400">
+            <div className="bg-black/50 rounded-xl p-6 font-mono text-sm border-2 border-emerald-400">
               {battleLog.map((line, i) => (
                 <div
                   key={i}
                   className={`mb-1 ${
-                    line.includes('CRITICAL') || line.includes('DEFEATED')
+                    line.includes('PERFECT') || line.includes('COMPLETED')
                       ? 'text-yellow-300 font-bold text-lg'
-                      : line.includes('RHIA')
+                      : line.includes('FEDORA')
+                      ? 'text-emerald-300'
+                      : line.includes('Progress:')
                       ? 'text-cyan-300'
-                      : line.includes('HP:')
-                      ? 'text-red-300'
                       : 'text-white'
                   }`}
                   style={{
@@ -165,12 +165,12 @@ export default function BattleSequence({ quest, onComplete, onCancel }: BattleSe
               ))}
             </div>
 
-            {/* Sparkle Commentary */}
-            <div className="mb-6 bg-purple-900/50 border-2 border-pink-400 rounded-xl p-4">
+            {/* Zooey Commentary */}
+            <div className="mb-6 bg-emerald-900/50 border-2 border-amber-400 rounded-xl p-4">
               <div className="flex items-start gap-3">
-                <div className="text-4xl">💫</div>
+                <div className="text-4xl">🦜</div>
                 <div className="text-left flex-1">
-                  <div className="text-pink-300 font-bold mb-1">SPARKLE says:</div>
+                  <div className="text-amber-300 font-bold mb-1">ZOOEY says:</div>
                   <div className="text-white">
                     {isCritical
                       ? getRandomDialogue('criticalHit')
@@ -180,13 +180,13 @@ export default function BattleSequence({ quest, onComplete, onCancel }: BattleSe
               </div>
             </div>
 
-            {/* Shield Earned Notification */}
+            {/* Vacation Day Earned Notification */}
             {shieldEarned && (
               <div className="mb-6 bg-cyan-900/70 border-2 border-cyan-400 rounded-xl p-6 animate-pulse">
                 <div className="flex items-center justify-center gap-3 mb-3">
-                  <div className="text-5xl">🛡️</div>
-                  <div className="text-3xl font-bold text-cyan-300">SPARKLE SHIELD EARNED!</div>
-                  <div className="text-5xl">🛡️</div>
+                  <div className="text-5xl">🏖️</div>
+                  <div className="text-3xl font-bold text-cyan-300">VACATION DAY EARNED!</div>
+                  <div className="text-5xl">🏖️</div>
                 </div>
                 <div className="text-cyan-100 mb-3">
                   {getRandomDialogue('shieldEarned').replace('{days}', newStreak.toString())}
@@ -200,9 +200,9 @@ export default function BattleSequence({ quest, onComplete, onCancel }: BattleSe
             <button
               onClick={handleComplete}
               disabled={processing}
-              className="w-full px-6 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg font-bold text-lg border-2 border-purple-400 disabled:opacity-50"
+              className="w-full px-6 py-4 bg-gradient-to-r from-emerald-600 to-green-600 text-white rounded-xl hover:from-emerald-700 hover:to-green-700 transition-all shadow-lg font-bold text-lg border-2 border-emerald-400 disabled:opacity-50"
             >
-              {processing ? 'Collecting Rewards...' : '✨ Claim Victory!'}
+              {processing ? 'Collecting Rewards...' : '💚 Complete Task!'}
             </button>
           </div>
         )}
