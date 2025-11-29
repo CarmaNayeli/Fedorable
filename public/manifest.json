@@ -1,11 +1,11 @@
 {
-  "name": "Rhia-minder - Chore Tracker",
-  "short_name": "Rhia-minder",
-  "description": "Track your chores with gamification and smart notifications",
+  "name": "Fedorable - Zoo Care Tracker",
+  "short_name": "Fedorable",
+  "description": "Care for adorable zoo animals with gamification and smart notifications",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0a0a",
-  "theme_color": "#a855f7",
+  "theme_color": "#059669",
   "icons": [
     {
       "src": "/icon.svg",

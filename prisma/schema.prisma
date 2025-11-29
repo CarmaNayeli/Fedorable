@@ -1,4 +1,4 @@
-// Rhia-minder: Magical Girl Chore Adventure
+// Fedorable: Zoo Animal Care Adventure
 // Database Schema
 
 generator client {
@@ -11,21 +11,21 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-// Rhia - The Magical Girl
+// Fedora - The Zookeeper
 model MagicalGirl {
   id                String              @id @default(cuid())
-  name              String              @default("Rhia")
+  name              String              @default("Fedora")
 
   // Progression
   level             Int                 @default(1)
   xp                Int                 @default(0)
-  sparklePoints     Int                 @default(0)
-  magicGems         Int                 @default(0)
-  sparkleShields    Int                 @default(0)
+  sparklePoints     Int                 @default(0) // Zoo Coins
+  magicGems         Int                 @default(0) // Treats
+  sparkleShields    Int                 @default(0) // Vacation Days
 
   // Rank & Title
   rank              Int                 @default(1) // 1-5 star rank
-  title             String              @default("Magical Girl")
+  title             String              @default("Junior Zookeeper")
   prestigeLevel     Int                 @default(0)
 
   // Streaks
@@ -38,7 +38,7 @@ model MagicalGirl {
   mainStoryComplete Boolean             @default(false)
 
   // Stats
-  totalMonstersDefeated Int             @default(0)
+  totalMonstersDefeated Int             @default(0) // Total Tasks Completed
 
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
@@ -71,25 +71,25 @@ model Realm {
   @@unique([magicalGirlId, name])
 }
 
-// Quests (chores reimagined as battles)
+// Quests (chores reimagined as animal care tasks)
 model Quest {
   id                String              @id @default(cuid())
 
-  // Monster Info
-  monsterName       String              // "Dish Monster", "Laundry Mountain Titan"
-  monsterEmoji      String              @default("💀")
+  // Task/Animal Info
+  monsterName       String              // "Feed the Penguins", "Clean Lion Habitat"
+  monsterEmoji      String              @default("🦁")
   description       String?
 
   // Quest Type
   questType         String              @default("daily") // "daily", "weekly", "boss", "side", "onetime"
-  realm             String?             // Which realm this belongs to
+  realm             String?             // Which area/habitat this belongs to
 
-  // Difficulty (threat level)
+  // Difficulty (care level)
   threatLevel       Int                 @default(2) // 1-5 stars
 
   // Rewards
-  sparklePoints     Int                 @default(20)
-  magicGems         Int                 @default(0)
+  sparklePoints     Int                 @default(20) // Zoo Coins
+  magicGems         Int                 @default(0) // Treats
   xpReward          Int                 @default(10)
 
   // Recurrence
@@ -117,16 +117,16 @@ model Quest {
   updatedAt         DateTime            @updatedAt
 }
 
-// Monster Defeats (quest completions)
+// Task Completions (quest completions)
 model MonsterDefeat {
   id                String              @id @default(cuid())
   defeatedAt        DateTime            @default(now())
 
-  sparklePointsEarned Int               @default(0)
-  magicGemsEarned   Int                 @default(0)
+  sparklePointsEarned Int               @default(0) // Zoo Coins Earned
+  magicGemsEarned   Int                 @default(0) // Treats Earned
   xpEarned          Int                 @default(0)
 
-  // Battle flavor
+  // Task completion flavor
   wasCriticalHit    Boolean             @default(false)
   battleText        String?
 
@@ -232,7 +232,7 @@ model ShopItem {
   createdAt         DateTime            @default(now())
 }
 
-// Sticker Collection - Stickers owned by the magical girl
+// Sticker Collection - Stickers owned by the zookeeper
 model StickerCollection {
   id                String              @id @default(cuid())
 
