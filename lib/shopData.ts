@@ -1,4 +1,4 @@
-// Sparkle Shop - Stickers available for purchase or earned through achievements
+// Animal Shop - Stickers available for purchase or earned through achievements
 
 export interface ShopSticker {
   id: string;
@@ -6,7 +6,7 @@ export interface ShopSticker {
   name: string;
   category: string;
   price: number; // Cost amount
-  currency?: 'gems' | 'sparkle_points'; // Currency type (defaults to 'gems')
+  currency?: 'gems' | 'sparkle_points'; // Currency type: 'gems' = Treats, 'sparkle_points' = Zoo Coins
   rarity: 'common' | 'rare' | 'epic' | 'legendary';
   isLimited?: boolean;
   // Achievement fields
@@ -18,12 +18,12 @@ export interface ShopSticker {
 }
 
 export const SHOP_STICKERS: ShopSticker[] = [
-  // Starter/Free Category - For testing and new players
-  { id: 'starter_witch', emoji: '🧙‍♀️', name: 'Witch', category: 'starter', price: 0, rarity: 'common' },
-  { id: 'starter_sparkle', emoji: '💫', name: 'Dizzy Sparkle', category: 'starter', price: 0, rarity: 'common' },
+  // Starter/Free Category - For new zookeepers
+  { id: 'starter_lion', emoji: '🦁', name: 'Lion', category: 'starter', price: 0, rarity: 'common' },
+  { id: 'starter_parrot', emoji: '🦜', name: 'Parrot', category: 'starter', price: 0, rarity: 'common' },
   { id: 'starter_sprout', emoji: '🌱', name: 'Sprout', category: 'starter', price: 0, rarity: 'common' },
   { id: 'starter_party', emoji: '🥳', name: 'Party Face', category: 'starter', price: 0, rarity: 'common' },
-  { id: 'starter_magic', emoji: '🎩', name: 'Magic Hat', category: 'starter', price: 0, rarity: 'common' },
+  { id: 'starter_paw', emoji: '🐾', name: 'Paw Print', category: 'starter', price: 0, rarity: 'common' },
 
   // Cute Category
   { id: 'sticker_cat', emoji: '🐱', name: 'Cute Cat', category: 'cute', price: 5, rarity: 'common' },
@@ -99,15 +99,29 @@ export const SHOP_STICKERS: ShopSticker[] = [
   { id: 'sticker_trophy', emoji: '🏆', name: 'Trophy', category: 'sparkle', price: 450, currency: 'sparkle_points', rarity: 'legendary' },
   { id: 'sticker_crystal', emoji: '🔮', name: 'Crystal Ball', category: 'sparkle', price: 600, currency: 'sparkle_points', rarity: 'legendary' },
 
-  // Magical Category
-  { id: 'sticker_fairy', emoji: '🧚', name: 'Fairy', category: 'magical', price: 12, rarity: 'epic' },
-  { id: 'sticker_wizard', emoji: '🧙', name: 'Wizard', category: 'magical', price: 12, rarity: 'epic' },
-  { id: 'sticker_magic_wand', emoji: '🪄', name: 'Magic Wand', category: 'magical', price: 15, rarity: 'epic' },
-  { id: 'sticker_mermaid', emoji: '🧜', name: 'Mermaid', category: 'magical', price: 15, rarity: 'epic' },
-  { id: 'sticker_vampire', emoji: '🧛', name: 'Vampire', category: 'magical', price: 15, rarity: 'epic' },
-  { id: 'sticker_genie', emoji: '🧞', name: 'Genie', category: 'magical', price: 18, rarity: 'epic' },
-  { id: 'sticker_dragon', emoji: '🐉', name: 'Dragon', category: 'magical', price: 550, currency: 'sparkle_points', rarity: 'legendary' },
-  { id: 'sticker_phoenix', emoji: '🔥', name: 'Phoenix', category: 'magical', price: 1000, currency: 'sparkle_points', rarity: 'legendary', isLimited: true },
+  // Zoo Animals Category
+  { id: 'sticker_lion', emoji: '🦁', name: 'Mighty Lion', category: 'zoo', price: 8, rarity: 'rare' },
+  { id: 'sticker_tiger', emoji: '🐯', name: 'Tiger', category: 'zoo', price: 8, rarity: 'rare' },
+  { id: 'sticker_leopard', emoji: '🐆', name: 'Leopard', category: 'zoo', price: 8, rarity: 'rare' },
+  { id: 'sticker_elephant', emoji: '🐘', name: 'Gentle Giant', category: 'zoo', price: 10, rarity: 'rare' },
+  { id: 'sticker_giraffe', emoji: '🦒', name: 'Tall Giraffe', category: 'zoo', price: 10, rarity: 'rare' },
+  { id: 'sticker_zebra', emoji: '🦓', name: 'Striped Zebra', category: 'zoo', price: 10, rarity: 'rare' },
+  { id: 'sticker_rhino', emoji: '🦏', name: 'Rhinoceros', category: 'zoo', price: 12, rarity: 'epic' },
+  { id: 'sticker_hippo', emoji: '🦛', name: 'Happy Hippo', category: 'zoo', price: 12, rarity: 'epic' },
+  { id: 'sticker_gorilla', emoji: '🦍', name: 'Gorilla', category: 'zoo', price: 12, rarity: 'epic' },
+  { id: 'sticker_monkey', emoji: '🐵', name: 'Cheeky Monkey', category: 'zoo', price: 6, rarity: 'common' },
+  { id: 'sticker_seal', emoji: '🦭', name: 'Playful Seal', category: 'zoo', price: 8, rarity: 'rare' },
+  { id: 'sticker_polar_bear', emoji: '🐻‍❄️', name: 'Polar Bear', category: 'zoo', price: 15, rarity: 'epic' },
+  { id: 'sticker_flamingo', emoji: '🦩', name: 'Pink Flamingo', category: 'zoo', price: 10, rarity: 'rare' },
+  { id: 'sticker_peacock', emoji: '🦚', name: 'Proud Peacock', category: 'zoo', price: 12, rarity: 'epic' },
+  { id: 'sticker_parrot', emoji: '🦜', name: 'Colorful Parrot', category: 'zoo', price: 8, rarity: 'rare' },
+  { id: 'sticker_owl', emoji: '🦉', name: 'Wise Owl', category: 'zoo', price: 10, rarity: 'rare' },
+  { id: 'sticker_eagle', emoji: '🦅', name: 'Majestic Eagle', category: 'zoo', price: 12, rarity: 'epic' },
+  { id: 'sticker_snake', emoji: '🐍', name: 'Slithering Snake', category: 'zoo', price: 8, rarity: 'rare' },
+  { id: 'sticker_turtle', emoji: '🐢', name: 'Slow Turtle', category: 'zoo', price: 6, rarity: 'common' },
+  { id: 'sticker_crocodile', emoji: '🐊', name: 'Crocodile', category: 'zoo', price: 10, rarity: 'rare' },
+  { id: 'sticker_t_rex', emoji: '🦖', name: 'T-Rex (Fossil)', category: 'zoo', price: 600, currency: 'sparkle_points', rarity: 'legendary' },
+  { id: 'sticker_mammoth', emoji: '🦣', name: 'Woolly Mammoth', category: 'zoo', price: 800, currency: 'sparkle_points', rarity: 'legendary' },
 
   // Ocean Category
   { id: 'sticker_fish', emoji: '🐠', name: 'Tropical Fish', category: 'ocean', price: 5, rarity: 'common' },
@@ -165,48 +179,48 @@ export const SHOP_STICKERS: ShopSticker[] = [
 
   // Achievement Stickers - Earned by completing challenges
   {
-    id: 'achievement_dishwasher_master',
-    emoji: '🍽️',
-    name: 'Dishwasher Master',
+    id: 'achievement_penguin_care',
+    emoji: '🐧',
+    name: 'Penguin Specialist',
     category: 'achievement',
     price: 0,
     rarity: 'epic',
     isAchievement: true,
     achievementType: 'quest_streak',
-    achievementTarget: 'Kitchen Chaos Spirit', // Monster name
+    achievementTarget: 'Feed the Penguins',
     achievementGoal: 7,
-    achievementDesc: 'Defeat the Kitchen Chaos Spirit every day for 7 days straight'
+    achievementDesc: 'Feed the Penguins every day for 7 days straight'
   },
   {
-    id: 'achievement_clean_sweep',
+    id: 'achievement_habitat_master',
     emoji: '🧹',
-    name: 'Clean Sweep Champion',
+    name: 'Habitat Master',
     category: 'achievement',
     price: 0,
     rarity: 'rare',
     isAchievement: true,
     achievementType: 'quest_streak',
-    achievementTarget: 'Sweep & Mop Monster',
+    achievementTarget: 'Clean Elephant Yard',
     achievementGoal: 4,
-    achievementDesc: 'Complete Sweep & Mop Monster 4 times'
+    achievementDesc: 'Complete habitat cleaning 4 times'
   },
   {
-    id: 'achievement_bathroom_hero',
-    emoji: '🛁',
-    name: 'Bathroom Hero',
+    id: 'achievement_lion_expert',
+    emoji: '🦁',
+    name: 'Lion Expert',
     category: 'achievement',
     price: 0,
     rarity: 'epic',
     isAchievement: true,
     achievementType: 'quest_streak',
-    achievementTarget: 'Bathroom Banshee',
+    achievementTarget: 'Feed the Lions',
     achievementGoal: 5,
-    achievementDesc: 'Defeat any Bathroom Banshee 5 times'
+    achievementDesc: 'Feed the Lions 5 times'
   },
   {
     id: 'achievement_streak_warrior',
     emoji: '🔥',
-    name: 'Streak Warrior',
+    name: 'Dedication Champion',
     category: 'achievement',
     price: 0,
     rarity: 'legendary',
@@ -216,16 +230,16 @@ export const SHOP_STICKERS: ShopSticker[] = [
     achievementDesc: 'Maintain a 30-day streak'
   },
   {
-    id: 'achievement_monster_slayer',
-    emoji: '⚔️',
-    name: 'Monster Slayer',
+    id: 'achievement_task_master',
+    emoji: '✅',
+    name: 'Task Master',
     category: 'achievement',
     price: 0,
     rarity: 'epic',
     isAchievement: true,
     achievementType: 'total_defeats',
     achievementGoal: 100,
-    achievementDesc: 'Defeat 100 monsters total'
+    achievementDesc: 'Complete 100 tasks total'
   },
   {
     id: 'achievement_perfect_week',
@@ -237,23 +251,23 @@ export const SHOP_STICKERS: ShopSticker[] = [
     isAchievement: true,
     achievementType: 'perfect_week',
     achievementGoal: 1,
-    achievementDesc: 'Complete all quests every day for a full week'
+    achievementDesc: 'Complete all tasks every day for a full week'
   },
   {
-    id: 'achievement_gem_collector',
-    emoji: '💠',
-    name: 'Gem Collector',
+    id: 'achievement_treat_collector',
+    emoji: '🍖',
+    name: 'Treat Collector',
     category: 'achievement',
     price: 0,
     rarity: 'epic',
     isAchievement: true,
     achievementType: 'total_gems_earned',
     achievementGoal: 50,
-    achievementDesc: 'Earn 50 magic gems total'
+    achievementDesc: 'Earn 50 treats total'
   },
 ];
 
-export const SHIELD_PRICE = 50; // Sparkle points to buy one shield
+export const SHIELD_PRICE = 50; // Zoo coins to buy one vacation day
 
 export function getCategorizedStickers() {
   const categories: Record<string, ShopSticker[]> = {};

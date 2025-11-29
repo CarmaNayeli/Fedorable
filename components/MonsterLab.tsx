@@ -16,9 +16,9 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
   const [showTimingModal, setShowTimingModal] = useState(false);
   const [customQuestData, setCustomQuestData] = useState<any>(null);
 
-  // Custom monster form
+  // Custom task form
   const [monsterName, setMonsterName] = useState('');
-  const [monsterEmoji, setMonsterEmoji] = useState('💀');
+  const [monsterEmoji, setMonsterEmoji] = useState('🦁');
   const [description, setDescription] = useState('');
   const [realm, setRealm] = useState('kitchen');
   const [threatLevel, setThreatLevel] = useState(2);
@@ -175,15 +175,15 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
 
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 z-50 overflow-y-auto">
-      <div className="bg-gradient-to-br from-purple-900 to-indigo-900 rounded-2xl max-w-4xl w-full border-4 border-cyan-500 shadow-2xl my-8">
+      <div className="bg-gradient-to-br from-emerald-900 to-teal-900 rounded-2xl max-w-4xl w-full border-4 border-emerald-500 shadow-2xl my-8">
         {/* Header */}
-        <div className="p-6 border-b-2 border-cyan-400">
+        <div className="p-6 border-b-2 border-emerald-400">
           <div className="flex justify-between items-center">
             <div>
-              <h2 className="text-4xl font-bold text-cyan-300 mb-2">
-                🧪 MONSTER LABORATORY
+              <h2 className="text-4xl font-bold text-emerald-300 mb-2">
+                📋 TASK PLANNER
               </h2>
-              <p className="text-cyan-200">Document new threats to the realm!</p>
+              <p className="text-emerald-200">Plan your zoo care tasks and responsibilities!</p>
             </div>
             <button
               onClick={onClose}
@@ -195,13 +195,13 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
         </div>
 
         {/* Mode Selector */}
-        <div className="p-6 border-b-2 border-cyan-400/30">
+        <div className="p-6 border-b-2 border-emerald-400/30">
           <div className="flex gap-4">
             <button
               onClick={() => setMode('template')}
               className={`flex-1 px-6 py-4 rounded-xl font-bold text-lg transition-all ${
                 mode === 'template'
-                  ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white border-2 border-purple-400'
+                  ? 'bg-gradient-to-r from-emerald-600 to-green-600 text-white border-2 border-emerald-400'
                   : 'bg-gray-800 text-gray-400 border-2 border-gray-700'
               }`}
             >
@@ -211,7 +211,7 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
               onClick={() => setMode('custom')}
               className={`flex-1 px-6 py-4 rounded-xl font-bold text-lg transition-all ${
                 mode === 'custom'
-                  ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white border-2 border-purple-400'
+                  ? 'bg-gradient-to-r from-emerald-600 to-green-600 text-white border-2 border-emerald-400'
                   : 'bg-gray-800 text-gray-400 border-2 border-gray-700'
               }`}
             >
@@ -224,13 +224,13 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
           {/* Template Mode */}
           {mode === 'template' && (
             <div className="space-y-4">
-              <p className="text-cyan-200 mb-4">
-                Quick-start with pre-made monsters! Click to add to your quest log:
+              <p className="text-emerald-200 mb-4">
+                Quick-start with pre-made animal care tasks! Click to add to your task board:
               </p>
               {MONSTER_TEMPLATES.map(template => (
                 <div
                   key={template.id}
-                  className="bg-black/30 border-2 border-pink-400 rounded-xl p-4 hover:border-pink-300 transition-all cursor-pointer"
+                  className="bg-black/30 border-2 border-amber-400 rounded-xl p-4 hover:border-amber-300 transition-all cursor-pointer"
                   onClick={() => handleTemplateClick(template)}
                 >
                   <div className="flex items-center gap-4">
@@ -242,13 +242,13 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
                       </div>
                       <div className="text-sm text-gray-300 mb-2">{template.description}</div>
                       <div className="flex gap-3 text-sm">
-                        <div className="text-cyan-300">
+                        <div className="text-emerald-300">
                           {realmOptions.find(r => r.value === template.realm)?.emoji} {' '}
                           {realmOptions.find(r => r.value === template.realm)?.label}
                         </div>
-                        <div className="text-yellow-300">+{template.sparklePoints} ✨</div>
+                        <div className="text-yellow-300">+{template.sparklePoints} 🪙</div>
                         {template.magicGems > 0 && (
-                          <div className="text-purple-300">+{template.magicGems} 🔮</div>
+                          <div className="text-orange-300">+{template.magicGems} 🍖</div>
                         )}
                         <div className="text-green-300">{template.questType}</div>
                       </div>
@@ -268,43 +268,43 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
           {/* Custom Mode */}
           {mode === 'custom' && (
             <div className="space-y-6">
-              {/* Monster Name */}
+              {/* Task Name */}
               <div>
-                <label className="block text-cyan-300 font-bold mb-2">
-                  Monster Name *
+                <label className="block text-emerald-300 font-bold mb-2">
+                  Task Name *
                 </label>
                 <input
                   type="text"
                   value={monsterName}
                   onChange={(e) => setMonsterName(e.target.value)}
-                  className="w-full px-4 py-3 bg-black/30 border-2 border-pink-400 rounded-lg text-white focus:outline-none focus:border-pink-300"
-                  placeholder="e.g., Kitchen Counter Chaos Beast"
+                  className="w-full px-4 py-3 bg-black/30 border-2 border-amber-400 rounded-lg text-white focus:outline-none focus:border-amber-300"
+                  placeholder="e.g., Clean Lion Habitat"
                 />
               </div>
 
-              {/* Monster Emoji & Realm */}
+              {/* Task Emoji & Realm */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-cyan-300 font-bold mb-2">
-                    Monster Emoji
+                  <label className="block text-emerald-300 font-bold mb-2">
+                    Animal/Task Emoji
                   </label>
                   <input
                     type="text"
                     value={monsterEmoji}
                     onChange={(e) => setMonsterEmoji(e.target.value)}
-                    className="w-full px-4 py-3 bg-black/30 border-2 border-pink-400 rounded-lg text-4xl text-center focus:outline-none focus:border-pink-300"
+                    className="w-full px-4 py-3 bg-black/30 border-2 border-amber-400 rounded-lg text-4xl text-center focus:outline-none focus:border-amber-300"
                     maxLength={2}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-cyan-300 font-bold mb-2">
+                  <label className="block text-emerald-300 font-bold mb-2">
                     Realm
                   </label>
                   <select
                     value={realm}
                     onChange={(e) => setRealm(e.target.value)}
-                    className="w-full px-4 py-3 bg-black/30 border-2 border-pink-400 rounded-lg text-white focus:outline-none focus:border-pink-300"
+                    className="w-full px-4 py-3 bg-black/30 border-2 border-amber-400 rounded-lg text-white focus:outline-none focus:border-amber-300"
                   >
                     {realmOptions.map(opt => (
                       <option key={opt.value} value={opt.value}>
@@ -317,22 +317,22 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
 
               {/* Description */}
               <div>
-                <label className="block text-cyan-300 font-bold mb-2">
+                <label className="block text-emerald-300 font-bold mb-2">
                   Description (optional)
                 </label>
                 <textarea
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="w-full px-4 py-3 bg-black/30 border-2 border-pink-400 rounded-lg text-white focus:outline-none focus:border-pink-300"
+                  className="w-full px-4 py-3 bg-black/30 border-2 border-amber-400 rounded-lg text-white focus:outline-none focus:border-amber-300"
                   rows={2}
-                  placeholder="What does this monster do?"
+                  placeholder="What is this task about?"
                 />
               </div>
 
-              {/* Threat Level */}
+              {/* Care Level */}
               <div>
-                <label className="block text-cyan-300 font-bold mb-2">
-                  Threat Level (1-5) {getThreatLevelStars(threatLevel)}
+                <label className="block text-emerald-300 font-bold mb-2">
+                  Care Level (1-5) {getThreatLevelStars(threatLevel)}
                 </label>
                 <div className="flex gap-2">
                   {[1, 2, 3, 4, 5].map((level) => (
@@ -350,24 +350,24 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
                     </button>
                   ))}
                 </div>
-                <div className="mt-2 text-sm text-cyan-200">
-                  Rewards: +{rewards.sp} ✨ SP, +{rewards.gems} 🔮 Gems, +{rewards.xp} ⚡ XP
+                <div className="mt-2 text-sm text-emerald-200">
+                  Rewards: +{rewards.sp} 🪙 Zoo Coins, +{rewards.gems} 🍖 Treats, +{rewards.xp} ⚡ XP
                 </div>
               </div>
 
               {/* Quest Type */}
               <div>
-                <label className="block text-cyan-300 font-bold mb-2">
+                <label className="block text-emerald-300 font-bold mb-2">
                   Quest Type
                 </label>
                 <select
                   value={questType}
                   onChange={(e) => setQuestType(e.target.value as any)}
-                  className="w-full px-4 py-3 bg-black/30 border-2 border-pink-400 rounded-lg text-white focus:outline-none focus:border-pink-300"
+                  className="w-full px-4 py-3 bg-black/30 border-2 border-amber-400 rounded-lg text-white focus:outline-none focus:border-amber-300"
                 >
-                  <option value="daily">Daily Patrol</option>
-                  <option value="weekly">Weekly Mission</option>
-                  <option value="onetime">One-Time Quest</option>
+                  <option value="daily">Daily Task</option>
+                  <option value="weekly">Weekly Task</option>
+                  <option value="onetime">One-Time Task</option>
                 </select>
               </div>
 
@@ -385,7 +385,7 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
               </div>
 
               {isRecurring && (
-                <div className="space-y-4 pl-8 border-l-4 border-pink-400">
+                <div className="space-y-4 pl-8 border-l-4 border-amber-400">
                   <div className="space-y-2">
                     <label className="flex items-center gap-2 cursor-pointer">
                       <input
@@ -427,7 +427,7 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
                           onClick={() => toggleWeekday(index)}
                           className={`flex-1 py-2 rounded-lg transition-all ${
                             weeklyDays.includes(index)
-                              ? 'bg-purple-500 text-white'
+                              ? 'bg-emerald-500 text-white'
                               : 'bg-black/30 text-gray-400'
                           }`}
                         >
@@ -443,7 +443,7 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
                       value={customInterval}
                       onChange={(e) => setCustomInterval(parseInt(e.target.value) || 1)}
                       min="1"
-                      className="w-full px-4 py-2 bg-black/30 border-2 border-pink-400 rounded-lg text-white focus:outline-none focus:border-pink-300"
+                      className="w-full px-4 py-2 bg-black/30 border-2 border-amber-400 rounded-lg text-white focus:outline-none focus:border-amber-300"
                       placeholder="Every N days"
                     />
                   )}
@@ -455,7 +455,7 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
 
         {/* Footer */}
         {mode === 'custom' && (
-          <div className="p-6 border-t-2 border-cyan-400/30 flex gap-4">
+          <div className="p-6 border-t-2 border-emerald-400/30 flex gap-4">
             <button
               onClick={onClose}
               className="flex-1 px-6 py-4 bg-gray-800 text-white rounded-xl hover:bg-gray-700 transition-all font-bold text-lg"
@@ -466,7 +466,7 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
               onClick={() => {
                 // Validate and prepare custom quest data
                 if (!monsterName.trim()) {
-                  alert('Please enter a monster name!');
+                  alert('Please enter a task name!');
                   return;
                 }
 
@@ -486,9 +486,9 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
                 setShowTimingModal(true);
               }}
               disabled={loading}
-              className="flex-1 px-6 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg font-bold text-lg border-2 border-purple-400 disabled:opacity-50"
+              className="flex-1 px-6 py-4 bg-gradient-to-r from-emerald-600 to-green-600 text-white rounded-xl hover:from-emerald-700 hover:to-green-700 transition-all shadow-lg font-bold text-lg border-2 border-emerald-400 disabled:opacity-50"
             >
-              {loading ? 'Creating...' : '✨ Create Monster'}
+              {loading ? 'Creating...' : '✨ Create Task'}
             </button>
           </div>
         )}
