@@ -26,15 +26,15 @@ export default function StoryReader({ magicalGirl, onClose }: StoryReaderProps) 
 
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 z-50 overflow-y-auto">
-      <div className="bg-gradient-to-br from-indigo-900 to-purple-900 rounded-2xl max-w-4xl w-full border-4 border-cyan-500 shadow-2xl my-8">
+      <div className="bg-gradient-to-br from-teal-900 to-emerald-900 rounded-2xl max-w-4xl w-full border-4 border-amber-500 shadow-2xl my-8">
         {/* Header */}
-        <div className="p-6 border-b-2 border-cyan-400">
+        <div className="p-6 border-b-2 border-amber-400">
           <div className="flex justify-between items-center">
             <div>
-              <h2 className="text-4xl font-bold text-cyan-300 mb-2">
+              <h2 className="text-4xl font-bold text-amber-300 mb-2">
                 📖 STORY CHAPTERS
               </h2>
-              <p className="text-cyan-200">The chronicles of Magical Girl Rhia</p>
+              <p className="text-amber-200">Fedora's Zoo Adventure</p>
             </div>
             <button
               onClick={onClose}
@@ -74,11 +74,11 @@ export default function StoryReader({ magicalGirl, onClose }: StoryReaderProps) 
                     <div
                       key={chapter.number}
                       onClick={() => setSelectedChapter(chapter.number)}
-                      className="bg-black/30 border-2 border-pink-400 rounded-xl p-6 hover:border-pink-300 transition-all cursor-pointer hover:bg-black/40"
+                      className="bg-black/30 border-2 border-amber-400 rounded-xl p-6 hover:border-amber-300 transition-all cursor-pointer hover:bg-black/40"
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
-                          <div className="text-pink-300 font-bold mb-1">
+                          <div className="text-amber-300 font-bold mb-1">
                             Chapter {chapter.number}
                           </div>
                           <div className="text-2xl font-bold text-white mb-2">
@@ -130,21 +130,21 @@ export default function StoryReader({ magicalGirl, onClose }: StoryReaderProps) 
             <div>
               <button
                 onClick={() => setSelectedChapter(null)}
-                className="mb-6 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-500 transition-colors"
+                className="mb-6 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-500 transition-colors"
               >
                 ← Back to Chapters
               </button>
 
-              <div className="bg-black/30 border-2 border-pink-400 rounded-xl p-8">
+              <div className="bg-black/30 border-2 border-amber-400 rounded-xl p-8">
                 <div className="text-center mb-6">
-                  <div className="text-pink-300 font-bold text-lg mb-2">
+                  <div className="text-amber-300 font-bold text-lg mb-2">
                     Chapter {currentChapter.number}
                   </div>
                   <h3 className="text-4xl font-bold text-white mb-4">
                     {currentChapter.title}
                   </h3>
-                  <div className="inline-block bg-purple-600/50 px-4 py-2 rounded-lg">
-                    <span className="text-sm text-purple-200">
+                  <div className="inline-block bg-emerald-600/50 px-4 py-2 rounded-lg">
+                    <span className="text-sm text-emerald-200">
                       Unlocked at level {currentChapter.unlockLevel}
                     </span>
                   </div>
@@ -157,11 +157,11 @@ export default function StoryReader({ magicalGirl, onClose }: StoryReaderProps) 
                 </div>
 
                 {/* Navigation */}
-                <div className="mt-8 pt-6 border-t-2 border-pink-400/30 flex justify-between">
+                <div className="mt-8 pt-6 border-t-2 border-amber-400/30 flex justify-between">
                   {selectedChapter !== null && selectedChapter > 0 && availableChapters.find(c => c.number === selectedChapter - 1) ? (
                     <button
                       onClick={() => setSelectedChapter(selectedChapter - 1)}
-                      className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-500 transition-colors font-bold"
+                      className="px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-500 transition-colors font-bold"
                     >
                       ← Previous Chapter
                     </button>
@@ -172,7 +172,7 @@ export default function StoryReader({ magicalGirl, onClose }: StoryReaderProps) 
                   {selectedChapter !== null && availableChapters.find(c => c.number === selectedChapter + 1) ? (
                     <button
                       onClick={() => setSelectedChapter(selectedChapter + 1)}
-                      className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-500 transition-colors font-bold"
+                      className="px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-500 transition-colors font-bold"
                     >
                       Next Chapter →
                     </button>
@@ -187,10 +187,10 @@ export default function StoryReader({ magicalGirl, onClose }: StoryReaderProps) 
 
         {/* Footer */}
         {!currentChapter && (
-          <div className="p-6 border-t-2 border-cyan-400/30">
+          <div className="p-6 border-t-2 border-amber-400/30">
             <button
               onClick={onClose}
-              className="w-full px-6 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg font-bold text-lg border-2 border-purple-400"
+              className="w-full px-6 py-4 bg-gradient-to-r from-emerald-600 to-green-600 text-white rounded-xl hover:from-emerald-700 hover:to-green-700 transition-all shadow-lg font-bold text-lg border-2 border-emerald-400"
             >
               Close
             </button>

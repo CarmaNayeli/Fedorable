@@ -6,7 +6,6 @@ import QuestBoard from '@/components/QuestBoard';
 import BattleSequence from '@/components/BattleSequence';
 import MonsterLab from '@/components/MonsterLab';
 import StoryReader from '@/components/StoryReader';
-import StealthMode from '@/components/StealthMode';
 import SparkleShop from '@/components/SparkleShop';
 import StickerBook from '@/components/StickerBook';
 import { getRandomDialogue } from '@/lib/gameData';
@@ -23,7 +22,6 @@ export default function Home() {
   const [showShop, setShowShop] = useState(false);
   const [showStickerBook, setShowStickerBook] = useState(false);
   const [battleQuest, setBattleQuest] = useState<any>(null);
-  const [stealthActive, setStealthActive] = useState(false);
   const [magicalGirl, setMagicalGirl] = useState<any>(null);
 
   useEffect(() => {
@@ -58,20 +56,8 @@ export default function Home() {
     window.location.reload();
   };
 
-  if (stealthActive) {
-    return <StealthMode onDeactivate={() => setStealthActive(false)} />;
-  }
-
   return (
     <main className="min-h-screen bg-gradient-to-br from-green-900 via-emerald-900 to-teal-900 p-4 md:p-8">
-      {/* Quick Stealth Button */}
-      <button
-        onClick={() => setStealthActive(true)}
-        className="fixed top-4 right-4 z-50 px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-all shadow-lg opacity-50 hover:opacity-100 text-sm"
-        title="Quick Hide (Boss Key)"
-      >
-        🤫 Hide
-      </button>
 
       <div className="max-w-7xl mx-auto">
         {/* Header */}
