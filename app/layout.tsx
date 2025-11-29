@@ -3,8 +3,8 @@ import "./globals.css";
 import { ServiceWorkerProvider } from "./ServiceWorkerProvider";
 
 export const metadata: Metadata = {
-  title: "Rhia-minder - Chore Tracker",
-  description: "Track your chores with gamification and smart notifications",
+  title: "Fedorable - Zoo Care Tracker",
+  description: "Care for adorable zoo animals with gamification and smart notifications",
   manifest: "/manifest.json",
 };
 

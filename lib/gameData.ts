@@ -1,4 +1,4 @@
-// Game Data: Monsters, Story, Dialogue
+// Game Data: Animal Care Tasks, Story, Dialogue
 
 export interface MonsterTemplate {
   id: string;
@@ -14,15 +14,15 @@ export interface MonsterTemplate {
   recurrenceRule?: string;
 }
 
-// Rhia's Real Household Monster Templates
+// Fedora's Zoo Animal Care Templates
 export const MONSTER_TEMPLATES: MonsterTemplate[] = [
-  // === GENERAL TIDY-UP (Daily Patrols) ===
+  // === FEEDING TASKS (Daily Care) ===
   {
-    id: 'kitchen-chaos',
-    name: 'Kitchen Chaos Spirit',
-    emoji: '🍽️',
-    description: 'Scatters items across counters and creates general disorder',
-    realm: 'kitchen',
+    id: 'penguin-feeding',
+    name: 'Feed the Penguins',
+    emoji: '🐧',
+    description: 'Prepare and distribute fish to the penguin colony',
+    realm: 'arctic',
     threatLevel: 2,
     questType: 'daily',
     sparklePoints: 20,
@@ -31,65 +31,11 @@ export const MONSTER_TEMPLATES: MonsterTemplate[] = [
     recurrenceRule: 'FREQ=DAILY',
   },
   {
-    id: 'living-room-clutter',
-    name: 'Living Room Clutter King',
-    emoji: '🛋️',
-    description: 'Hoards items on every surface',
-    realm: 'livingRoom',
-    threatLevel: 2,
-    questType: 'daily',
-    sparklePoints: 20,
-    magicGems: 0,
-    xpReward: 10,
-    recurrenceRule: 'FREQ=DAILY',
-  },
-  {
-    id: 'bedroom-disorder',
-    name: 'Bedroom Disorder Demon',
-    emoji: '🛏️',
-    description: 'Creates chaos in the master bedroom',
-    realm: 'bedroom',
-    threatLevel: 2,
-    questType: 'daily',
-    sparklePoints: 20,
-    magicGems: 0,
-    xpReward: 10,
-    recurrenceRule: 'FREQ=DAILY',
-  },
-  {
-    id: 'sylvie-room-scatter',
-    name: "Sylvie's Room Scatter Imp",
-    emoji: '🧸',
-    description: "Leaves toys and items scattered throughout Sylvie's domain",
-    realm: 'sylvieRoom',
-    threatLevel: 2,
-    questType: 'daily',
-    sparklePoints: 20,
-    magicGems: 0,
-    xpReward: 10,
-    recurrenceRule: 'FREQ=DAILY',
-  },
-  {
-    id: 'etc-room-mayhem',
-    name: 'Etc Room Mayhem Beast',
-    emoji: '📦',
-    description: 'The mysterious Etc room harbors untold clutter',
-    realm: 'etcRoom',
-    threatLevel: 2,
-    questType: 'daily',
-    sparklePoints: 20,
-    magicGems: 0,
-    xpReward: 10,
-    recurrenceRule: 'FREQ=DAILY',
-  },
-
-  // === DISHES ===
-  {
-    id: 'dishwasher-dragon',
-    name: 'Dishwasher Dragon',
-    emoji: '🐉',
-    description: 'Load and run the dishwasher to vanquish this mechanical beast',
-    realm: 'kitchen',
+    id: 'lion-feeding',
+    name: 'Feed the Lions',
+    emoji: '🦁',
+    description: 'Prepare meat portions for the pride',
+    realm: 'savanna',
     threatLevel: 2,
     questType: 'daily',
     sparklePoints: 25,
@@ -98,26 +44,11 @@ export const MONSTER_TEMPLATES: MonsterTemplate[] = [
     recurrenceRule: 'FREQ=DAILY',
   },
   {
-    id: 'handwash-horror',
-    name: 'Handwash Horror',
-    emoji: '💀',
-    description: 'Those dishes that must be scrubbed by hand',
-    realm: 'kitchen',
-    threatLevel: 2,
-    questType: 'daily',
-    sparklePoints: 20,
-    magicGems: 0,
-    xpReward: 10,
-    recurrenceRule: 'FREQ=DAILY',
-  },
-
-  // === LAUNDRY ===
-  {
-    id: 'washing-machine-wyrm',
-    name: 'Washing Machine Wyrm',
-    emoji: '🌊',
-    description: 'Run the washing machine to cleanse the fabric realm',
-    realm: 'laundryRoom',
+    id: 'monkey-feeding',
+    name: 'Feed the Monkeys',
+    emoji: '🐵',
+    description: 'Distribute fruits and vegetables to the primates',
+    realm: 'jungle',
     threatLevel: 2,
     questType: 'daily',
     sparklePoints: 20,
@@ -126,11 +57,50 @@ export const MONSTER_TEMPLATES: MonsterTemplate[] = [
     recurrenceRule: 'FREQ=DAILY',
   },
   {
-    id: 'dryer-demon',
-    name: 'Dryer Demon',
-    emoji: '🔥',
-    description: 'Move wet clothes from washer to dryer',
-    realm: 'laundryRoom',
+    id: 'elephant-feeding',
+    name: 'Feed the Elephants',
+    emoji: '🐘',
+    description: 'Provide hay, fruits, and vegetables to the gentle giants',
+    realm: 'savanna',
+    threatLevel: 2,
+    questType: 'daily',
+    sparklePoints: 25,
+    magicGems: 0,
+    xpReward: 12,
+    recurrenceRule: 'FREQ=DAILY',
+  },
+  {
+    id: 'giraffe-feeding',
+    name: 'Feed the Giraffes',
+    emoji: '🦒',
+    description: 'Place fresh leaves in the tall feeding stations',
+    realm: 'savanna',
+    threatLevel: 2,
+    questType: 'daily',
+    sparklePoints: 20,
+    magicGems: 0,
+    xpReward: 10,
+    recurrenceRule: 'FREQ=DAILY',
+  },
+  {
+    id: 'panda-feeding',
+    name: 'Feed the Pandas',
+    emoji: '🐼',
+    description: 'Provide fresh bamboo to our bamboo-loving friends',
+    realm: 'asia',
+    threatLevel: 2,
+    questType: 'daily',
+    sparklePoints: 20,
+    magicGems: 0,
+    xpReward: 10,
+    recurrenceRule: 'FREQ=DAILY',
+  },
+  {
+    id: 'parrot-feeding',
+    name: 'Feed the Parrots',
+    emoji: '🦜',
+    description: 'Provide seeds, nuts, and fruits to the colorful flock',
+    realm: 'aviary',
     threatLevel: 1,
     questType: 'daily',
     sparklePoints: 15,
@@ -139,11 +109,52 @@ export const MONSTER_TEMPLATES: MonsterTemplate[] = [
     recurrenceRule: 'FREQ=DAILY',
   },
   {
-    id: 'laundry-folding-fiend',
-    name: 'Laundry Folding Fiend',
-    emoji: '🧺',
-    description: 'Sort, fold, and put away the clean garments',
-    realm: 'laundryRoom',
+    id: 'seal-feeding',
+    name: 'Feed the Seals',
+    emoji: '🦭',
+    description: 'Toss fish to the playful seals',
+    realm: 'aquatic',
+    threatLevel: 2,
+    questType: 'daily',
+    sparklePoints: 20,
+    magicGems: 0,
+    xpReward: 10,
+    recurrenceRule: 'FREQ=DAILY',
+  },
+
+  // === HABITAT CLEANING (Daily Maintenance) ===
+  {
+    id: 'penguin-pool-clean',
+    name: 'Clean Penguin Pool',
+    emoji: '🧼',
+    description: 'Remove debris and maintain water quality',
+    realm: 'arctic',
+    threatLevel: 2,
+    questType: 'daily',
+    sparklePoints: 20,
+    magicGems: 0,
+    xpReward: 10,
+    recurrenceRule: 'FREQ=DAILY',
+  },
+  {
+    id: 'monkey-habitat-tidy',
+    name: 'Tidy Monkey Habitat',
+    emoji: '🌴',
+    description: 'Clean up enrichment toys and maintain cleanliness',
+    realm: 'jungle',
+    threatLevel: 2,
+    questType: 'daily',
+    sparklePoints: 20,
+    magicGems: 0,
+    xpReward: 10,
+    recurrenceRule: 'FREQ=DAILY',
+  },
+  {
+    id: 'elephant-yard-clean',
+    name: 'Clean Elephant Yard',
+    emoji: '🧹',
+    description: 'Remove waste and refresh the outdoor area',
+    realm: 'savanna',
     threatLevel: 3,
     questType: 'daily',
     sparklePoints: 30,
@@ -152,244 +163,203 @@ export const MONSTER_TEMPLATES: MonsterTemplate[] = [
     recurrenceRule: 'FREQ=DAILY',
   },
   {
-    id: 'sock-sorting-sprite',
-    name: 'Sock Sorting Sprite',
-    emoji: '🧦',
-    description: 'Match the endless pairs of scattered socks',
-    realm: 'laundryRoom',
-    threatLevel: 2,
-    questType: 'daily',
-    sparklePoints: 20,
-    magicGems: 0,
-    xpReward: 10,
-    recurrenceRule: 'FREQ=DAILY',
-  },
-
-  // === VACUUM & SWEEP ===
-  {
-    id: 'vacuum-vortex',
-    name: 'Vacuum Vortex',
-    emoji: '🌪️',
-    description: 'Vacuum the entire house to banish dust and debris',
-    realm: 'wholeHouse',
-    threatLevel: 3,
-    questType: 'weekly',
-    sparklePoints: 40,
-    magicGems: 1,
-    xpReward: 20,
-    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SA',
-  },
-  {
-    id: 'sweep-mop-monster',
-    name: 'Sweep & Mop Monster',
+    id: 'aviary-sweep',
+    name: 'Sweep the Aviary',
     emoji: '🧹',
-    description: 'Sweep and mop floors throughout the house',
-    realm: 'wholeHouse',
+    description: 'Clean floors and perches in the bird sanctuary',
+    realm: 'aviary',
+    threatLevel: 2,
+    questType: 'daily',
+    sparklePoints: 20,
+    magicGems: 0,
+    xpReward: 10,
+    recurrenceRule: 'FREQ=DAILY',
+  },
+
+  // === GROOMING TASKS ===
+  {
+    id: 'lion-grooming',
+    name: 'Groom the Lions',
+    emoji: '💇',
+    description: 'Brush and check the lions for health',
+    realm: 'savanna',
     threatLevel: 3,
     questType: 'weekly',
     sparklePoints: 40,
     magicGems: 1,
     xpReward: 20,
+    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SA',
+  },
+  {
+    id: 'panda-grooming',
+    name: 'Groom the Pandas',
+    emoji: '🧴',
+    description: 'Brush bamboo bits from panda fur',
+    realm: 'asia',
+    threatLevel: 2,
+    questType: 'weekly',
+    sparklePoints: 35,
+    magicGems: 1,
+    xpReward: 18,
     recurrenceRule: 'FREQ=WEEKLY;BYDAY=SU',
   },
-
-  // === TRASH (Individual by room) ===
   {
-    id: 'kitchen-trash-goblin',
-    name: 'Kitchen Trash Goblin',
-    emoji: '🗑️',
-    description: 'Take out the kitchen garbage',
+    id: 'elephant-bath',
+    name: 'Bathe the Elephants',
+    emoji: '🚿',
+    description: 'Give the elephants their weekly scrub and spray',
+    realm: 'savanna',
+    threatLevel: 3,
+    questType: 'weekly',
+    sparklePoints: 40,
+    magicGems: 1,
+    xpReward: 20,
+    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SA',
+  },
+
+  // === ENRICHMENT ACTIVITIES ===
+  {
+    id: 'monkey-enrichment',
+    name: 'Monkey Enrichment Time',
+    emoji: '🎁',
+    description: 'Set up puzzle feeders and toys for mental stimulation',
+    realm: 'jungle',
+    threatLevel: 2,
+    questType: 'weekly',
+    sparklePoints: 30,
+    magicGems: 1,
+    xpReward: 15,
+    recurrenceRule: 'FREQ=WEEKLY;BYDAY=WE',
+  },
+  {
+    id: 'seal-training',
+    name: 'Seal Training Session',
+    emoji: '🎯',
+    description: 'Practice tricks and behaviors with the seals',
+    realm: 'aquatic',
+    threatLevel: 2,
+    questType: 'weekly',
+    sparklePoints: 30,
+    magicGems: 1,
+    xpReward: 15,
+    recurrenceRule: 'FREQ=WEEKLY;BYDAY=TU',
+  },
+  {
+    id: 'parrot-socialization',
+    name: 'Parrot Socialization',
+    emoji: '🗣️',
+    description: 'Spend time talking and playing with the parrots',
+    realm: 'aviary',
+    threatLevel: 1,
+    questType: 'weekly',
+    sparklePoints: 25,
+    magicGems: 0,
+    xpReward: 12,
+    recurrenceRule: 'FREQ=WEEKLY;BYDAY=TH',
+  },
+
+  // === DEEP CLEANING (Weekly Boss Battles) ===
+  {
+    id: 'lion-habitat-deep-clean',
+    name: 'Deep Clean Lion Habitat',
+    emoji: '🦁',
+    description: 'Thorough scrub of the entire lion enclosure',
+    realm: 'savanna',
+    threatLevel: 4,
+    questType: 'boss',
+    sparklePoints: 60,
+    magicGems: 2,
+    xpReward: 30,
+    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SA',
+  },
+  {
+    id: 'penguin-exhibit-overhaul',
+    name: 'Penguin Exhibit Overhaul',
+    emoji: '🐧',
+    description: 'Complete water change and habitat refresh',
+    realm: 'arctic',
+    threatLevel: 4,
+    questType: 'boss',
+    sparklePoints: 60,
+    magicGems: 2,
+    xpReward: 30,
+    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SU',
+  },
+  {
+    id: 'aquarium-maintenance',
+    name: 'Aquarium Deep Maintenance',
+    emoji: '🐠',
+    description: 'Filter cleaning, water testing, and tank maintenance',
+    realm: 'aquatic',
+    threatLevel: 4,
+    questType: 'boss',
+    sparklePoints: 60,
+    magicGems: 2,
+    xpReward: 30,
+    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SA',
+  },
+
+  // === HEALTH CHECKS ===
+  {
+    id: 'morning-health-rounds',
+    name: 'Morning Health Rounds',
+    emoji: '🩺',
+    description: 'Check all animals for signs of illness or injury',
+    realm: 'wholeZoo',
+    threatLevel: 2,
+    questType: 'daily',
+    sparklePoints: 25,
+    magicGems: 0,
+    xpReward: 12,
+    recurrenceRule: 'FREQ=DAILY',
+  },
+  {
+    id: 'veterinary-checkup',
+    name: 'Veterinary Check-ups',
+    emoji: '💉',
+    description: 'Assist the vet with animal examinations',
+    realm: 'wholeZoo',
+    threatLevel: 3,
+    questType: 'weekly',
+    sparklePoints: 40,
+    magicGems: 1,
+    xpReward: 20,
+    recurrenceRule: 'FREQ=WEEKLY;BYDAY=MO',
+  },
+
+  // === FOOD PREPARATION ===
+  {
+    id: 'morning-food-prep',
+    name: 'Morning Food Prep',
+    emoji: '🍎',
+    description: 'Prepare all morning meals for the zoo animals',
     realm: 'kitchen',
-    threatLevel: 1,
+    threatLevel: 3,
     questType: 'daily',
-    sparklePoints: 15,
+    sparklePoints: 30,
     magicGems: 0,
-    xpReward: 8,
+    xpReward: 15,
     recurrenceRule: 'FREQ=DAILY',
   },
   {
-    id: 'livingroom-refuse-imp',
-    name: 'Living Room Refuse Imp',
-    emoji: '🗑️',
-    description: 'Empty the living room trash can',
-    realm: 'livingRoom',
-    threatLevel: 1,
-    questType: 'weekly',
-    sparklePoints: 15,
-    magicGems: 0,
-    xpReward: 8,
-    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SU',
-  },
-  {
-    id: 'sylvie-garbage-ghost',
-    name: "Sylvie's Room Garbage Ghost",
-    emoji: '👻',
-    description: "Empty Sylvie's room trash can",
-    realm: 'sylvieRoom',
-    threatLevel: 1,
-    questType: 'weekly',
-    sparklePoints: 15,
-    magicGems: 0,
-    xpReward: 8,
-    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SU',
-  },
-  {
-    id: 'bedroom-waste-wraith',
-    name: 'Bedroom Waste Wraith',
-    emoji: '🗑️',
-    description: 'Take out the bedroom trash',
-    realm: 'bedroom',
-    threatLevel: 1,
-    questType: 'weekly',
-    sparklePoints: 15,
-    magicGems: 0,
-    xpReward: 8,
-    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SU',
-  },
-  {
-    id: 'downstairs-bathroom-trash',
-    name: 'Downstairs Bathroom Trash Troll',
-    emoji: '🚽',
-    description: 'Empty the downstairs bathroom waste bin',
-    realm: 'bathroomDownstairs',
-    threatLevel: 1,
-    questType: 'weekly',
-    sparklePoints: 15,
-    magicGems: 0,
-    xpReward: 8,
-    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SU',
-  },
-  {
-    id: 'upstairs-bathroom-trash',
-    name: 'Upstairs Bathroom Trash Troll',
-    emoji: '🚽',
-    description: 'Empty the upstairs bathroom waste bin',
-    realm: 'bathroomUpstairs',
-    threatLevel: 1,
-    questType: 'weekly',
-    sparklePoints: 15,
-    magicGems: 0,
-    xpReward: 8,
-    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SU',
-  },
-
-  // === CAT LITTER ===
-  {
-    id: 'upstairs-litter-beast',
-    name: 'Upstairs Litter Box Beast',
-    emoji: '🐱',
-    description: 'Scoop and dispose of upstairs litter box',
-    realm: 'bathroomUpstairs',
-    threatLevel: 2,
+    id: 'afternoon-food-prep',
+    name: 'Afternoon Food Prep',
+    emoji: '🥕',
+    description: 'Prepare afternoon and evening meals',
+    realm: 'kitchen',
+    threatLevel: 3,
     questType: 'daily',
-    sparklePoints: 20,
+    sparklePoints: 30,
     magicGems: 0,
-    xpReward: 10,
+    xpReward: 15,
     recurrenceRule: 'FREQ=DAILY',
   },
   {
-    id: 'downstairs-litter-beast',
-    name: 'Downstairs Litter Box Beast',
-    emoji: '🐱',
-    description: 'Scoop and dispose of downstairs litter box',
-    realm: 'bathroomDownstairs',
-    threatLevel: 2,
-    questType: 'daily',
-    sparklePoints: 20,
-    magicGems: 0,
-    xpReward: 10,
-    recurrenceRule: 'FREQ=DAILY',
-  },
-  {
-    id: 'upstairs-litter-dragon',
-    name: 'Upstairs Litter Change Dragon',
-    emoji: '🐉',
-    description: 'Full litter box change - upstairs edition',
-    realm: 'bathroomUpstairs',
-    threatLevel: 3,
-    questType: 'weekly',
-    sparklePoints: 35,
-    magicGems: 1,
-    xpReward: 18,
-    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SA',
-  },
-  {
-    id: 'downstairs-litter-dragon',
-    name: 'Downstairs Litter Change Dragon',
-    emoji: '🐉',
-    description: 'Full litter box change - downstairs edition',
-    realm: 'bathroomDownstairs',
-    threatLevel: 3,
-    questType: 'weekly',
-    sparklePoints: 35,
-    magicGems: 1,
-    xpReward: 18,
-    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SA',
-  },
-
-  // === WASH SHEETS ===
-  {
-    id: 'bedroom-sheet-specter',
-    name: 'Bedroom Sheet Specter',
-    emoji: '🛏️',
-    description: 'Strip, wash, and remake the master bedroom',
-    realm: 'bedroom',
-    threatLevel: 3,
-    questType: 'weekly',
-    sparklePoints: 40,
-    magicGems: 1,
-    xpReward: 20,
-    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SU',
-  },
-  {
-    id: 'sylvie-sheet-phantom',
-    name: "Sylvie's Sheet Phantom",
-    emoji: '👻',
-    description: "Strip, wash, and remake Sylvie's bed",
-    realm: 'sylvieRoom',
-    threatLevel: 3,
-    questType: 'weekly',
-    sparklePoints: 40,
-    magicGems: 1,
-    xpReward: 20,
-    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SU',
-  },
-
-  // === CLEAN BATHROOMS ===
-  {
-    id: 'upstairs-bathroom-banshee',
-    name: 'Upstairs Bathroom Banshee',
-    emoji: '🧼',
-    description: 'Scrub, sanitize, and restore the upstairs bathroom',
-    realm: 'bathroomUpstairs',
-    threatLevel: 4,
-    questType: 'boss',
-    sparklePoints: 60,
-    magicGems: 2,
-    xpReward: 30,
-    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SA',
-  },
-  {
-    id: 'downstairs-bathroom-banshee',
-    name: 'Downstairs Bathroom Banshee',
-    emoji: '🧼',
-    description: 'Scrub, sanitize, and restore the downstairs bathroom',
-    realm: 'bathroomDownstairs',
-    threatLevel: 4,
-    questType: 'boss',
-    sparklePoints: 60,
-    magicGems: 2,
-    xpReward: 30,
-    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SA',
-  },
-
-  // === GROCERIES ===
-  {
-    id: 'grocery-golem',
-    name: 'Grocery Golem',
+    id: 'supply-procurement',
+    name: 'Procure Animal Supplies',
     emoji: '🛒',
-    description: 'Venture forth to gather supplies and provisions',
-    realm: 'wholeHouse',
+    description: 'Purchase food and supplies for the zoo',
+    realm: 'wholeZoo',
     threatLevel: 3,
     questType: 'weekly',
     sparklePoints: 50,
@@ -398,13 +368,96 @@ export const MONSTER_TEMPLATES: MonsterTemplate[] = [
     recurrenceRule: 'FREQ=WEEKLY;BYDAY=SU',
   },
 
-  // === GAME NIGHTS (Friendly Quests!) ===
+  // === VISITOR AREAS ===
   {
-    id: 'thursday-game-guardian',
-    name: 'Thursday Game Guardian',
-    emoji: '🎲',
-    description: 'A friendly ally! Protect sacred Thursday game night tradition',
-    realm: 'livingRoom',
+    id: 'visitor-path-clean',
+    name: 'Clean Visitor Paths',
+    emoji: '🧹',
+    description: 'Sweep and maintain clean pathways for guests',
+    realm: 'wholeZoo',
+    threatLevel: 2,
+    questType: 'daily',
+    sparklePoints: 20,
+    magicGems: 0,
+    xpReward: 10,
+    recurrenceRule: 'FREQ=DAILY',
+  },
+  {
+    id: 'gift-shop-restock',
+    name: 'Restock Gift Shop',
+    emoji: '🎁',
+    description: 'Organize and restock animal plushies and souvenirs',
+    realm: 'giftShop',
+    threatLevel: 2,
+    questType: 'weekly',
+    sparklePoints: 30,
+    magicGems: 1,
+    xpReward: 15,
+    recurrenceRule: 'FREQ=WEEKLY;BYDAY=FR',
+  },
+
+  // === SPECIAL EVENTS ===
+  {
+    id: 'baby-animal-care',
+    name: 'Baby Animal Care',
+    emoji: '🍼',
+    description: 'Feed and care for the newest zoo arrivals',
+    realm: 'nursery',
+    threatLevel: 3,
+    questType: 'side',
+    sparklePoints: 40,
+    magicGems: 1,
+    xpReward: 20,
+  },
+  {
+    id: 'education-program',
+    name: 'Education Program',
+    emoji: '📚',
+    description: 'Teach visitors about animal conservation',
+    realm: 'education',
+    threatLevel: 2,
+    questType: 'weekly',
+    sparklePoints: 35,
+    magicGems: 1,
+    xpReward: 18,
+    recurrenceRule: 'FREQ=WEEKLY;BYDAY=SA',
+  },
+
+  // === REPTILE HOUSE ===
+  {
+    id: 'snake-feeding',
+    name: 'Feed the Snakes',
+    emoji: '🐍',
+    description: 'Carefully feed the reptile residents',
+    realm: 'reptileHouse',
+    threatLevel: 2,
+    questType: 'weekly',
+    sparklePoints: 30,
+    magicGems: 1,
+    xpReward: 15,
+    recurrenceRule: 'FREQ=WEEKLY;BYDAY=WE',
+  },
+  {
+    id: 'terrarium-maintenance',
+    name: 'Maintain Terrariums',
+    emoji: '🦎',
+    description: 'Clean and maintain humidity and temperature',
+    realm: 'reptileHouse',
+    threatLevel: 2,
+    questType: 'weekly',
+    sparklePoints: 35,
+    magicGems: 1,
+    xpReward: 18,
+    recurrenceRule: 'FREQ=WEEKLY;BYDAY=TH',
+  },
+
+  // === FRIENDLY EVENTS ===
+  {
+    id: 'tiger-cubs-playtime',
+    name: 'Tiger Cubs Playtime',
+    emoji: '🐯',
+    description: 'A joyful task! Play and socialize with baby tigers',
+    realm: 'nursery',
     threatLevel: 1,
     questType: 'weekly',
     sparklePoints: 30,
@@ -413,11 +466,11 @@ export const MONSTER_TEMPLATES: MonsterTemplate[] = [
     recurrenceRule: 'FREQ=WEEKLY;BYDAY=TH',
   },
   {
-    id: 'friday-game-guardian',
-    name: 'Friday Game Guardian',
-    emoji: '🎮',
-    description: 'A friendly ally! Protect sacred Friday game night tradition',
-    realm: 'livingRoom',
+    id: 'dolphin-show',
+    name: 'Dolphin Show Preparation',
+    emoji: '🐬',
+    description: 'A fun task! Prepare for the dolphin demonstration',
+    realm: 'aquatic',
     threatLevel: 1,
     questType: 'weekly',
     sparklePoints: 30,
@@ -425,168 +478,87 @@ export const MONSTER_TEMPLATES: MonsterTemplate[] = [
     xpReward: 15,
     recurrenceRule: 'FREQ=WEEKLY;BYDAY=FR',
   },
-
-  // === KITCHEN COUNTERS ===
-  {
-    id: 'counter-tidy-sprite',
-    name: 'Counter Tidy Sprite',
-    emoji: '📦',
-    description: 'Clear clutter and organize kitchen counters',
-    realm: 'kitchen',
-    threatLevel: 2,
-    questType: 'daily',
-    sparklePoints: 20,
-    magicGems: 0,
-    xpReward: 10,
-    recurrenceRule: 'FREQ=DAILY',
-  },
-  {
-    id: 'counter-clean-demon',
-    name: 'Counter Clean Demon',
-    emoji: '🧽',
-    description: 'Wipe down and sanitize all kitchen counters',
-    realm: 'kitchen',
-    threatLevel: 2,
-    questType: 'daily',
-    sparklePoints: 20,
-    magicGems: 0,
-    xpReward: 10,
-    recurrenceRule: 'FREQ=DAILY',
-  },
-
-  // === COOKING ===
-  {
-    id: 'breakfast-beast',
-    name: 'Breakfast Beast',
-    emoji: '🍳',
-    description: 'Prepare the morning meal to fuel the day',
-    realm: 'kitchen',
-    threatLevel: 2,
-    questType: 'daily',
-    sparklePoints: 25,
-    magicGems: 0,
-    xpReward: 12,
-    recurrenceRule: 'FREQ=DAILY',
-  },
-  {
-    id: 'lunch-lurker',
-    name: 'Lunch Lurker',
-    emoji: '🥗',
-    description: 'Conjure the midday sustenance',
-    realm: 'kitchen',
-    threatLevel: 2,
-    questType: 'daily',
-    sparklePoints: 25,
-    magicGems: 0,
-    xpReward: 12,
-    recurrenceRule: 'FREQ=DAILY',
-  },
-  {
-    id: 'dinner-dragon',
-    name: 'Dinner Dragon',
-    emoji: '🍽️',
-    description: 'Create the evening feast for the household',
-    realm: 'kitchen',
-    threatLevel: 3,
-    questType: 'daily',
-    sparklePoints: 30,
-    magicGems: 0,
-    xpReward: 15,
-    recurrenceRule: 'FREQ=DAILY',
-  },
-  {
-    id: 'sarah-lunch-packer',
-    name: "Sarah's Lunch Packing Pixie",
-    emoji: '🍱',
-    description: 'Pack a nutritious lunch for Sarah to take to work',
-    realm: 'kitchen',
-    threatLevel: 2,
-    questType: 'daily',
-    sparklePoints: 20,
-    magicGems: 0,
-    xpReward: 10,
-    recurrenceRule: 'FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR',
-  },
 ];
 
-// Sparkle Dialogue
+// Zooey Dialogue
 export const SPARKLE_DIALOGUE = {
   morning: [
-    "Good morning, Rhia! The forces of mess are stirring! Are you ready to protect your home today? ✨",
-    "Rise and shine, Magical Girl! Your realm needs you! 💫",
-    "Morning, Rhia! I sense disturbances in the tidy-force! Time to suit up! 🌟",
+    "Good morning, Fedora! The animals are waking up and ready for breakfast! Time to start the day! 🦜",
+    "Rise and shine, Zookeeper! Your furry and feathered friends need you! 🌅",
+    "Morning, Fedora! I hear the lions roaring - they're hungry! Let's get to work! 🦁",
+    "Another beautiful day at the zoo! The animals missed you! 🦒",
   ],
 
   questComplete: [
-    "Amazing work, Rhia! Your dedication inspires us all! ✨",
-    "That's the power of a true Magical Girl! Well done! 💫",
-    "SPECTACULAR! Another victory for justice and cleanliness! 🌟",
-    "You make it look easy, Rhia! Simply magnificent! ✨",
+    "Amazing work, Fedora! The animals are so happy! 🦜",
+    "That's the dedication of a true zookeeper! Well done! 🌟",
+    "FANTASTIC! Another animal well cared for! You're a natural! 🐾",
+    "You make it look easy, Fedora! The animals are lucky to have you! 💚",
   ],
 
   criticalHit: [
-    "💥 CRITICAL HIT! That was absolutely perfect! ✨",
-    "🌟 AMAZING! You've mastered that technique! 💫",
-    "✨ FLAWLESS EXECUTION! The legends will tell of this day! 🌟",
+    "💚 PERFECT CARE! That was absolutely wonderful! 🦜",
+    "🌟 AMAZING! You've mastered that technique! 🐾",
+    "🦁 FLAWLESS EXECUTION! The animals are thriving thanks to you! 💚",
   ],
 
   streakMilestone: [
-    "🔥 {days} days in a row?! You're becoming a legend! 🌟",
-    "✨ {days} consecutive days! Your determination is unmatched! 💫",
-    "💫 {days} day streak! This is the power of consistency! ✨",
+    "🔥 {days} days in a row?! You're becoming a legendary zookeeper! 🦁",
+    "🌟 {days} consecutive days! Your dedication is inspiring! 🦜",
+    "💚 {days} day streak! The animals depend on you and you deliver! 🐘",
   ],
 
   bossEncounter: [
-    "🚨 BOSS ALERT! This is it, Rhia! Channel all your cleaning power! I believe in you! 💫",
-    "⚔️ A powerful foe appears! But I know you can handle this! Show them your strength! ✨",
-    "💪 It's time for an epic battle! Let's show this boss what a Magical Girl can do! 🌟",
+    "🚨 BIG TASK AHEAD! This is it, Fedora! Time for that deep clean! I believe in you! 🦜",
+    "⚡ A major project appears! But I know you can handle this! Show your expertise! 🌟",
+    "💪 It's time for an epic cleaning session! Let's show this habitat what a pro zookeeper can do! 🦁",
   ],
 
   missedDay: [
-    "Even magical girls need rest sometimes. Tomorrow is a new day! ✨",
-    "Don't worry, Rhia! Every hero has days off. You'll bounce back! 💫",
-    "Rest is part of being strong. When you're ready, the quests will be waiting! 🌟",
+    "Even the best zookeepers need rest sometimes. The animals understand! 🦜",
+    "Don't worry, Fedora! Every keeper has days off. You'll bounce back! 💚",
+    "Rest is important for everyone. When you're ready, the animals will be waiting! 🌟",
   ],
 
   shieldEarned: [
-    "🛡️ SPARKLE SHIELD EARNED! Your dedication has been rewarded! This shield will protect your streak when you need a rest day! ✨",
-    "✨ A Sparkle Shield appears! Your consistent efforts have earned you a day of protection! Use it wisely! 💫",
-    "🌟 SHIELD ACQUIRED! Your {days}-day streak has granted you the power of protection! Rest when you need it! 🛡️",
+    "🏖️ VACATION DAY EARNED! Your dedication has been rewarded! Take a break when you need it! 🦜",
+    "🌟 A rest day appears! Your consistent efforts have earned you a day off! Use it wisely! 💚",
+    "🏝️ DAY OFF ACQUIRED! Your {days}-day streak has granted you the power of rest! Recharge! 🦁",
   ],
 
   shieldUsed: [
-    "🛡️ Sparkle Shield activated! Your streak is safe today, Magical Girl! Rest well! ✨",
-    "✨ The shield's magic protects your hard-earned streak! Take the day you deserve! 💫",
-    "💫 Shield power engaged! Your {days}-day streak remains strong! Recharge and return stronger! 🛡️",
+    "🏖️ Vacation day activated! Your streak is safe today, Zookeeper! Rest well! 🦜",
+    "🌟 Taking a well-deserved break! Your hard-earned streak is protected! Enjoy! 💚",
+    "💚 Rest day engaged! Your {days}-day streak remains strong! Recharge and return stronger! 🏝️",
   ],
 
   levelUp: [
-    "✨ LEVEL UP! You're growing stronger, Rhia! New powers unlocked! 💫",
-    "🌟 You've reached level {level}! Your magical girl journey continues! ✨",
-    "💫 LEVEL {level} ACHIEVED! The realm is safer thanks to you! 🌟",
+    "🌟 LEVEL UP! You're becoming an expert zookeeper, Fedora! New skills unlocked! 🦜",
+    "🦁 You've reached level {level}! The animals are thriving thanks to you! 🌟",
+    "💚 LEVEL {level} ACHIEVED! The zoo is in great hands! 🐘",
   ],
 
   secretIdentity: {
     wifeNearby: [
-      "*whispers* Your wife is nearby! Act natural! 🤫",
-      "Shh! Maintain your cover, Magical Girl! 🤐",
-      "*quiet voice* Remember: you're just doing normal chores... 😉",
+      "*whispers* Your wife is nearby! Act casual about the chores! 🤫",
+      "Shh! Just doing normal housework... nothing special! 🤐",
+      "*quiet voice* Remember: you're just cleaning up... 😉",
     ],
     kidNearby: [
-      "Quick! Look casual! Sylvie can't know about your secret! 🤫",
-      "*whispers frantically* Civilian approaching! Normal chore mode activated! 😅",
+      "Quick! Look normal! Can't let them see the tracking app! 🤫",
+      "*whispers frantically* Family approaching! Normal chore mode! 😅",
     ],
     closeCall: [
-      "That was close! Good save, Rhia! Your secret is safe! 🤫✨",
-      "Whew! They almost saw the sparkles! Well played! 😅💫",
-      "Crisis averted! Your double life remains secure! 🎭✨",
+      "That was close! Good save, Fedora! They didn't see the stats! 🤫🦜",
+      "Whew! They almost saw the app! Well played! 😅💚",
+      "Crisis averted! Your gamification secret remains safe! 🎭🌟",
     ],
   },
 
   familyHelp: [
-    "⚡ MYSTERIOUS ALLY STRIKES! Someone else has weakened a monster! 💫",
-    "✨ BACKUP ARRIVED! Looks like you have unexpected help! 🌟",
-    "💫 CIVILIAN ASSISTANCE DETECTED! Even normal people can be heroes! ✨",
+    "⚡ UNEXPECTED HELP! Someone else helped with that task! 💚",
+    "🌟 BACKUP ARRIVED! Looks like you have unexpected assistance! 🦜",
+    "💚 FAMILY SUPPORT! Even without knowing about the game, they're helping! 🌟",
   ],
 };
 
@@ -594,133 +566,105 @@ export const SPARKLE_DIALOGUE = {
 export const STORY_CHAPTERS = [
   {
     number: 0,
-    title: "The Awakening",
+    title: "Welcome to the Zoo",
     unlockLevel: 1,
-    content: `It started like any other morning. Rhia looked around her home and sighed at the growing chaos. Dishes piled in the sink. Laundry mountain had evolved from hill to full-blown peak. The bathroom... well, best not to think about that.
+    content: `Fedora stood at the entrance of the small community zoo, keys jingling in her hand. The morning sun was just beginning to rise, painting the sky in shades of orange and pink.
 
-Her wife was already at work. Sylvie was at school. Finally, a moment alone.
+"First day as head zookeeper," she whispered to herself, a mix of excitement and nerves bubbling in her chest.
 
-But today was different.
+That's when she heard it - a cheerful chirp from a nearby tree. A brilliant parrot with emerald and sapphire feathers landed on the welcome sign.
 
-A sparkle of light appeared in the air. "Greetings, chosen one!" a tiny glowing creature chirped. "I am Sparkle, and I bring urgent news!"
+"Good morning! You must be Fedora! I'm Zooey!" the parrot said brightly. "I'm the unofficial zoo mascot and your new best friend!"
 
-Rhia blinked. "I... what?"
+Fedora blinked. "Did... did you just talk?"
 
-"Your home is under attack by the forces of Chaos and Clutter! But fear not—you have been chosen to become a Magical Girl and defend your domain!"
+"Of course I talk! And I'm here to help you repopulate this wonderful zoo! It's been empty for too long. But together, we're going to bring it back to life!"
 
-"A... magical girl? To do chores?"
+Fedora looked around at the empty enclosures, the quiet paths, the potential waiting to bloom. Her home needed attention too - housework waited for no one. But maybe... maybe she could handle both?
 
-"Not just chores! QUESTS! BATTLES! You will transform, power up, and restore your realm to its rightful glory! Plus you get sparkle points!"
+"Alright, Zooey," Fedora smiled. "Let's build something amazing. One animal at a time."
 
-Rhia looked at the dishes. She looked at Sparkle. She looked back at the dishes.
-
-"...I'm listening."
-
-"That's the spirit! Now, repeat after me: In the name of cleanliness, I'll tidy you up!"
-
-Rhia glanced toward the door. "Wait. Does my family need to know about this?"
-
-Sparkle's eyes widened. "Oh! Oh no! Your secret identity must be protected! They can NEVER know you're a magical girl! It would... uh... disrupt the magical balance!"
-
-"So I just... do chores but pretend it's normal?"
-
-"Exactly! You'll be a hero in hiding! Cleaning by day, WARRIOR by day-but-secretly-in-your-head!"
-
-And thus began the legend of Magical Girl Rhia, Defender of the Home Realm, Keeper of Secrets.
-
-✨ CHAPTER 0 COMPLETE ✨
-New transformation unlocked: Kitchen Guardian Rhia!
-Secret Identity Protocol: ACTIVE 🤫`,
+The parrot's eyes sparkled. "That's the spirit! Now, the penguins are arriving this afternoon, and they're going to be HUNGRY! Let's get started!"`,
   },
   {
     number: 1,
-    title: "First Battle",
+    title: "First Arrivals",
     unlockLevel: 2,
-    content: `"Alright, Sparkle," Rhia said, rolling up her sleeves. "What do I do first?"
+    content: `The truck pulled up just after lunch, and Fedora's heart raced with excitement.
 
-"First, we must assess the threat! Look—there!" Sparkle pointed at the sink.
+"They're here! The penguins are here!" Zooey fluttered around her head enthusiastically.
 
-A shadowy figure seemed to loom over the pile of dishes. Through the mystical lens Sparkle provided, Rhia could see it: a grotesque creature made of grease and food particles.
+The delivery team carefully unloaded the transport crates, and soon, five adorable penguins were waddling into their new habitat. The pool sparkled in the sunlight, fresh water waiting for them.
 
-"The DISHWASHER DRAGON! Level 2 threat!" Sparkle announced. "Are you ready for your first battle?"
+"Remember," Zooey coached, "fresh fish twice a day, pool cleaning every morning, and lots of enrichment!"
 
-Rhia grabbed a sponge. "Let's do this."
+Fedora watched as the penguins dove into the water, their joyful honks filling the air. This was real. The zoo was coming alive.
 
-"Wait! First, your transformation! Close your eyes and say the words!"
+Just then, her phone buzzed. Her wife Sarah was texting: "How's the new job going?"
 
-Rhia felt silly, but... "In the name of cleanliness, I'll tidy you up!"
+Fedora glanced at Zooey, who was doing an elaborate wing-gesture that seemed to say "act normal!"
 
-Light swirled around her. Nothing changed physically, but somehow she felt... different. Stronger. Like she could tackle any mess.
+"Great!" she texted back. "Just... taking care of things. You know me!"
 
-"Behold! KITCHEN GUARDIAN RHIA!"
+Sarah replied with a heart emoji. "Don't forget about the dishes at home!"
 
-Rhia approached the dishwasher. The Dishwasher Dragon hissed. She loaded each dish like striking a blow. Added detergent like casting a spell. Hit start.
+Fedora laughed. Right. The dishes. Because she wasn't just a zookeeper - she was also responsible for keeping her actual house running. The penguins weren't the only ones who needed feeding.
 
-💫✨💥 VICTORY! ✨💫
+"Looks like I've got two jobs," Fedora said.
 
-"AMAZING!" Sparkle cheered. "You're a natural! +25 Sparkle Points! +12 XP!"
+Zooey chirped cheerfully. "Good thing you're organized! Let's make a schedule! Zoo animals AND housework - you've got this, Fedora!"
 
-Rhia smiled. Maybe this wouldn't be so bad after all.
-
-Just then, she heard the door. Her wife was home early.
-
-"Quick! Detransform!" Sparkle whispered, disappearing.
-
-"Honey?" her wife called out.
-
-"Just running the dishwasher!" Rhia called back, as if it was the most normal thing in the world.
-
-If only she knew.`,
+And somehow, watching the penguins play, Fedora believed it.`,
   },
   {
     number: 2,
-    title: "The Secret Keeper",
+    title: "The Lion's Arrival",
     unlockLevel: 5,
-    content: `Life as a magical girl was... interesting.
+    content: `Week three brought the zoo's most impressive residents yet: a pair of lions.
 
-By day, Rhia was just another person doing household tasks. Her wife would comment: "Wow, you've been really on top of things lately!"
+"Now this is serious business, Fedora!" Zooey perched on her shoulder, uncharacteristically serious. "Lions need respect, space, and very careful handling."
 
-If only she knew that Rhia wasn't just "tidying"—she was BATTLING EVIL.
+Fedora watched from a safe distance as the experienced handlers from the wildlife preserve carefully guided the magnificent creatures into their new savanna habitat. The male's mane caught the sunlight like gold.
 
-"Do you ever feel bad about keeping secrets?" Rhia asked Sparkle one morning.
+"They're beautiful," she breathed.
 
-"Hmm?" Sparkle looked up from counting the Sparkle Points.
+"And hungry!" Zooey reminded her. "Come on, let's prep their dinner!"
 
-"Like... my wife thinks I'm just being more organized. But really I'm a magical warrior protecting our home."
+In the food preparation area, Fedora carefully portioned out the lions' meal, following the nutritional guidelines precisely. This was no joke - these were powerful predators depending on her care.
 
-Sparkle giggled. "That's the fun part! You get to know the TRUTH! You're not just doing chores—you're saving the realm! They see you making the bed. You know you're defeating the Bedroom Disorder Demon!"
+Later that evening, she sat on a bench, watching the lions explore their new home. Her phone buzzed - a video call from Sarah.
 
-Rhia had to admit, it did make things more interesting.
+"Hey honey! How's work?"
 
-Sylvie ran into the room. "Mom! Can we play?"
+Fedora quickly angled the phone away from the zoo. "Oh, you know... busy day. Lots of... organizing."
 
-"Sure, honey. Just let me finish—" Rhia glanced at Sparkle, who had frozen mid-flight. "—putting away these toys."
+"You look tired. Remember to take breaks!"
 
-"You're doing chores AGAIN?" Sylvie groaned.
+"I will," Fedora smiled. If only Sarah knew she was caring for lions by day and doing laundry by night.
 
-Rhia smiled. "Someone has to keep Sylvie's Room Scatter Imp from taking over."
+After hanging up, Zooey landed on the bench. "You're doing great, you know. The zoo's really coming together. The animals are happy and healthy."
 
-"Huh?"
+Fedora looked out at the lion habitat, at the penguins splashing in their pool, at the growing collection of creatures who depended on her.
 
-"Nothing, sweetie. Nothing."
+"Yeah," she said softly. "We're really building something special here."
 
-When Sylvie left, Sparkle unfroze. "Close one! But you're getting good at this cover story thing!"
+"And keeping your house running!" Zooey added with a cheerful chirp. "Double duty champion!"
 
-Rhia laughed. Maybe being a secret magical girl wasn't so hard after all.`,
+Fedora laughed. It was exhausting, sure. But it was also wonderful. Her secret double life as a zookeeper and homemaker wasn't so bad after all.`,
   },
 ];
 
 // Rank titles based on level
 export function getRankTitle(level: number, rank: number): string {
   const rankNames = [
-    'Magical Girl',
-    'Magical Girl Captain',
-    'Magical Girl Commander',
-    'Legendary Guardian',
-    'Mythical Keeper',
+    'Junior Zookeeper',
+    'Zookeeper',
+    'Senior Zookeeper',
+    'Head Zookeeper',
+    'Zoo Director',
   ];
 
-  return rankNames[rank - 1] || 'Magical Girl';
+  return rankNames[rank - 1] || 'Junior Zookeeper';
 }
 
 // Get random dialogue

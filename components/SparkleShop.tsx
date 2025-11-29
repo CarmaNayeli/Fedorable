@@ -83,7 +83,7 @@ export default function SparkleShop({ onClose }: SparkleShopProps) {
 
   const buyShield = async () => {
     if (sparklePoints < SHIELD_PRICE) {
-      alert(`Not enough sparkle points! Need ${SHIELD_PRICE} ✨, have ${sparklePoints} ✨`);
+      alert(`Not enough zoo coins! Need ${SHIELD_PRICE} 🪙, have ${sparklePoints} 🪙`);
       return;
     }
 
@@ -96,14 +96,14 @@ export default function SparkleShop({ onClose }: SparkleShopProps) {
       if (res.ok) {
         const data = await res.json();
         setSparklePoints(data.remainingPoints);
-        alert(`🛡️ Shield purchased! You now have ${data.totalShields} shields!`);
+        alert(`🏖️ Vacation Day purchased! You now have ${data.totalShields} vacation days!`);
       } else {
         const data = await res.json();
-        alert(data.error || 'Failed to buy shield');
+        alert(data.error || 'Failed to buy vacation day');
       }
     } catch (error) {
-      console.error('Failed to buy shield:', error);
-      alert('Failed to buy shield');
+      console.error('Failed to buy vacation day:', error);
+      alert('Failed to buy vacation day');
     } finally {
       setPurchasing(false);
     }
@@ -124,8 +124,8 @@ export default function SparkleShop({ onClose }: SparkleShopProps) {
     // Check balance based on currency
     const currency = item.currency || 'gems';
     const currentBalance = currency === 'sparkle_points' ? sparklePoints : magicGems;
-    const currencyIcon = currency === 'sparkle_points' ? '✨' : '🔮';
-    const currencyName = currency === 'sparkle_points' ? 'sparkle points' : 'magic gems';
+    const currencyIcon = currency === 'sparkle_points' ? '🪙' : '🍖';
+    const currencyName = currency === 'sparkle_points' ? 'zoo coins' : 'treats';
 
     if (currentBalance < item.price) {
       alert(`Not enough ${currencyName}! Need ${item.price} ${currencyIcon}, have ${currentBalance} ${currencyIcon}`);
@@ -170,24 +170,24 @@ export default function SparkleShop({ onClose }: SparkleShopProps) {
   if (loading) {
     return (
       <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 z-50">
-        <div className="text-white text-xl">Loading shop... ✨</div>
+        <div className="text-white text-xl">Loading shop... 🦁</div>
       </div>
     );
   }
 
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 z-50 overflow-y-auto">
-      <div className="bg-gradient-to-br from-pink-900 to-purple-900 rounded-2xl max-w-4xl w-full border-4 border-pink-400 shadow-2xl my-8">
+      <div className="bg-gradient-to-br from-amber-900 to-orange-900 rounded-2xl max-w-4xl w-full border-4 border-amber-400 shadow-2xl my-8">
         {/* Header */}
-        <div className="p-6 border-b-2 border-pink-400/50">
+        <div className="p-6 border-b-2 border-amber-400/50">
           <div className="flex justify-between items-center">
             <div>
-              <h2 className="text-4xl font-bold text-pink-300 mb-2">
-                ✨ SPARKLE SHOP ✨
+              <h2 className="text-4xl font-bold text-amber-300 mb-2">
+                🦁 ANIMAL SHOP 🦁
               </h2>
               <div className="flex gap-4 text-lg">
-                <div className="text-yellow-300">💰 {sparklePoints} SP</div>
-                <div className="text-purple-300">🔮 {magicGems} Gems</div>
+                <div className="text-yellow-300">🪙 {sparklePoints} Zoo Coins</div>
+                <div className="text-orange-300">🍖 {magicGems} Treats</div>
               </div>
             </div>
             <button
@@ -201,16 +201,16 @@ export default function SparkleShop({ onClose }: SparkleShopProps) {
 
         {/* Content */}
         <div className="p-6 max-h-[70vh] overflow-y-auto">
-          {/* Buy Shield Section */}
-          <div className="mb-6 p-6 bg-gradient-to-r from-cyan-900/50 to-blue-900/50 rounded-xl border-2 border-cyan-400">
+          {/* Buy Vacation Day Section */}
+          <div className="mb-6 p-6 bg-gradient-to-r from-teal-900/50 to-cyan-900/50 rounded-xl border-2 border-teal-400">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-2xl font-bold text-cyan-300 mb-2">🛡️ Sparkle Shield</h3>
-                <p className="text-cyan-200 text-sm mb-2">
-                  Protect your streak for one day!
+                <h3 className="text-2xl font-bold text-teal-300 mb-2">🏖️ Vacation Day</h3>
+                <p className="text-teal-200 text-sm mb-2">
+                  Protect your streak for one day - take a break!
                 </p>
                 <div className="text-yellow-300 font-semibold">
-                  Cost: {SHIELD_PRICE} ✨ Sparkle Points
+                  Cost: {SHIELD_PRICE} 🪙 Zoo Coins
                 </div>
               </div>
               <button
@@ -218,11 +218,11 @@ export default function SparkleShop({ onClose }: SparkleShopProps) {
                 disabled={purchasing || sparklePoints < SHIELD_PRICE}
                 className={`px-8 py-4 rounded-xl font-bold text-lg transition-all ${
                   sparklePoints >= SHIELD_PRICE
-                    ? 'bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white shadow-lg'
+                    ? 'bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-500 hover:to-cyan-500 text-white shadow-lg'
                     : 'bg-gray-600 text-gray-400 cursor-not-allowed'
                 }`}
               >
-                {purchasing ? 'Buying...' : 'Buy Shield'}
+                {purchasing ? 'Buying...' : 'Buy Vacation Day'}
               </button>
             </div>
           </div>
@@ -235,8 +235,8 @@ export default function SparkleShop({ onClose }: SparkleShopProps) {
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-4 py-2 rounded-lg font-semibold transition-all ${
                   selectedCategory === cat
-                    ? 'bg-pink-600 text-white'
-                    : 'bg-pink-900/30 text-pink-300 hover:bg-pink-900/50'
+                    ? 'bg-amber-600 text-white'
+                    : 'bg-amber-900/30 text-amber-300 hover:bg-amber-900/50'
                 }`}
               >
                 {cat.charAt(0).toUpperCase() + cat.slice(1)}
@@ -306,8 +306,8 @@ export default function SparkleShop({ onClose }: SparkleShopProps) {
                         </div>
                       </>
                     ) : (
-                      <div className="text-purple-300 font-bold">
-                        {item.price} {item.currency === 'sparkle_points' ? '✨' : '🔮'}
+                      <div className="text-orange-300 font-bold">
+                        {item.price} {item.currency === 'sparkle_points' ? '🪙' : '🍖'}
                       </div>
                     )}
                   </div>

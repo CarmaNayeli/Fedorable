@@ -134,7 +134,7 @@ export default function QuestBoard({
   if (!magicalGirl) {
     return (
       <div className="text-center text-white text-xl">
-        Loading magical girl data... ✨
+        Loading zookeeper data... 🦁
       </div>
     );
   }
@@ -150,13 +150,13 @@ export default function QuestBoard({
       {/* Stats Display */}
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
         <div className="bg-gradient-to-br from-yellow-600 to-orange-600 rounded-xl p-6 border-2 border-yellow-400 shadow-lg">
-          <div className="text-yellow-100 text-sm mb-1">Sparkle Points</div>
-          <div className="text-4xl font-bold text-white">{magicalGirl.sparklePoints} ✨</div>
+          <div className="text-yellow-100 text-sm mb-1">Zoo Coins</div>
+          <div className="text-4xl font-bold text-white">{magicalGirl.sparklePoints} 🪙</div>
         </div>
 
-        <div className="bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl p-6 border-2 border-purple-400 shadow-lg">
-          <div className="text-purple-100 text-sm mb-1">Magic Gems</div>
-          <div className="text-4xl font-bold text-white">{magicalGirl.magicGems} 🔮</div>
+        <div className="bg-gradient-to-br from-amber-600 to-orange-700 rounded-xl p-6 border-2 border-amber-400 shadow-lg">
+          <div className="text-amber-100 text-sm mb-1">Treats</div>
+          <div className="text-4xl font-bold text-white">{magicalGirl.magicGems} 🍖</div>
         </div>
 
         <div className="bg-gradient-to-br from-red-600 to-orange-600 rounded-xl p-6 border-2 border-red-400 shadow-lg">
@@ -166,14 +166,14 @@ export default function QuestBoard({
         </div>
 
         <div className="bg-gradient-to-br from-cyan-600 to-blue-600 rounded-xl p-6 border-2 border-cyan-400 shadow-lg">
-          <div className="text-cyan-100 text-sm mb-1">Sparkle Shields</div>
-          <div className="text-4xl font-bold text-white">{magicalGirl.sparkleShields || 0} 🛡️</div>
+          <div className="text-cyan-100 text-sm mb-1">Vacation Days</div>
+          <div className="text-4xl font-bold text-white">{magicalGirl.sparkleShields || 0} 🏖️</div>
           <div className="text-sm text-cyan-100 mt-1">Streak Protection</div>
         </div>
 
         <div className="bg-gradient-to-br from-green-600 to-teal-600 rounded-xl p-6 border-2 border-green-400 shadow-lg">
-          <div className="text-green-100 text-sm mb-1">Monsters Defeated</div>
-          <div className="text-4xl font-bold text-white">{magicalGirl.totalMonstersDefeated} ⚔️</div>
+          <div className="text-green-100 text-sm mb-1">Tasks Completed</div>
+          <div className="text-4xl font-bold text-white">{magicalGirl.totalMonstersDefeated} ✅</div>
         </div>
       </div>
 
@@ -209,9 +209,9 @@ export default function QuestBoard({
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <button
           onClick={onOpenMonsterLab}
-          className="px-6 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg font-bold text-lg border-2 border-purple-400"
+          className="px-6 py-4 bg-gradient-to-r from-emerald-600 to-green-600 text-white rounded-xl hover:from-emerald-700 hover:to-green-700 transition-all shadow-lg font-bold text-lg border-2 border-emerald-400"
         >
-          🧪 Monster Laboratory
+          📋 Task Planner
         </button>
 
         <button
@@ -223,9 +223,9 @@ export default function QuestBoard({
 
         <button
           onClick={onOpenShop}
-          className="px-6 py-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-xl hover:from-pink-600 hover:to-purple-600 transition-all shadow-lg font-bold text-lg border-2 border-pink-400"
+          className="px-6 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl hover:from-amber-600 hover:to-orange-600 transition-all shadow-lg font-bold text-lg border-2 border-amber-400"
         >
-          ✨ Sparkle Shop
+          🦁 Animal Shop
         </button>
 
         <button
@@ -240,25 +240,25 @@ export default function QuestBoard({
             onClick={() => setShowShieldDialog(true)}
             className="px-6 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl hover:from-blue-700 hover:to-cyan-700 transition-all shadow-lg font-bold text-lg border-2 border-blue-400"
           >
-            🛡️ Use Sparkle Shield
+            🏖️ Use Vacation Day
           </button>
         )}
       </div>
 
       {/* Quest Board */}
-      <div className="bg-black/40 backdrop-blur-lg rounded-xl p-6 border-4 border-pink-500">
+      <div className="bg-black/40 backdrop-blur-lg rounded-xl p-6 border-4 border-emerald-500">
         <div className="text-center mb-6">
-          <h2 className="text-4xl font-bold text-pink-300 mb-2">
-            🌟 RHIA&apos;S QUEST BOARD 🌟
+          <h2 className="text-4xl font-bold text-emerald-300 mb-2">
+            🦁 FEDORA&apos;S TASK BOARD 🦁
           </h2>
-          <div className="text-pink-200">Your daily missions await, Magical Girl!</div>
+          <div className="text-emerald-200">Your daily animal care tasks await!</div>
         </div>
 
         {/* Boss Quests */}
         {bossQuests.length > 0 && (
           <div className="mb-6">
             <h3 className="text-2xl font-bold text-red-400 mb-3 flex items-center gap-2">
-              ⚔️ BOSS BATTLES
+              🦁 BIG PROJECTS
             </h3>
             <div className="space-y-3">
               {bossQuests.map(quest => (
@@ -276,14 +276,14 @@ export default function QuestBoard({
 
         {/* Daily Quests */}
         <div className="mb-6">
-          <h3 className="text-2xl font-bold text-yellow-400 mb-3">📋 DAILY PATROLS</h3>
+          <h3 className="text-2xl font-bold text-yellow-400 mb-3">📋 DAILY CARE TASKS</h3>
           {dailyQuests.length === 0 ? (
             <div className="bg-green-900/30 border-2 border-green-500 rounded-xl p-8 text-center">
               <div className="text-6xl mb-4">🎉</div>
               <div className="text-2xl font-bold text-green-300 mb-2">
-                All Daily Quests Complete!
+                All Daily Tasks Complete!
               </div>
-              <div className="text-green-200">The realm is safe... for now!</div>
+              <div className="text-green-200">All animals are happy and healthy!</div>
             </div>
           ) : (
             <div className="space-y-3">
@@ -303,7 +303,7 @@ export default function QuestBoard({
         {/* Weekly Quests */}
         {weeklyQuests.length > 0 && (
           <div>
-            <h3 className="text-2xl font-bold text-purple-400 mb-3">⚡ WEEKLY MISSIONS</h3>
+            <h3 className="text-2xl font-bold text-purple-400 mb-3">⚡ WEEKLY CARE TASKS</h3>
             <div className="space-y-3">
               {weeklyQuests.map(quest => (
                 <QuestCard
@@ -356,16 +356,16 @@ export default function QuestBoard({
 
         {quests.length === 0 && !loading && (
           <div className="text-center py-12">
-            <div className="text-6xl mb-4">✨</div>
-            <div className="text-2xl font-bold text-white mb-2">No Quests Yet!</div>
+            <div className="text-6xl mb-4">🦁</div>
+            <div className="text-2xl font-bold text-white mb-2">No Tasks Yet!</div>
             <div className="text-gray-300 mb-6">
-              Visit the Monster Laboratory to create your first quest!
+              Visit the Task Planner to create your first task!
             </div>
             <button
               onClick={onOpenMonsterLab}
-              className="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg font-bold text-lg"
+              className="px-8 py-4 bg-gradient-to-r from-emerald-600 to-green-600 text-white rounded-xl hover:from-emerald-700 hover:to-green-700 transition-all shadow-lg font-bold text-lg"
             >
-              🧪 Open Monster Lab
+              📋 Open Task Planner
             </button>
           </div>
         )}
@@ -408,24 +408,24 @@ export default function QuestBoard({
         </div>
       )}
 
-      {/* Sparkle Shield Confirmation Dialog */}
+      {/* Vacation Day Confirmation Dialog */}
       {showShieldDialog && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
           <div className="bg-gradient-to-br from-cyan-900 to-blue-900 rounded-2xl max-w-md w-full border-4 border-cyan-400 shadow-2xl p-8">
             <div className="text-center mb-6">
-              <div className="text-6xl mb-4">🛡️</div>
+              <div className="text-6xl mb-4">🏖️</div>
               <h3 className="text-3xl font-bold text-cyan-300 mb-2">
-                Use Sparkle Shield?
+                Use Vacation Day?
               </h3>
               <div className="text-cyan-100 space-y-2">
                 <p>
-                  A Sparkle Shield will protect your streak today, even if you don&apos;t complete any quests!
+                  A Vacation Day will protect your streak today, even if you don&apos;t complete any tasks!
                 </p>
                 <p className="text-sm text-cyan-200">
-                  Shields Remaining: {magicalGirl.sparkleShields}
+                  Days Remaining: {magicalGirl.sparkleShields}
                 </p>
                 <p className="text-xs text-cyan-300 mt-4">
-                  ✨ Earn more shields at streak milestones: 7, 14, 30, 60, 90 days!
+                  🏖️ Earn more vacation days at streak milestones: 7, 14, 30, 60, 90 days!
                 </p>
               </div>
             </div>
@@ -443,7 +443,7 @@ export default function QuestBoard({
                 disabled={isUsingShield}
                 className="flex-1 px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-lg hover:from-cyan-500 hover:to-blue-500 transition-colors font-bold disabled:opacity-50"
               >
-                {isUsingShield ? 'Using...' : 'Use Shield'}
+                {isUsingShield ? 'Using...' : 'Use Day Off'}
               </button>
             </div>
           </div>
@@ -475,7 +475,7 @@ function QuestCard({
 }) {
   return (
     <div
-      className="bg-gradient-to-r from-purple-900/50 to-pink-900/50 border-2 border-pink-400 rounded-xl p-4 hover:border-pink-300 transition-all cursor-pointer"
+      className="bg-gradient-to-r from-emerald-900/50 to-green-900/50 border-2 border-emerald-400 rounded-xl p-4 hover:border-emerald-300 transition-all cursor-pointer"
       onClick={onShowDetails}
     >
       <div className="flex items-center justify-between gap-4">
@@ -492,15 +492,15 @@ function QuestCard({
             <div className="flex flex-wrap gap-3 text-sm">
               {quest.realm && (
                 <div className="text-cyan-300">
-                  Realm: {quest.realm.charAt(0).toUpperCase() + quest.realm.slice(1)}
+                  Area: {quest.realm.charAt(0).toUpperCase() + quest.realm.slice(1)}
                 </div>
               )}
               <div className="text-yellow-300">
-                +{quest.sparklePoints} ✨ SP
+                +{quest.sparklePoints} 🪙 Coins
               </div>
               {quest.magicGems > 0 && (
-                <div className="text-purple-300">
-                  +{quest.magicGems} 🔮
+                <div className="text-amber-300">
+                  +{quest.magicGems} 🍖 Treats
                 </div>
               )}
               {quest.deadline && (
@@ -520,7 +520,7 @@ function QuestCard({
             }}
             className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg font-bold border-2 border-green-400"
           >
-            ⚔️ BATTLE!
+            ✅ START!
           </button>
           <button
             onClick={(e) => {

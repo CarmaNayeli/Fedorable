@@ -22,11 +22,11 @@ export function xpProgressToNextLevel(currentXP: number, currentLevel: number): 
 
 // Rank Progression (1-5 stars)
 export function calculateRank(level: number): number {
-  if (level >= 41) return 5; // ⭐⭐⭐⭐⭐ Mythical Keeper
-  if (level >= 31) return 4; // ⭐⭐⭐⭐ Legendary Guardian
-  if (level >= 21) return 3; // ⭐⭐⭐ Magical Girl Commander
-  if (level >= 11) return 2; // ⭐⭐ Magical Girl Captain
-  return 1; // ⭐ Magical Girl
+  if (level >= 41) return 5; // ⭐⭐⭐⭐⭐ Zoo Director
+  if (level >= 31) return 4; // ⭐⭐⭐⭐ Head Zookeeper
+  if (level >= 21) return 3; // ⭐⭐⭐ Senior Zookeeper
+  if (level >= 11) return 2; // ⭐⭐ Zookeeper
+  return 1; // ⭐ Junior Zookeeper
 }
 
 export function getRankStars(rank: number): string {
@@ -36,11 +36,11 @@ export function getRankStars(rank: number): string {
 // Titles
 export function getTitle(level: number, rank: number, prestigeLevel: number = 0): string {
   const rankTitles = [
-    ['Magical Girl', 'Rhia the Novice', 'Rhia the Determined'],
-    ['Magical Girl Captain', 'Rhia the Tidy', 'Rhia the Organized'],
-    ['Magical Girl Commander', 'Rhia the Radiant', 'Rhia the Magnificent'],
-    ['Legendary Guardian', 'Rhia the Glorious', 'Rhia the Immaculate'],
-    ['Mythical Keeper', 'Rhia, Keeper of the Realm', 'Rhia, Eternal Guardian'],
+    ['Junior Zookeeper', 'Fedora the Learner', 'Fedora the Dedicated'],
+    ['Zookeeper', 'Fedora the Caretaker', 'Fedora the Devoted'],
+    ['Senior Zookeeper', 'Fedora the Compassionate', 'Fedora the Expert'],
+    ['Head Zookeeper', 'Fedora the Magnificent', 'Fedora the Beloved'],
+    ['Zoo Director', 'Fedora, Friend of All Creatures', 'Fedora, Guardian of the Wild'],
   ];
 
   const titleGroup = rankTitles[rank - 1] || rankTitles[0];
@@ -55,58 +55,58 @@ export function getTitle(level: number, rank: number, prestigeLevel: number = 0)
   return title;
 }
 
-// Battle Text Generation
+// Task Completion Text Generation
 export function generateBattleText(monsterName: string, isCritical: boolean = false): string[] {
-  const attacks = [
-    'DISH SOAP BLAST',
-    'VACUUM VORTEX',
-    'SPARKLE SHINE BEAM',
-    'ORGANIZATION STRIKE',
-    'TIDY TORNADO',
-    'CLEANING COMET',
-    'PURIFICATION WAVE',
-    'FRESH SCENT SURGE',
+  const actions = [
+    'FEEDING TIME',
+    'HABITAT CLEANING',
+    'GENTLE CARE',
+    'EXPERT GROOMING',
+    'ENRICHMENT ACTIVITY',
+    'HEALTH CHECK',
+    'LOVING ATTENTION',
+    'PROFESSIONAL CARE',
   ];
 
-  const attack = attacks[Math.floor(Math.random() * attacks.length)];
+  const action = actions[Math.floor(Math.random() * actions.length)];
 
-  const battleLog: string[] = [];
+  const taskLog: string[] = [];
 
-  battleLog.push(`💀 ${monsterName.toUpperCase()} appeared!`);
-  battleLog.push(`   HP: ████████░░ 80%`);
-  battleLog.push('');
+  taskLog.push(`🦁 ${monsterName.toUpperCase()} needs attention!`);
+  taskLog.push(`   Progress: ████████░░ 80%`);
+  taskLog.push('');
 
   if (isCritical) {
-    battleLog.push(`⚔️ RHIA uses ${attack}!`);
-    battleLog.push(`   💫✨💥 CRITICAL HIT! ✨💫`);
+    taskLog.push(`💚 FEDORA performs ${action}!`);
+    taskLog.push(`   💚✨🌟 PERFECT CARE! ✨💚`);
   } else {
-    battleLog.push(`⚔️ RHIA uses ${attack}!`);
-    battleLog.push(`   💥 Direct hit!`);
+    taskLog.push(`💚 FEDORA performs ${action}!`);
+    taskLog.push(`   🌟 Great work!`);
   }
 
-  battleLog.push('');
-  battleLog.push(`💀 ${monsterName.toUpperCase()} is weakening...`);
-  battleLog.push(`   HP: ██░░░░░░░░ 20%`);
-  battleLog.push('');
-  battleLog.push(`⚔️ RHIA uses FINAL STRIKE!`);
-  battleLog.push(`   ✨💫🌟 DEFEATED! 🌟💫✨`);
+  taskLog.push('');
+  taskLog.push(`🦁 ${monsterName.toUpperCase()} is happy...`);
+  taskLog.push(`   Progress: ██████████ 100%`);
+  taskLog.push('');
+  taskLog.push(`💚 FEDORA completes the task!`);
+  taskLog.push(`   ✨🦜🌟 COMPLETED! 🌟🦜✨`);
 
-  return battleLog;
+  return taskLog;
 }
 
 export function generateVictoryText(sp: number, gems: number, xp: number, isCritical: boolean = false): string[] {
   const victory: string[] = [];
 
   if (isCritical) {
-    victory.push('✧･ﾟ: *✧･ﾟ:* PERFECT VICTORY! *:･ﾟ✧*:･ﾟ✧');
+    victory.push('✧･ﾟ: *✧･ﾟ:* PERFECT CARE! *:･ﾟ✧*:･ﾟ✧');
   } else {
-    victory.push('✧･ﾟ: *✧･ﾟ:* VICTORY! *:･ﾟ✧*:･ﾟ✧');
+    victory.push('✧･ﾟ: *✧･ﾟ:* TASK COMPLETE! *:･ﾟ✧*:･ﾟ✧');
   }
 
   victory.push('');
-  victory.push(`   +${sp} ✨ Sparkle Points`);
+  victory.push(`   +${sp} 🪙 Zoo Coins`);
   if (gems > 0) {
-    victory.push(`   +${gems} 🔮 Magic Gems`);
+    victory.push(`   +${gems} 🍖 Treats`);
   }
   victory.push(`   +${xp} ⚡ XP`);
 
@@ -126,10 +126,10 @@ export function updateRealmPurity(currentPurity: number, questCompleted: boolean
 
 export function getRealmPurityEmoji(purity: number): string {
   if (purity >= 90) return '✨'; // Pristine
-  if (purity >= 70) return '💫'; // Clean
+  if (purity >= 70) return '💚'; // Well-maintained
   if (purity >= 50) return '⭐'; // Okay
-  if (purity >= 30) return '💧'; // Needs work
-  return '💀'; // Chaos reigns
+  if (purity >= 30) return '💧'; // Needs attention
+  return '🧹'; // Needs cleaning
 }
 
 // Check for critical hit (20% chance)
@@ -198,18 +198,18 @@ export function checkStreak(lastActivityDate: Date | null, currentDate: Date = n
 // ASCII Art for special moments
 export const ASCII_ART = {
   transformation: `
-    ✨ ═══════════════════ ✨
-         TRANSFORMATION!
-    ✨ ═══════════════════ ✨
+    🦁 ═══════════════════ 🦁
+        SHIFT STARTED!
+    🦁 ═══════════════════ 🦁
            ｡･:*:･ﾟ★
-         💫  RHIA  💫
+        💚 FEDORA 💚
            ｡･:*:･ﾟ★
   `,
 
   victory: `
-    💫 ═══════════════════ 💫
-          VICTORY!!!
-    💫 ═══════════════════ 💫
+    💚 ═══════════════════ 💚
+      TASK COMPLETE!!!
+    💚 ═══════════════════ 💚
   `,
 
   levelUp: `
@@ -220,10 +220,10 @@ export const ASCII_ART = {
 
   bossDefeated: `
     ⭐ ═══════════════════════ ⭐
-       💫 BOSS DEFEATED! 💫
+      🦁 BIG TASK DONE! 🦁
     ⭐ ═══════════════════════ ⭐
            ✧･ﾟ: *✧･ﾟ:*
-         LEGENDARY VICTORY!
+        AMAZING WORK!
            *:･ﾟ✧*:･ﾟ✧
   `,
 };
