@@ -1,5 +1,6 @@
--- Rhia-minder Database Migration SQL
+-- Fedorable Database Migration SQL
 -- Complete database setup for new PostgreSQL instance
+-- Zoo Animal Care Tracker - Help Fedora manage a thriving zoo!
 -- Generated: 2025-11-29
 
 -- ==============================================
@@ -21,21 +22,21 @@ DROP TABLE IF EXISTS "MagicalGirl" CASCADE;
 -- CREATE TABLES
 -- ==============================================
 
--- Main user/player table
+-- Fedora - The Zookeeper (main player/user table)
 CREATE TABLE "MagicalGirl" (
     "id" TEXT NOT NULL PRIMARY KEY,
-    "name" TEXT NOT NULL DEFAULT 'Rhia',
+    "name" TEXT NOT NULL DEFAULT 'Fedora',
 
     -- Progression
     "level" INTEGER NOT NULL DEFAULT 1,
     "xp" INTEGER NOT NULL DEFAULT 0,
-    "sparklePoints" INTEGER NOT NULL DEFAULT 0,
-    "magicGems" INTEGER NOT NULL DEFAULT 0,
-    "sparkleShields" INTEGER NOT NULL DEFAULT 0,
+    "sparklePoints" INTEGER NOT NULL DEFAULT 0, -- Zoo Coins
+    "magicGems" INTEGER NOT NULL DEFAULT 0, -- Treats
+    "sparkleShields" INTEGER NOT NULL DEFAULT 0, -- Vacation Days
 
     -- Rank & Title
-    "rank" INTEGER NOT NULL DEFAULT 1,
-    "title" TEXT NOT NULL DEFAULT 'Magical Girl',
+    "rank" INTEGER NOT NULL DEFAULT 1, -- 1-5 star rank
+    "title" TEXT NOT NULL DEFAULT 'Junior Zookeeper',
     "prestigeLevel" INTEGER NOT NULL DEFAULT 0,
 
     -- Streaks
@@ -48,13 +49,13 @@ CREATE TABLE "MagicalGirl" (
     "mainStoryComplete" BOOLEAN NOT NULL DEFAULT false,
 
     -- Stats
-    "totalMonstersDefeated" INTEGER NOT NULL DEFAULT 0,
+    "totalMonstersDefeated" INTEGER NOT NULL DEFAULT 0, -- Total Tasks Completed
 
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL
 );
 
--- Realms (areas of the home)
+-- Realms (areas of the zoo/home)
 CREATE TABLE "Realm" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "name" TEXT NOT NULL,
@@ -71,25 +72,25 @@ CREATE TABLE "Realm" (
     CONSTRAINT "Realm_magicalGirlId_name_key" UNIQUE("magicalGirlId", "name")
 );
 
--- Quests (chores reimagined as battles)
+-- Quests (animal care tasks)
 CREATE TABLE "Quest" (
     "id" TEXT NOT NULL PRIMARY KEY,
 
-    -- Monster Info
-    "monsterName" TEXT NOT NULL,
-    "monsterEmoji" TEXT NOT NULL DEFAULT '💀',
+    -- Task/Animal Info
+    "monsterName" TEXT NOT NULL, -- "Feed the Penguins", "Clean Lion Habitat"
+    "monsterEmoji" TEXT NOT NULL DEFAULT '🦁',
     "description" TEXT,
 
     -- Quest Type
     "questType" TEXT NOT NULL DEFAULT 'daily',
-    "realm" TEXT,
+    "realm" TEXT, -- Which area/habitat this belongs to
 
-    -- Difficulty
-    "threatLevel" INTEGER NOT NULL DEFAULT 2,
+    -- Difficulty (care level)
+    "threatLevel" INTEGER NOT NULL DEFAULT 2, -- 1-5 stars
 
     -- Rewards
-    "sparklePoints" INTEGER NOT NULL DEFAULT 20,
-    "magicGems" INTEGER NOT NULL DEFAULT 0,
+    "sparklePoints" INTEGER NOT NULL DEFAULT 20, -- Zoo Coins
+    "magicGems" INTEGER NOT NULL DEFAULT 0, -- Treats
     "xpReward" INTEGER NOT NULL DEFAULT 10,
 
     -- Recurrence
@@ -115,12 +116,12 @@ CREATE TABLE "Quest" (
         REFERENCES "MagicalGirl"("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- Monster Defeats (quest completions)
+-- Task Completions (quest completions)
 CREATE TABLE "MonsterDefeat" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "defeatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "sparklePointsEarned" INTEGER NOT NULL DEFAULT 0,
-    "magicGemsEarned" INTEGER NOT NULL DEFAULT 0,
+    "sparklePointsEarned" INTEGER NOT NULL DEFAULT 0, -- Zoo Coins Earned
+    "magicGemsEarned" INTEGER NOT NULL DEFAULT 0, -- Treats Earned
     "xpEarned" INTEGER NOT NULL DEFAULT 0,
     "wasCriticalHit" BOOLEAN NOT NULL DEFAULT false,
     "battleText" TEXT,
@@ -153,7 +154,7 @@ CREATE TABLE "StoryChapter" (
         UNIQUE("magicalGirlId", "chapterNumber")
 );
 
--- Collections (bestiary, transformations, achievements)
+-- Collections (bestiary, achievements, etc.)
 CREATE TABLE "Collection" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "collectionType" TEXT NOT NULL,
@@ -203,14 +204,14 @@ CREATE TABLE "PushSubscription" (
         REFERENCES "MagicalGirl"("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- Shop Items (purchasable stickers)
+-- Shop Items (purchasable animal stickers)
 CREATE TABLE "ShopItem" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "emoji" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "category" TEXT NOT NULL,
     "price" INTEGER NOT NULL,
-    "currency" TEXT NOT NULL DEFAULT 'gems',
+    "currency" TEXT NOT NULL DEFAULT 'gems', -- 'gems' = Treats, 'sparkle_points' = Zoo Coins
     "isLimited" BOOLEAN NOT NULL DEFAULT false,
     "rarity" TEXT NOT NULL DEFAULT 'common',
     "isAchievement" BOOLEAN NOT NULL DEFAULT false,
@@ -244,16 +245,16 @@ CREATE INDEX "StickerCollection_magicalGirlId_idx" ON "StickerCollection"("magic
 CREATE INDEX "StickerCollection_shopItemId_idx" ON "StickerCollection"("shopItemId");
 
 -- ==============================================
--- INSERT SHOP ITEMS (154 Stickers)
+-- INSERT SHOP ITEMS (143 Animal Stickers)
 -- ==============================================
 
--- Starter/Free Category (5 items)
+-- Starter/Free Category (5 items) - For new zookeepers
 INSERT INTO "ShopItem" ("id", "emoji", "name", "category", "price", "currency", "rarity") VALUES
-('starter_witch', '🧙‍♀️', 'Witch', 'starter', 0, 'gems', 'common'),
-('starter_sparkle', '💫', 'Dizzy Sparkle', 'starter', 0, 'gems', 'common'),
+('starter_lion', '🦁', 'Lion', 'starter', 0, 'gems', 'common'),
+('starter_parrot', '🦜', 'Parrot', 'starter', 0, 'gems', 'common'),
 ('starter_sprout', '🌱', 'Sprout', 'starter', 0, 'gems', 'common'),
 ('starter_party', '🥳', 'Party Face', 'starter', 0, 'gems', 'common'),
-('starter_magic', '🎩', 'Magic Hat', 'starter', 0, 'gems', 'common');
+('starter_paw', '🐾', 'Paw Print', 'starter', 0, 'gems', 'common');
 
 -- Cute Category (17 items)
 INSERT INTO "ShopItem" ("id", "emoji", "name", "category", "price", "currency", "rarity") VALUES
@@ -275,7 +276,7 @@ INSERT INTO "ShopItem" ("id", "emoji", "name", "category", "price", "currency", 
 ('sticker_red_panda', '🦝', 'Red Panda', 'cute', 15, 'gems', 'epic'),
 ('sticker_llama', '🦙', 'Lovely Llama', 'cute', 500, 'sparkle_points', 'legendary');
 
--- Nature Category (20 items)
+-- Nature Category (19 items)
 INSERT INTO "ShopItem" ("id", "emoji", "name", "category", "price", "currency", "rarity") VALUES
 ('sticker_flower', '🌸', 'Cherry Blossom', 'nature', 5, 'gems', 'common'),
 ('sticker_sunflower', '🌻', 'Sunflower', 'nature', 5, 'gems', 'common'),
@@ -333,16 +334,30 @@ INSERT INTO "ShopItem" ("id", "emoji", "name", "category", "price", "currency", 
 ('sticker_trophy', '🏆', 'Trophy', 'sparkle', 450, 'sparkle_points', 'legendary'),
 ('sticker_crystal', '🔮', 'Crystal Ball', 'sparkle', 600, 'sparkle_points', 'legendary');
 
--- Magical Category (8 items)
-INSERT INTO "ShopItem" ("id", "emoji", "name", "category", "price", "currency", "rarity", "isLimited") VALUES
-('sticker_fairy', '🧚', 'Fairy', 'magical', 12, 'gems', 'epic', false),
-('sticker_wizard', '🧙', 'Wizard', 'magical', 12, 'gems', 'epic', false),
-('sticker_magic_wand', '🪄', 'Magic Wand', 'magical', 15, 'gems', 'epic', false),
-('sticker_mermaid', '🧜', 'Mermaid', 'magical', 15, 'gems', 'epic', false),
-('sticker_vampire', '🧛', 'Vampire', 'magical', 15, 'gems', 'epic', false),
-('sticker_genie', '🧞', 'Genie', 'magical', 18, 'gems', 'epic', false),
-('sticker_dragon', '🐉', 'Dragon', 'magical', 550, 'sparkle_points', 'legendary', false),
-('sticker_phoenix', '🔥', 'Phoenix', 'magical', 1000, 'sparkle_points', 'legendary', true);
+-- Zoo Animals Category (22 items)
+INSERT INTO "ShopItem" ("id", "emoji", "name", "category", "price", "currency", "rarity") VALUES
+('sticker_lion', '🦁', 'Mighty Lion', 'zoo', 8, 'gems', 'rare'),
+('sticker_tiger', '🐯', 'Tiger', 'zoo', 8, 'gems', 'rare'),
+('sticker_leopard', '🐆', 'Leopard', 'zoo', 8, 'gems', 'rare'),
+('sticker_elephant', '🐘', 'Gentle Giant', 'zoo', 10, 'gems', 'rare'),
+('sticker_giraffe', '🦒', 'Tall Giraffe', 'zoo', 10, 'gems', 'rare'),
+('sticker_zebra', '🦓', 'Striped Zebra', 'zoo', 10, 'gems', 'rare'),
+('sticker_rhino', '🦏', 'Rhinoceros', 'zoo', 12, 'gems', 'epic'),
+('sticker_hippo', '🦛', 'Happy Hippo', 'zoo', 12, 'gems', 'epic'),
+('sticker_gorilla', '🦍', 'Gorilla', 'zoo', 12, 'gems', 'epic'),
+('sticker_monkey', '🐵', 'Cheeky Monkey', 'zoo', 6, 'gems', 'common'),
+('sticker_seal', '🦭', 'Playful Seal', 'zoo', 8, 'gems', 'rare'),
+('sticker_polar_bear', '🐻‍❄️', 'Polar Bear', 'zoo', 15, 'gems', 'epic'),
+('sticker_flamingo', '🦩', 'Pink Flamingo', 'zoo', 10, 'gems', 'rare'),
+('sticker_peacock', '🦚', 'Proud Peacock', 'zoo', 12, 'gems', 'epic'),
+('sticker_parrot', '🦜', 'Colorful Parrot', 'zoo', 8, 'gems', 'rare'),
+('sticker_owl', '🦉', 'Wise Owl', 'zoo', 10, 'gems', 'rare'),
+('sticker_eagle', '🦅', 'Majestic Eagle', 'zoo', 12, 'gems', 'epic'),
+('sticker_snake', '🐍', 'Slithering Snake', 'zoo', 8, 'gems', 'rare'),
+('sticker_turtle', '🐢', 'Slow Turtle', 'zoo', 6, 'gems', 'common'),
+('sticker_crocodile', '🐊', 'Crocodile', 'zoo', 10, 'gems', 'rare'),
+('sticker_t_rex', '🦖', 'T-Rex (Fossil)', 'zoo', 600, 'sparkle_points', 'legendary'),
+('sticker_mammoth', '🦣', 'Woolly Mammoth', 'zoo', 800, 'sparkle_points', 'legendary');
 
 -- Ocean Category (9 items)
 INSERT INTO "ShopItem" ("id", "emoji", "name", "category", "price", "currency", "rarity") VALUES
@@ -404,37 +419,42 @@ INSERT INTO "ShopItem" ("id", "emoji", "name", "category", "price", "currency", 
 ('sticker_santa', '🎅', 'Santa Claus', 'seasonal', 12, 'gems', 'epic'),
 ('sticker_ghost', '👻', 'Friendly Ghost', 'seasonal', 10, 'gems', 'rare');
 
--- Achievement Stickers (7 items)
+-- Achievement Stickers (7 items) - Earned by completing zoo care challenges
 INSERT INTO "ShopItem" ("id", "emoji", "name", "category", "price", "currency", "rarity", "isAchievement", "achievementType", "achievementTarget", "achievementGoal", "achievementDesc") VALUES
-('achievement_dishwasher_master', '🍽️', 'Dishwasher Master', 'achievement', 0, 'gems', 'epic', true, 'quest_streak', 'Kitchen Chaos Spirit', 7, 'Defeat the Kitchen Chaos Spirit every day for 7 days straight'),
-('achievement_clean_sweep', '🧹', 'Clean Sweep Champion', 'achievement', 0, 'gems', 'rare', true, 'quest_streak', 'Sweep & Mop Monster', 4, 'Complete Sweep & Mop Monster 4 times'),
-('achievement_bathroom_hero', '🛁', 'Bathroom Hero', 'achievement', 0, 'gems', 'epic', true, 'quest_streak', 'Bathroom Banshee', 5, 'Defeat any Bathroom Banshee 5 times'),
-('achievement_streak_warrior', '🔥', 'Streak Warrior', 'achievement', 0, 'gems', 'legendary', true, 'total_streak', NULL, 30, 'Maintain a 30-day streak'),
-('achievement_monster_slayer', '⚔️', 'Monster Slayer', 'achievement', 0, 'gems', 'epic', true, 'total_defeats', NULL, 100, 'Defeat 100 monsters total'),
-('achievement_perfect_week', '🌟', 'Perfect Week', 'achievement', 0, 'gems', 'rare', true, 'perfect_week', NULL, 1, 'Complete all quests every day for a full week'),
-('achievement_gem_collector', '💠', 'Gem Collector', 'achievement', 0, 'gems', 'epic', true, 'total_gems_earned', NULL, 50, 'Earn 50 magic gems total');
+('achievement_penguin_care', '🐧', 'Penguin Specialist', 'achievement', 0, 'gems', 'epic', true, 'quest_streak', 'Feed the Penguins', 7, 'Feed the Penguins every day for 7 days straight'),
+('achievement_habitat_master', '🧹', 'Habitat Master', 'achievement', 0, 'gems', 'rare', true, 'quest_streak', 'Clean Elephant Yard', 4, 'Complete habitat cleaning 4 times'),
+('achievement_lion_expert', '🦁', 'Lion Expert', 'achievement', 0, 'gems', 'epic', true, 'quest_streak', 'Feed the Lions', 5, 'Feed the Lions 5 times'),
+('achievement_streak_warrior', '🔥', 'Dedication Champion', 'achievement', 0, 'gems', 'legendary', true, 'total_streak', NULL, 30, 'Maintain a 30-day streak'),
+('achievement_task_master', '✅', 'Task Master', 'achievement', 0, 'gems', 'epic', true, 'total_defeats', NULL, 100, 'Complete 100 tasks total'),
+('achievement_perfect_week', '🌟', 'Perfect Week', 'achievement', 0, 'gems', 'rare', true, 'perfect_week', NULL, 1, 'Complete all tasks every day for a full week'),
+('achievement_treat_collector', '🍖', 'Treat Collector', 'achievement', 0, 'gems', 'epic', true, 'total_gems_earned', NULL, 50, 'Earn 50 treats total');
 
 -- ==============================================
 -- SUMMARY
 -- ==============================================
 -- Tables created: 11
--- Shop items inserted: 154
--- - Starter: 5 (free)
+-- Shop items inserted: 143
+-- - Starter: 5 (free for new zookeepers)
 -- - Cute: 17
--- - Nature: 20
+-- - Nature: 19
 -- - Food: 19
 -- - Sparkle: 11
--- - Magical: 8
+-- - Zoo Animals: 22 (lions, tigers, elephants, giraffes, etc.)
 -- - Ocean: 9
 -- - Space: 7
 -- - Music: 7
 -- - Sports: 7
 -- - Celebration: 6
 -- - Seasonal: 6
--- - Achievement: 7
+-- - Achievement: 7 (unlocked through gameplay)
 
--- Database is now ready for use!
+-- Currency System:
+-- - Zoo Coins (sparklePoints): Earned from completing tasks
+-- - Treats (magicGems): Earned from difficult tasks
+-- - Vacation Days (sparkleShields): Streak protection
+
+-- Database is now ready for Fedora's zoo adventure!
 -- Next steps:
--- 1. Update your .env file with the new connection strings
+-- 1. Update your .env file with the new Supabase connection strings
 -- 2. Run: npx prisma generate
--- 3. The app will auto-create MagicalGirl and Realms on first access
+-- 3. The app will auto-create Fedora and Realms on first access
