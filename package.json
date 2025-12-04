@@ -13,6 +13,7 @@
     "@prisma/client": "^6.0.0",
     "date-fns": "^3.0.0",
     "next": "^16.0.7",
+    "prisma": "^6.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "rrule": "^2.8.1",
@@ -28,7 +29,6 @@
     "eslint": "^8",
     "eslint-config-next": "^15.0.0",
     "postcss": "^8",
-    "prisma": "^6.0.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
