@@ -29,14 +29,12 @@ export async function GET() {
       await prisma.realm.createMany({
         data: [
           { name: 'kitchen', displayName: 'Kitchen', emoji: '🍽️', purity: 50, magicalGirlId: magicalGirl.id },
+          { name: 'bathroom', displayName: 'Bathroom', emoji: '🛁', purity: 50, magicalGirlId: magicalGirl.id },
           { name: 'livingRoom', displayName: 'Living Room', emoji: '🛋️', purity: 50, magicalGirlId: magicalGirl.id },
-          { name: 'bedroom', displayName: 'Bedroom', emoji: '🛏️', purity: 50, magicalGirlId: magicalGirl.id },
-          { name: 'sylvieRoom', displayName: "Sylvie's Room", emoji: '🧸', purity: 50, magicalGirlId: magicalGirl.id },
-          { name: 'etcRoom', displayName: 'Etc Room', emoji: '📦', purity: 50, magicalGirlId: magicalGirl.id },
-          { name: 'bathroomUpstairs', displayName: 'Upstairs Bathroom', emoji: '🚿', purity: 50, magicalGirlId: magicalGirl.id },
-          { name: 'bathroomDownstairs', displayName: 'Downstairs Bathroom', emoji: '🛁', purity: 50, magicalGirlId: magicalGirl.id },
-          { name: 'laundryRoom', displayName: 'Laundry Room', emoji: '🧺', purity: 50, magicalGirlId: magicalGirl.id },
-          { name: 'wholeHouse', displayName: 'Whole House', emoji: '🏠', purity: 50, magicalGirlId: magicalGirl.id },
+          { name: 'basement', displayName: 'Basement', emoji: '🏚️', purity: 50, magicalGirlId: magicalGirl.id },
+          { name: 'frontHallway', displayName: 'Front Hallway', emoji: '🚪', purity: 50, magicalGirlId: magicalGirl.id },
+          { name: 'stairways', displayName: 'Stairways', emoji: '🪜', purity: 50, magicalGirlId: magicalGirl.id },
+          { name: 'fedorasBedroom', displayName: "Fedora's Bedroom", emoji: '🛏️', purity: 50, magicalGirlId: magicalGirl.id },
         ],
       });
     }

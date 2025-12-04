@@ -168,9 +168,12 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
 
   const realmOptions = [
     { value: 'kitchen', label: 'Kitchen', emoji: '🍽️' },
-    { value: 'bedroom', label: 'Bedroom', emoji: '🛏️' },
     { value: 'bathroom', label: 'Bathroom', emoji: '🛁' },
     { value: 'livingRoom', label: 'Living Room', emoji: '🛋️' },
+    { value: 'basement', label: 'Basement', emoji: '🏚️' },
+    { value: 'frontHallway', label: 'Front Hallway', emoji: '🚪' },
+    { value: 'stairways', label: 'Stairways', emoji: '🪜' },
+    { value: 'fedorasBedroom', label: "Fedora's Bedroom", emoji: '🛏️' },
   ];
 
   return (
