@@ -110,7 +110,7 @@ export const MONSTER_TEMPLATES: MonsterTemplate[] = [
   },
   {
     id: 'seal-feeding',
-    name: 'Feed the Seals [Feed Kids]',
+    name: 'Feed the Seals [Clean After Meals]',
     emoji: '🦭',
     description: 'Toss fish to the playful seals',
     realm: 'kitchen',
@@ -192,7 +192,7 @@ export const MONSTER_TEMPLATES: MonsterTemplate[] = [
   },
   {
     id: 'panda-grooming',
-    name: 'Groom the Pandas [Kids Bath Time]',
+    name: 'Groom the Pandas [Deep Clean Tub]',
     emoji: '🧴',
     description: 'Brush bamboo bits from panda fur',
     realm: 'bathroom',
@@ -220,7 +220,7 @@ export const MONSTER_TEMPLATES: MonsterTemplate[] = [
   // === ENRICHMENT ACTIVITIES ===
   {
     id: 'monkey-enrichment',
-    name: 'Monkey Enrichment Time [Play with Kids]',
+    name: 'Monkey Enrichment Time [Hobby Time]',
     emoji: '🎁',
     description: 'Set up puzzle feeders and toys for mental stimulation',
     realm: 'livingRoom',
@@ -246,7 +246,7 @@ export const MONSTER_TEMPLATES: MonsterTemplate[] = [
   },
   {
     id: 'parrot-socialization',
-    name: 'Parrot Socialization [Family Time]',
+    name: 'Parrot Socialization [Roommate Time]',
     emoji: '🗣️',
     description: 'Spend time talking and playing with the parrots',
     realm: 'livingRoom',
@@ -399,7 +399,7 @@ export const MONSTER_TEMPLATES: MonsterTemplate[] = [
   // === SPECIAL EVENTS ===
   {
     id: 'baby-animal-care',
-    name: 'Baby Animal Care [Care for Children]',
+    name: 'Baby Animal Care [Help Roommate]',
     emoji: '🍼',
     description: 'Feed and care for the newest zoo arrivals',
     realm: 'guestRoom',
@@ -454,7 +454,7 @@ export const MONSTER_TEMPLATES: MonsterTemplate[] = [
   // === FRIENDLY EVENTS ===
   {
     id: 'tiger-cubs-playtime',
-    name: 'Tiger Cubs Playtime [Playtime with Kids]',
+    name: 'Tiger Cubs Playtime [Game Night]',
     emoji: '🐯',
     description: 'A joyful task! Play and socialize with baby tigers',
     realm: 'livingRoom',
@@ -467,7 +467,7 @@ export const MONSTER_TEMPLATES: MonsterTemplate[] = [
   },
   {
     id: 'dolphin-show',
-    name: 'Dolphin Show Preparation [Family Activity]',
+    name: 'Dolphin Show Preparation [Movie Night]',
     emoji: '🐬',
     description: 'A fun task! Prepare for the dolphin demonstration',
     realm: 'livingRoom',
