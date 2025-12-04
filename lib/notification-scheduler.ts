@@ -69,7 +69,7 @@ export async function generateNotificationsForQuest(questId: string) {
     }
 
     // Check if notification already exists
-    const existingNotification = quest.notifications.find(n => {
+    const existingNotification = quest.notifications.find((n: typeof quest.notifications[number]) => {
       const scheduledTime = new Date(n.scheduledFor);
       return (
         scheduledTime.getTime() === notificationDate.getTime() &&

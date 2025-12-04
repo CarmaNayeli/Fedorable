@@ -9,15 +9,19 @@ export async function GET() {
 
     if (!magicalGirl) {
       // Create new magical girl with default values
+      const defaultLevel = 1;
+      const defaultRank = calculateRank(defaultLevel);
+      const defaultTitle = getTitle(defaultLevel, defaultRank);
+
       magicalGirl = await prisma.magicalGirl.create({
         data: {
           name: 'Rhia',
-          level: 1,
+          level: defaultLevel,
           xp: 0,
           sparklePoints: 0,
           magicGems: 0,
-          rank: 1,
-          title: 'Magical Girl',
+          rank: defaultRank,
+          title: defaultTitle,
           currentStreak: 0,
           longestStreak: 0,
           currentChapter: 0,
@@ -31,8 +35,9 @@ export async function GET() {
           { name: 'kitchen', displayName: 'Kitchen', emoji: '🍽️', purity: 50, magicalGirlId: magicalGirl.id },
           { name: 'livingRoom', displayName: 'Living Room', emoji: '🛋️', purity: 50, magicalGirlId: magicalGirl.id },
           { name: 'bedroom', displayName: 'Bedroom', emoji: '🛏️', purity: 50, magicalGirlId: magicalGirl.id },
-          { name: 'sylvieRoom', displayName: "Sylvie's Room", emoji: '🧸', purity: 50, magicalGirlId: magicalGirl.id },
-          { name: 'etcRoom', displayName: 'Etc Room', emoji: '📦', purity: 50, magicalGirlId: magicalGirl.id },
+          { name: 'fedoraBedroom', displayName: "Fedora's Bedroom", emoji: '🦁', purity: 50, magicalGirlId: magicalGirl.id },
+          { name: 'guestRoom', displayName: 'Guest Room', emoji: '🧸', purity: 50, magicalGirlId: magicalGirl.id },
+          { name: 'storageRoom', displayName: 'Storage Room', emoji: '📦', purity: 50, magicalGirlId: magicalGirl.id },
           { name: 'bathroomUpstairs', displayName: 'Upstairs Bathroom', emoji: '🚿', purity: 50, magicalGirlId: magicalGirl.id },
           { name: 'bathroomDownstairs', displayName: 'Downstairs Bathroom', emoji: '🛁', purity: 50, magicalGirlId: magicalGirl.id },
           { name: 'laundryRoom', displayName: 'Laundry Room', emoji: '🧺', purity: 50, magicalGirlId: magicalGirl.id },
@@ -44,6 +49,14 @@ export async function GET() {
     return NextResponse.json(magicalGirl);
   } catch (error) {
     console.error('Failed to fetch magical girl:', error);
-    return NextResponse.json({ error: 'Failed to fetch magical girl' }, { status: 500 });
+    console.error('Error details:', {
+      name: error instanceof Error ? error.name : 'Unknown',
+      message: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
+    });
+    return NextResponse.json({
+      error: 'Failed to fetch magical girl',
+      details: error instanceof Error ? error.message : String(error),
+    }, { status: 500 });
   }
 }

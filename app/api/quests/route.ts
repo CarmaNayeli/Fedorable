@@ -25,7 +25,7 @@ export async function GET() {
     const now = new Date();
     const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-    const availableQuests = quests.filter(quest => {
+    const availableQuests = quests.filter((quest: typeof quests[number]) => {
       // If quest isn't recurring or hasn't been completed yet, include it
       if (!quest.isRecurring || !quest.lastCompletedAt) {
         return true;
