@@ -49,6 +49,14 @@ export async function GET() {
     return NextResponse.json(magicalGirl);
   } catch (error) {
     console.error('Failed to fetch magical girl:', error);
-    return NextResponse.json({ error: 'Failed to fetch magical girl' }, { status: 500 });
+    console.error('Error details:', {
+      name: error instanceof Error ? error.name : 'Unknown',
+      message: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
+    });
+    return NextResponse.json({
+      error: 'Failed to fetch magical girl',
+      details: error instanceof Error ? error.message : String(error),
+    }, { status: 500 });
   }
 }
