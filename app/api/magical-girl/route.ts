@@ -17,7 +17,7 @@ export async function GET() {
           sparklePoints: 0,
           magicGems: 0,
           rank: 1,
-          title: 'Magical Girl',
+          title: 'Junior Zookeeper',
           currentStreak: 0,
           longestStreak: 0,
           currentChapter: 0,
