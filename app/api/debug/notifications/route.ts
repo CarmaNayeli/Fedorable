@@ -17,7 +17,9 @@ export async function GET() {
         magicalGirlId: magicalGirl.id,
         isActive: true,
         isRecurring: true,
-        notificationPreferences: { not: null },
+        NOT: {
+          notificationPreferences: null
+        },
       },
       select: {
         id: true,
