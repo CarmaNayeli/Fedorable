@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { Prisma } from '@prisma/client';
 
 export async function GET() {
   try {
@@ -18,7 +17,7 @@ export async function GET() {
         magicalGirlId: magicalGirl.id,
         isActive: true,
         isRecurring: true,
-        notificationPreferences: { not: Prisma.JsonNull },
+        notificationPreferences: { not: null },
       },
       select: {
         id: true,
@@ -100,31 +99,31 @@ export async function GET() {
       serverTime: now.toISOString(),
       serverTimezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       envCheck,
-      questsWithNotifications: questsWithNotifications.map(q => ({
+      questsWithNotifications: questsWithNotifications.map((q: typeof questsWithNotifications[number]) => ({
         id: q.id,
         name: q.monsterName,
         preferences: q.notificationPreferences,
         recurrenceRule: q.recurrenceRule,
       })),
-      pushSubscriptions: pushSubscriptions.map(s => ({
+      pushSubscriptions: pushSubscriptions.map((s: typeof pushSubscriptions[number]) => ({
         id: s.id,
         endpoint: s.endpoint.substring(0, 50) + '...',
         createdAt: s.createdAt,
       })),
       notificationStats: {
         total: allNotifications.length,
-        sent: allNotifications.filter(n => n.sent).length,
-        pending: allNotifications.filter(n => !n.sent).length,
+        sent: allNotifications.filter((n: typeof allNotifications[number]) => n.sent).length,
+        pending: allNotifications.filter((n: typeof allNotifications[number]) => !n.sent).length,
         due: dueNotifications.length,
       },
-      nextNotifications: allNotifications.slice(0, 10).map(n => ({
+      nextNotifications: allNotifications.slice(0, 10).map((n: typeof allNotifications[number]) => ({
         questName: n.quest.monsterName,
         scheduledFor: n.scheduledFor,
         sent: n.sent,
         snoozedUntil: n.snoozedUntil,
         isDue: n.scheduledFor <= now && !n.sent,
       })),
-      dueNow: dueNotifications.map(n => ({
+      dueNow: dueNotifications.map((n: typeof dueNotifications[number]) => ({
         questName: n.quest.monsterName,
         scheduledFor: n.scheduledFor,
         sent: n.sent,

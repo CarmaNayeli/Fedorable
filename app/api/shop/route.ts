@@ -19,32 +19,32 @@ export async function GET() {
     // Sync shop items with SHOP_STICKERS array (lightweight check first)
     // This ensures the database always matches the code, even when stickers are updated
     const existingItems = await prisma.shopItem.findMany();
-    const existingIds = new Set(existingItems.map(item => item.id));
-    const currentIds = new Set(SHOP_STICKERS.map(s => s.id));
+    const existingIds = new Set(existingItems.map((item: typeof existingItems[number]) => item.id));
+    const currentIds = new Set(SHOP_STICKERS.map((s: typeof SHOP_STICKERS[number]) => s.id));
 
     // Only run sync if there are differences (items missing or extras in DB)
     const needsSync = existingItems.length !== SHOP_STICKERS.length ||
-      SHOP_STICKERS.some(s => !existingIds.has(s.id)) ||
-      existingItems.some(item => !currentIds.has(item.id));
+      SHOP_STICKERS.some((s: typeof SHOP_STICKERS[number]) => !existingIds.has(s.id)) ||
+      existingItems.some((item: typeof existingItems[number]) => !currentIds.has(item.id));
 
     if (needsSync) {
       console.log('Shop items need sync - updating database...');
 
       // Delete items that no longer exist in SHOP_STICKERS
-      const itemsToDelete = existingItems.filter(item => !currentIds.has(item.id));
+      const itemsToDelete = existingItems.filter((item: typeof existingItems[number]) => !currentIds.has(item.id));
       if (itemsToDelete.length > 0) {
         await prisma.shopItem.deleteMany({
           where: {
-            id: { in: itemsToDelete.map(item => item.id) }
+            id: { in: itemsToDelete.map((item: typeof itemsToDelete[number]) => item.id) }
           }
         });
       }
 
       // Find new items to insert
-      const newStickers = SHOP_STICKERS.filter(s => !existingIds.has(s.id));
+      const newStickers = SHOP_STICKERS.filter((s: typeof SHOP_STICKERS[number]) => !existingIds.has(s.id));
       if (newStickers.length > 0) {
         await prisma.shopItem.createMany({
-          data: newStickers.map(s => ({
+          data: newStickers.map((s: typeof newStickers[number]) => ({
             id: s.id,
             emoji: s.emoji,
             name: s.name,
@@ -96,7 +96,7 @@ export async function GET() {
 
     return NextResponse.json({
       shopItems,
-      ownedStickers: magicalGirl.stickers.map(s => s.shopItemId),
+      ownedStickers: magicalGirl.stickers.map((s: typeof magicalGirl.stickers[number]) => s.shopItemId),
       magicGems: magicalGirl.magicGems,
       sparklePoints: magicalGirl.sparklePoints,
       achievementProgress,

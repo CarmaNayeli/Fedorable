@@ -74,7 +74,7 @@ export async function GET(request: Request) {
 
     // Send notifications and track results
     const results = await Promise.allSettled(
-      dueNotifications.map(async (notification) => {
+      dueNotifications.map(async (notification: typeof dueNotifications[number]) => {
         try {
           // Send push notification
           await sendChoreReminder(
@@ -97,8 +97,8 @@ export async function GET(request: Request) {
       })
     );
 
-    const successCount = results.filter((r) => r.status === 'fulfilled').length;
-    const failureCount = results.filter((r) => r.status === 'rejected').length;
+    const successCount = results.filter((r: typeof results[number]) => r.status === 'fulfilled').length;
+    const failureCount = results.filter((r: typeof results[number]) => r.status === 'rejected').length;
 
     console.log(`Sent ${successCount} notifications, ${failureCount} failed`);
     console.log(`Cron job completed at ${new Date().toISOString()}`);
