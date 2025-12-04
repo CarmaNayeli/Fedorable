@@ -281,7 +281,7 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
                   value={monsterName}
                   onChange={(e) => setMonsterName(e.target.value)}
                   className="w-full px-4 py-3 bg-black/30 border-2 border-amber-400 rounded-lg text-white focus:outline-none focus:border-amber-300"
-                  placeholder="e.g., Clean Lion Habitat"
+                  placeholder="e.g., Feed the Penguins [Make Breakfast]"
                 />
               </div>
 

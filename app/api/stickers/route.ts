@@ -20,8 +20,8 @@ export async function GET() {
     }
 
     // Get full sticker details
-    const collection = magicalGirl.stickers.map(ownedSticker => {
-      const stickerData = SHOP_STICKERS.find(s => s.id === ownedSticker.shopItemId);
+    const collection = magicalGirl.stickers.map((ownedSticker: typeof magicalGirl.stickers[number]) => {
+      const stickerData = SHOP_STICKERS.find((s: typeof SHOP_STICKERS[number]) => s.id === ownedSticker.shopItemId);
       return {
         ...ownedSticker,
         ...stickerData,

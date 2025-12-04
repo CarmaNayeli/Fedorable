@@ -24,7 +24,7 @@ export async function GET() {
     });
 
     // Filter for quests that actually have notification preferences
-    const questsWithNotifs = allQuests.filter(q => q.notificationPreferences !== null);
+    const questsWithNotifs = allQuests.filter((q: typeof allQuests[number]) => q.notificationPreferences !== null);
 
     // Get all notifications
     const allNotifications = await prisma.notification.findMany({
@@ -81,7 +81,7 @@ export async function GET() {
       questsWithNotifications: questsWithNotifs.length,
       quests: questsWithNotifs,
       totalNotifications: allNotifications.length,
-      notifications: allNotifications.map(n => ({
+      notifications: allNotifications.map((n: typeof allNotifications[number]) => ({
         id: n.id,
         quest: n.quest.monsterName,
         scheduledFor: n.scheduledFor.toISOString(),
@@ -91,14 +91,14 @@ export async function GET() {
         isPast: n.scheduledFor < now,
       })),
       dueNotifications: dueNotifications.length,
-      due: dueNotifications.map(n => ({
+      due: dueNotifications.map((n: typeof dueNotifications[number]) => ({
         quest: n.quest.monsterName,
         scheduledFor: n.scheduledFor.toISOString(),
       })),
       sentNotifications: sentCount,
       pendingNotifications: pendingCount,
       pushSubscriptions: subscriptions.length,
-      subscriptions: subscriptions.map(s => ({
+      subscriptions: subscriptions.map((s: typeof subscriptions[number]) => ({
         id: s.id,
         endpoint: s.endpoint.substring(0, 50) + '...',
         createdAt: s.createdAt.toISOString(),

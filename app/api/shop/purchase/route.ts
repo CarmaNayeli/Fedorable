@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if already owned
-    const alreadyOwned = magicalGirl.stickers.some(s => s.shopItemId === shopItemId);
+    const alreadyOwned = magicalGirl.stickers.some((s: typeof magicalGirl.stickers[number]) => s.shopItemId === shopItemId);
     if (alreadyOwned) {
       return NextResponse.json({ error: 'You already own this sticker!' }, { status: 400 });
     }

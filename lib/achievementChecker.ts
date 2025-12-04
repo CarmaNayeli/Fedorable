@@ -136,7 +136,7 @@ async function checkPerfectWeekAchievement(
     return { isUnlocked: false, current: 0, goal, progressPercent: 0 };
   }
 
-  const questIds = activeQuests.map(q => q.id);
+  const questIds = activeQuests.map((q: typeof activeQuests[number]) => q.id);
 
   // Get defeats for the last 7 days
   const sevenDaysAgo = new Date();
