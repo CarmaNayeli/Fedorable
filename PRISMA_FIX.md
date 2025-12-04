@@ -56,7 +56,45 @@ In serverless environments like AWS Lambda or Vercel Functions:
 - Multiple Prisma Clients can conflict when using the same connection pool
 
 ## Verification
-After deploying these changes, the `prepared statement "s0" already exists` error should no longer occur. Monitor your application logs to confirm.
+
+### Check Vercel Logs
+After deploying, check your Vercel function logs. You should see one of:
+
+✅ **Success**: No error messages, API calls return 200 status
+
+⚠️ **Missing Parameter**: If you see this warning in logs:
+```
+⚠️  WARNING: DATABASE_URL is missing "?pgbouncer=true" parameter.
+   This will cause "prepared statement already exists" errors in production.
+```
+
+This means the DATABASE_URL environment variable in Vercel doesn't have the `?pgbouncer=true` parameter yet. Follow the steps above to add it.
+
+### Troubleshooting
+
+**If the error persists after updating the environment variable:**
+
+1. **Verify the environment variable was saved correctly** in Vercel:
+   - Go to Settings → Environment Variables
+   - Click on DATABASE_URL to view it
+   - Confirm it ends with `?pgbouncer=true`
+
+2. **Force a new deployment**:
+   - Vercel caches environment variables per deployment
+   - Go to Deployments → Click the three dots → Redeploy
+   - OR push a new commit to trigger a fresh deployment
+
+3. **Check the function logs**:
+   - Go to your project → Deployments → Click on latest deployment
+   - Click "View Function Logs"
+   - Look for the warning message or the actual error
+
+4. **Verify the connection string format**:
+   ```
+   postgresql://USER:PASSWORD@HOST:6543/DATABASE?pgbouncer=true
+   ```
+
+   Make sure there are no extra spaces or URL encoding issues.
 
 ## Additional Resources
 - [Prisma PgBouncer Guide](https://www.prisma.io/docs/guides/performance-and-optimization/connection-management/configure-pg-bouncer)
