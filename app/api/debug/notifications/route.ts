@@ -12,14 +12,13 @@ export async function GET() {
     }
 
     // Get all quests with notifications enabled
-    const questsWithNotifications = await prisma.quest.findMany({
+    // Note: Prisma's JSON field filtering doesn't support NOT for null checks in TypeScript,
+    // so we fetch all recurring quests and filter in JavaScript
+    const allRecurringQuests = await prisma.quest.findMany({
       where: {
         magicalGirlId: magicalGirl.id,
         isActive: true,
         isRecurring: true,
-        NOT: {
-          notificationPreferences: null
-        },
       },
       select: {
         id: true,
@@ -28,6 +27,10 @@ export async function GET() {
         recurrenceRule: true,
       },
     });
+
+    const questsWithNotifications = allRecurringQuests.filter(
+      (q: typeof allRecurringQuests[number]) => q.notificationPreferences !== null
+    );
 
     // Get all notifications
     const allNotifications = await prisma.notification.findMany({
