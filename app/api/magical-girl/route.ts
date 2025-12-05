@@ -44,6 +44,15 @@ export async function GET() {
           { name: 'wholeHouse', displayName: 'Whole House', emoji: '🏠', purity: 50, magicalGirlId: magicalGirl.id },
         ],
       });
+    } else {
+      // Update title if it doesn't match current level/rank
+      const expectedTitle = getTitle(magicalGirl.level, magicalGirl.rank);
+      if (magicalGirl.title !== expectedTitle) {
+        magicalGirl = await prisma.magicalGirl.update({
+          where: { id: magicalGirl.id },
+          data: { title: expectedTitle },
+        });
+      }
     }
 
     return NextResponse.json(magicalGirl);
