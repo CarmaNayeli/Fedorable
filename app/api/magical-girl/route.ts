@@ -38,6 +38,7 @@ export async function GET() {
           { name: 'basement', displayName: 'Basement', emoji: '🔦', purity: 50, magicalGirlId: magicalGirl.id },
           { name: 'frontHallway', displayName: 'Front Hallway', emoji: '🚪', purity: 50, magicalGirlId: magicalGirl.id },
           { name: 'stairways', displayName: 'Stairways', emoji: '🪜', purity: 50, magicalGirlId: magicalGirl.id },
+          { name: 'fedoraBedroom', displayName: "Fedora's Bedroom", emoji: '🦁', purity: 50, magicalGirlId: magicalGirl.id },
         ],
       });
     } else {
