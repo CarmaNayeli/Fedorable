@@ -249,6 +249,7 @@ export async function checkAchievementProgress(
 
 /**
  * Check all achievements and auto-award unlocked ones
+ * Optimized to batch queries for better performance
  */
 export async function checkAndAwardAchievements(
   magicalGirlId: string,
@@ -256,35 +257,44 @@ export async function checkAndAwardAchievements(
 ): Promise<string[]> {
   const newlyUnlocked: string[] = [];
 
-  for (const sticker of achievementStickers) {
-    // Check if already owned
-    const existing = await prisma.stickerCollection.findUnique({
-      where: {
-        shopItemId_magicalGirlId: {
-          shopItemId: sticker.id,
-          magicalGirlId,
-        },
+  // Batch fetch all owned achievement stickers at once
+  const ownedStickers = await prisma.stickerCollection.findMany({
+    where: {
+      magicalGirlId,
+      shopItemId: {
+        in: achievementStickers.map(s => s.id),
       },
+    },
+    select: { shopItemId: true },
+  });
+
+  const ownedIds = new Set(ownedStickers.map(s => s.shopItemId));
+
+  // Filter out already-owned stickers
+  const unownedStickers = achievementStickers.filter(s => !ownedIds.has(s.id));
+
+  // Check progress for all unowned achievements in parallel
+  const progressChecks = await Promise.all(
+    unownedStickers.map(async sticker => {
+      const progress = await checkAchievementProgress(magicalGirlId, sticker);
+      return { sticker, progress };
+    })
+  );
+
+  // Award all newly unlocked achievements
+  const stickersToAward = progressChecks
+    .filter(({ progress }) => progress.isUnlocked)
+    .map(({ sticker }) => sticker);
+
+  if (stickersToAward.length > 0) {
+    await prisma.stickerCollection.createMany({
+      data: stickersToAward.map(sticker => ({
+        shopItemId: sticker.id,
+        magicalGirlId,
+      })),
     });
 
-    if (existing) {
-      continue; // Already owned
-    }
-
-    // Check if achievement is unlocked
-    const progress = await checkAchievementProgress(magicalGirlId, sticker);
-
-    if (progress.isUnlocked) {
-      // Auto-award the achievement sticker
-      await prisma.stickerCollection.create({
-        data: {
-          shopItemId: sticker.id,
-          magicalGirlId,
-        },
-      });
-
-      newlyUnlocked.push(sticker.id);
-    }
+    newlyUnlocked.push(...stickersToAward.map(s => s.id));
   }
 
   return newlyUnlocked;

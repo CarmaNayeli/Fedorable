@@ -87,12 +87,21 @@ export async function GET() {
       ],
     });
 
-    // Get achievement progress for all achievement stickers
+    // Get achievement progress for all achievement stickers (parallel for speed)
+    const achievementStickers = SHOP_STICKERS.filter(s => s.isAchievement);
+    const progressChecks = await Promise.all(
+      achievementStickers.map(sticker =>
+        checkAchievementProgress(magicalGirl.id, sticker).then(progress => ({
+          id: sticker.id,
+          progress,
+        }))
+      )
+    );
+
     const achievementProgress: Record<string, any> = {};
-    for (const sticker of SHOP_STICKERS.filter(s => s.isAchievement)) {
-      const progress = await checkAchievementProgress(magicalGirl.id, sticker);
-      achievementProgress[sticker.id] = progress;
-    }
+    progressChecks.forEach(({ id, progress }) => {
+      achievementProgress[id] = progress;
+    });
 
     return NextResponse.json({
       shopItems,
