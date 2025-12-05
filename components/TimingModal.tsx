@@ -129,7 +129,6 @@ export default function TimingModal({ template, onConfirm, onCancel, initialNoti
     // onetime means recurrenceRule stays null
 
     // Convert local times to UTC before sending
-    const timezoneOffsetMinutes = new Date().getTimezoneOffset();
     const convertedTimes: Record<string, string | null> = {};
 
     Object.entries(notificationTimes).forEach(([day, time]) => {
@@ -141,12 +140,9 @@ export default function TimingModal({ template, onConfirm, onCancel, initialNoti
         const localDate = new Date();
         localDate.setHours(hours, minutes, 0, 0);
 
-        // Convert to UTC
-        const utcDate = new Date(localDate.getTime() + timezoneOffsetMinutes * 60000);
-
-        // Format back to HH:MM
-        const utcHours = utcDate.getUTCHours().toString().padStart(2, '0');
-        const utcMinutes = utcDate.getUTCMinutes().toString().padStart(2, '0');
+        // Get UTC representation (Date object already handles timezone conversion)
+        const utcHours = localDate.getUTCHours().toString().padStart(2, '0');
+        const utcMinutes = localDate.getUTCMinutes().toString().padStart(2, '0');
         convertedTimes[day] = `${utcHours}:${utcMinutes}`;
       } else {
         convertedTimes[day] = null;
