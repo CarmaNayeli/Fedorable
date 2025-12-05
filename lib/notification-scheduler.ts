@@ -56,12 +56,13 @@ export async function generateNotificationsForQuest(questId: string) {
       continue;
     }
 
-    // Parse the time (format: "HH:MM")
+    // Parse the time (format: "HH:MM" in UTC)
     const [hours, minutes] = notificationTime.split(':').map(Number);
 
     // Create a date for the notification
+    // IMPORTANT: Use setUTCHours since notificationTime is already in UTC
     const notificationDate = new Date(occurrence);
-    notificationDate.setHours(hours, minutes, 0, 0);
+    notificationDate.setUTCHours(hours, minutes, 0, 0);
 
     // Skip if notification is in the past
     if (notificationDate < now) {
