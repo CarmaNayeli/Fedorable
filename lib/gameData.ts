@@ -712,25 +712,211 @@ Fedora watched from a safe distance as the experienced handlers from the wildlif
 
 In the food preparation area, Fedora carefully portioned out the lions' meal, following the nutritional guidelines precisely. This was no joke - these were powerful predators depending on her care.
 
-Later that evening, she sat on a bench, watching the lions explore their new home. Her phone buzzed - a video call from Sarah.
+Later that evening, she sat on a bench, watching the lions explore their new home. The setting sun painted the savanna habitat in shades of gold and amber.
 
-"Hey honey! How's work?"
-
-Fedora quickly angled the phone away from the zoo. "Oh, you know... busy day. Lots of... organizing."
-
-"You look tired. Remember to take breaks!"
-
-"I will," Fedora smiled. If only Sarah knew she was caring for lions by day and doing laundry by night.
-
-After hanging up, Zooey landed on the bench. "You're doing great, you know. The zoo's really coming together. The animals are happy and healthy."
+Zooey landed on the bench beside her. "You're doing great, you know. The zoo's really coming together. The animals are happy and healthy."
 
 Fedora looked out at the lion habitat, at the penguins splashing in their pool, at the growing collection of creatures who depended on her.
 
 "Yeah," she said softly. "We're really building something special here."
 
-"And keeping your house running!" Zooey added with a cheerful chirp. "Double duty champion!"
+"And you're managing everything like a pro!" Zooey chirped. "The zoo, the house, all of it! You're a natural at balancing it all."
 
-Fedora laughed. It was exhausting, sure. But it was also wonderful. Her secret double life as a zookeeper and homemaker wasn't so bad after all.`,
+Fedora laughed. It was exhausting, sure. But it was also wonderful. Building this zoo, caring for these magnificent creatures, keeping everything running - it filled her with a sense of purpose she'd never felt before.`,
+  },
+  {
+    number: 3,
+    title: "The Elephant Herd",
+    unlockLevel: 10,
+    content: `The truck that rolled up to the zoo gates wasn't like the others. It was massive, reinforced, and accompanied by three handlers from the wildlife sanctuary.
+
+"Fedora!" Zooey swooped down excitedly. "They're here! A whole family of elephants!"
+
+Fedora's heart pounded as she watched the gentle giants emerge from the transport - a matriarch, two younger females, and a baby elephant no bigger than a large dog. The little one trumpeted experimentally, making Fedora laugh with delight.
+
+"They're magnificent," she breathed, watching the family explore their new habitat. The lead handler approached with detailed care instructions - diet requirements, enrichment needs, the importance of maintaining their social bonds.
+
+That night, Fedora stood at the habitat fence long after the zoo had closed, watching the elephant family huddle together under the stars. The baby elephant lay between the adults, safe and content.
+
+"You've created something really special here," Zooey said softly from her shoulder. "Look at them - they're not just surviving, they're thriving."
+
+Fedora smiled. From a few penguins to a full elephant herd - the zoo was becoming a real sanctuary. And she was making it happen, one careful day at a time.`,
+  },
+  {
+    number: 4,
+    title: "Zooey's Secret",
+    unlockLevel: 15,
+    content: `It was during the weekly habitat inspection that Fedora noticed something strange. Zooey was perched on a fence post, having what appeared to be a full conversation with the elephants. And they seemed to be... responding?
+
+"Zooey," Fedora called out. "Are you... talking to them?"
+
+The parrot fluttered over, looking unusually sheepish. "Okay, okay. I might have been holding back a tiny detail. I can... sort of communicate with all the animals. It's not just squawking - we understand each other."
+
+Fedora stared. "You're telling me that this whole time, you've been translating?"
+
+"Well, yes! How else did you think I knew exactly what the lions needed, or that the penguins wanted their pool temperature adjusted?" Zooey ruffled his feathers. "I'm not just a pretty parrot, Fedora. I'm your liaison to the animal kingdom!"
+
+Fedora sat down hard on a bench. "This is... actually incredible. So when I've been caring for them..."
+
+"They know you care," Zooey said warmly. "They trust you. The elephants just told me you remind them of their favorite keeper from the sanctuary. The lions say you have a 'calm strength.' You're not just feeding them, Fedora - you're connecting with them."
+
+Fedora looked around at her zoo with new eyes. She wasn't just running a facility. She was building a community, a place where animals and humans truly understood each other. And with Zooey as her translator, she could do even more.
+
+"Okay then," she said, standing up with renewed determination. "Let's go see what the monkeys have been trying to tell us all week."`,
+  },
+  {
+    number: 5,
+    title: "The Promotion",
+    unlockLevel: 20,
+    content: `The letter from the Regional Zoo Association arrived on a Tuesday morning. Fedora's hands trembled as she opened it.
+
+"What is it?" Zooey landed on her shoulder, peering at the official letterhead.
+
+"They want to certify the zoo," Fedora whispered. "Full accreditation. They're sending an inspector next week."
+
+The next seven days were a whirlwind. Fedora scrubbed, organized, documented, and perfected every aspect of the zoo. She updated health records, checked every habitat twice, and made sure every animal's enrichment program was flawless.
+
+The day of the inspection, a stern-looking woman with a clipboard arrived. For six hours, she examined everything - from the penguin pool filtration system to the lion's dental care records. Fedora's anxiety mounted with each scribbled note.
+
+Finally, the inspector turned to her. "Ms. Fedora, in my twenty years of zoo inspections, I've rarely seen such dedication. Your animals are healthy, happy, and clearly bonded with you. The care standards here exceed our requirements."
+
+Fedora's eyes widened. "Does that mean...?"
+
+"Congratulations. You're now officially a Certified Zookeeper, and this facility is accredited." The inspector actually smiled. "More importantly, I'd like to offer you a position on the regional advisory board. We need people like you - people who truly care."
+
+That evening, Fedora stood in the center of her zoo, watching the sunset paint the sky. Zooey chirped proudly beside her.
+
+"From Junior Zookeeper to Certified Professional," the parrot said. "I always knew you had it in you."
+
+Fedora smiled. This was more than just a job now. It was her calling.`,
+  },
+  {
+    number: 6,
+    title: "The Rescue",
+    unlockLevel: 25,
+    content: `The emergency call came at 2 AM. A wildlife sanctuary three hours away had flooded, and they needed immediate help relocating their animals. Fedora was out of bed and dressed before the second ring.
+
+"I'm coming too!" Zooey declared, already perched on her shoulder.
+
+The sanctuary was chaos when they arrived - handlers rushing everywhere, animals distressed, water still rising. The director grabbed Fedora immediately.
+
+"Thank God you're here. We need to move the tigers first - three cubs and their mother. Can you take them?"
+
+Fedora's training kicked in. "Yes. I have space prepared. What do they need?"
+
+For the next twelve hours, Fedora coordinated the relocation of fifteen animals from the flooded sanctuary. The tiger family, a pair of otters, several tropical birds, and even a family of prairie dogs. Her own zoo became a temporary shelter, every spare habitat converted to emergency housing.
+
+Zooey flew between animals, using his gift to keep them calm during the stressful transition. "The tiger mom says thank you," he translated at one point. "She knows her cubs are safe here."
+
+By sunset, every rescued animal was secure, fed, and settling in. The sanctuary director approached Fedora with tears in her eyes.
+
+"You saved them. All of them. If you hadn't responded so fast..."
+
+"This is what we do," Fedora said simply. "We take care of each other."
+
+Standing in her zoo that night, surrounded by twice as many animals as before, Fedora realized something important. She wasn't just running a zoo anymore. She was part of a network of people dedicated to protecting these creatures. She was making a real difference.
+
+And that felt better than anything.`,
+  },
+  {
+    number: 7,
+    title: "The Conservation Project",
+    unlockLevel: 30,
+    content: `The email from the National Wildlife Conservation Society was marked "URGENT."
+
+Fedora read it three times before believing it: they wanted her zoo to host a breeding program for endangered red pandas. Her facility, her protocols, her care standards - they'd all been reviewed and approved for this critical work.
+
+"Zooey, this is huge," she breathed. "Breeding programs save species. This is real conservation work."
+
+The parrot puffed up with pride. "I told you that you were special! This is your chance to make history!"
+
+The red pandas arrived a month later - a bonded pair named Maple and Crimson. They were shy, delicate, and absolutely beautiful. Fedora spent hours learning their specific needs, consulting with conservation biologists, adjusting their habitat to perfection.
+
+"They're settling in well," the lead biologist told her during a video check-in. "But I have to tell you, Fedora - most facilities take years to get to this level of care. You've done it in months. How?"
+
+Fedora looked at Zooey, who was carefully not revealing his secret translation abilities. "I listen," she said simply. "Really listen to what the animals need."
+
+Six months later, Maple gave birth to twin cubs. Fedora watched through the monitor as the tiny red pandas nursed, their mother carefully grooming them. Each cub represented hope - hope for their endangered species, hope for the future.
+
+The conservation society called it a triumph. The zoo community called it remarkable. But for Fedora, it was something simpler: it was proof that caring deeply, working hard, and really connecting with the animals could change the world, one precious life at a time.`,
+  },
+  {
+    number: 8,
+    title: "Senior Keeper",
+    unlockLevel: 35,
+    content: `The certification ceremony was held at the regional zoo conference. Fedora stood on stage, feeling both proud and slightly embarrassed as the director read her accomplishments: successful breeding programs, emergency rescue coordination, perfect health inspections, innovative enrichment protocols.
+
+"And so," the director concluded, "it is my honor to promote Fedora to Senior Zookeeper status. Please come accept your certification."
+
+The audience of zoo professionals stood and applauded. Fedora accepted the framed certificate with shaking hands.
+
+"You've earned this," Zooey whispered from backstage. "Every single animal agrees."
+
+At the reception afterward, younger zookeepers approached her with questions. How did she manage so many animals? What was her secret to such high care standards? Could she give advice on enrichment programs?
+
+"The secret," Fedora told a nervous young keeper who reminded her of her early days, "is that there is no secret. You just care. Really, truly care. Listen to the animals, learn what they need, and never stop trying to do better."
+
+Later that night, back at her zoo, Fedora walked the familiar paths. She'd come so far from that first day with just a few penguins. Now she had dozens of animals, all healthy and thriving. She had a team of volunteers who came weekly to help. She had recognition from the professional community.
+
+But more than that, she had purpose. Every morning she woke up knowing that she was making a difference. The elephants trumpeted their morning greetings. The lions dozed in the sun. The red pandas played with their enrichment toys.
+
+This was more than a job. It was her life's work. And she was exactly where she was meant to be.`,
+  },
+  {
+    number: 9,
+    title: "The Grand Vision",
+    unlockLevel: 40,
+    content: `The city council's invitation came as a surprise. They wanted to discuss "expansion opportunities" for the zoo. Fedora arrived at city hall with Zooey hidden in her bag (officially, he was just a pet parrot).
+
+"Ms. Fedora," the mayor began, "your zoo has become a point of pride for our community. We'd like to propose a significant expansion - a full educational center, a veterinary clinic, and three new habitat areas. The city will fund half if you can match it."
+
+Fedora's mind raced. This wasn't just an expansion - it was a transformation. Her small community zoo could become a real conservation center, a place where people learned about and protected wildlife.
+
+Over the next months, Fedora worked with architects, conservationists, and educators to design the new facilities. An interactive learning center where children could understand animal behavior. A state-of-the-art veterinary clinic to serve rescued wildlife. New habitats for species that desperately needed breeding programs.
+
+The fundraising was intense - grant applications, donation campaigns, benefit events. But the community rallied. Local businesses donated. Schools held fundraisers. People who'd never even visited the zoo contributed because they believed in the vision.
+
+The groundbreaking ceremony drew hundreds of people. As Fedora turned the first shovel of earth, she looked out at the faces - families, students, fellow zookeepers, city officials - all united in this mission.
+
+"We're not just building bigger habitats," she told the crowd. "We're building a future where humans and animals thrive together. Where every child learns to respect and protect wildlife. Where every animal that comes through our gates gets the best care possible. This is just the beginning."
+
+That night, Zooey landed on her shoulder as she surveyed the construction site. "From one woman and a talking parrot to all this," he marveled. "You've created something incredible, Fedora."
+
+She smiled. "We've created something incredible. And we're not done yet."`,
+  },
+  {
+    number: 10,
+    title: "Full Circle",
+    unlockLevel: 45,
+    content: `The day of the grand reopening arrived with perfect sunshine. Thousands of people waited outside the gates - families, school groups, other zookeepers, even representatives from national conservation organizations.
+
+Fedora stood at the entrance, wearing her new uniform with "Zoo Director" embroidered on the pocket. The title still felt surreal. She'd come so far from that first nervous day.
+
+"Ready?" Zooey asked from his special perch by the gates.
+
+"Ready," Fedora confirmed.
+
+She cut the ribbon, and the crowd flooded in. Children raced to the new interactive exhibits, gasping at the underwater viewing area where penguins swam overhead. Parents read the educational displays about conservation efforts. The veterinary clinic, already treating its first rescued owl, hummed with purposeful activity.
+
+Throughout the day, Fedora walked the grounds, watching people connect with the animals she'd spent years caring for. A little girl pressed her face to the glass of the elephant habitat, eyes wide with wonder. A teenager took careful notes for a school project on endangered species. An elderly couple held hands, watching the lions rest in the afternoon sun.
+
+As evening approached and the last visitors left, Fedora found herself back at the original penguin habitat - the first animals she'd ever cared for. They waddled up to the edge of their pool, recognizing her.
+
+"You remember the beginning?" Zooey asked softly.
+
+"Every moment," Fedora replied. "Standing here, terrified and excited, not knowing if I could really do this."
+
+"And now?"
+
+Fedora looked around at the zoo - her zoo. The animals she'd saved, the programs she'd built, the lives she'd touched. The balance of caring for them and keeping everything else in her life running. It had been hard, exhausting even. But it had been worth every single moment.
+
+"Now I know exactly who I am," she said. "I'm a zookeeper. Not just by title, but by calling. This is where I belong."
+
+Zooey chirped his agreement. Around them, the zoo settled into its peaceful evening routine. Animals bedding down, the night crew making their rounds, everything running exactly as it should.
+
+Fedora smiled. Tomorrow would bring new challenges, new animals to care for, new ways to make a difference. But tonight, she simply stood in the center of her dream made real, grateful for every step that had brought her here.
+
+The journey wasn't over. It was just beginning.`,
   },
 ];
 

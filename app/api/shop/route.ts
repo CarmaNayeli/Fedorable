@@ -88,7 +88,6 @@ export async function GET() {
     });
 
     // Get achievement progress for all achievement stickers (parallel for speed)
-    const achievementStickers = SHOP_STICKERS.filter(s => s.isAchievement);
     const progressChecks = await Promise.all(
       achievementStickers.map(sticker =>
         checkAchievementProgress(magicalGirl.id, sticker).then(progress => ({
