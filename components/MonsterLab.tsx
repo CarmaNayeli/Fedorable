@@ -355,100 +355,12 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
                 </div>
               </div>
 
-              {/* Quest Type */}
-              <div>
-                <label className="block text-emerald-300 font-bold mb-2">
-                  Quest Type
-                </label>
-                <select
-                  value={questType}
-                  onChange={(e) => setQuestType(e.target.value as any)}
-                  className="w-full px-4 py-3 bg-black/30 border-2 border-amber-400 rounded-lg text-white focus:outline-none focus:border-amber-300"
-                >
-                  <option value="daily">Daily Task</option>
-                  <option value="weekly">Weekly Task</option>
-                  <option value="onetime">One-Time Task</option>
-                </select>
-              </div>
-
-              {/* Recurring */}
-              <div>
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={isRecurring}
-                    onChange={(e) => setIsRecurring(e.target.checked)}
-                    className="w-6 h-6 rounded"
-                  />
-                  <span className="text-white font-bold">Make this recurring</span>
-                </label>
-              </div>
-
-              {isRecurring && (
-                <div className="space-y-4 pl-8 border-l-4 border-amber-400">
-                  <div className="space-y-2">
-                    <label className="flex items-center gap-2 cursor-pointer">
-                      <input
-                        type="radio"
-                        checked={recurrenceType === 'daily'}
-                        onChange={() => setRecurrenceType('daily')}
-                        className="w-5 h-5"
-                      />
-                      <span className="text-white">Every day</span>
-                    </label>
-
-                    <label className="flex items-center gap-2 cursor-pointer">
-                      <input
-                        type="radio"
-                        checked={recurrenceType === 'weekly'}
-                        onChange={() => setRecurrenceType('weekly')}
-                        className="w-5 h-5"
-                      />
-                      <span className="text-white">Specific days of the week</span>
-                    </label>
-
-                    <label className="flex items-center gap-2 cursor-pointer">
-                      <input
-                        type="radio"
-                        checked={recurrenceType === 'custom'}
-                        onChange={() => setRecurrenceType('custom')}
-                        className="w-5 h-5"
-                      />
-                      <span className="text-white">Every N days</span>
-                    </label>
-                  </div>
-
-                  {recurrenceType === 'weekly' && (
-                    <div className="flex gap-2">
-                      {weekdays.map((day, index) => (
-                        <button
-                          key={day}
-                          type="button"
-                          onClick={() => toggleWeekday(index)}
-                          className={`flex-1 py-2 rounded-lg transition-all ${
-                            weeklyDays.includes(index)
-                              ? 'bg-emerald-500 text-white'
-                              : 'bg-black/30 text-gray-400'
-                          }`}
-                        >
-                          {day}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-
-                  {recurrenceType === 'custom' && (
-                    <input
-                      type="number"
-                      value={customInterval}
-                      onChange={(e) => setCustomInterval(parseInt(e.target.value) || 1)}
-                      min="1"
-                      className="w-full px-4 py-2 bg-black/30 border-2 border-amber-400 rounded-lg text-white focus:outline-none focus:border-amber-300"
-                      placeholder="Every N days"
-                    />
-                  )}
+              {/* Info about next step */}
+              <div className="p-4 bg-emerald-900/50 border-2 border-emerald-400 rounded-lg">
+                <div className="text-sm text-emerald-200">
+                  💡 <strong>Next step:</strong> You'll set the schedule and reminder times after clicking "Continue"
                 </div>
-              )}
+              </div>
             </div>
           )}
         </div>
@@ -477,18 +389,14 @@ export default function MonsterLab({ onClose }: MonsterLabProps) {
                   description,
                   realm,
                   threatLevel,
-                  questType,
-                  isRecurring,
-                  recurrenceType,
-                  weeklyDays,
-                  customInterval,
+                  questType: 'daily', // Default, will be overridden by timing modal
                 });
                 setShowTimingModal(true);
               }}
               disabled={loading}
               className="flex-1 px-6 py-4 bg-gradient-to-r from-emerald-600 to-green-600 text-white rounded-xl hover:from-emerald-700 hover:to-green-700 transition-all shadow-lg font-bold text-lg border-2 border-emerald-400 disabled:opacity-50"
             >
-              {loading ? 'Creating...' : '✨ Create Task'}
+              {loading ? 'Please wait...' : 'Continue to Schedule →'}
             </button>
           </div>
         )}
